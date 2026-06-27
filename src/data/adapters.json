@@ -1,0 +1,16 @@
+{
+  "lastUpdated": "2026-06-24T09:50:25.355Z",
+  "adapters": [
+    "OpenClawAdapter",
+    "HermesAdapter",
+    "NemoClawAdapter",
+    "AutoGptAdapter",
+    "BabyAgiAdapter",
+    "OpenAiAdapter",
+    "GeminiAdapter",
+    "ClaudeAdapter",
+    "AwsBedrockAdapter",
+    "HuggingFaceAdapter",
+    "PrivateCloudAdapter"
+  ]
+}
