@@ -31,7 +31,9 @@ export default function TopNav() {
         </nav>
 
         <div className="nav-actions">
-          <button className="btn-primary">Get Started</button>
+          <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+            <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>View on GitHub</button>
+          </a>
           <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
