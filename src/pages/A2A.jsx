@@ -77,7 +77,7 @@ router.attachMCP(agent: "researcher", context: mcp)`
       <div className="section-header">
         <h1 className="section-title">A2A & MCP Infrastructure</h1>
         <p className="section-subtitle">
-          BATON is not just a human-facing chat app. At its core, it is a high-performance <strong>Agent-to-Agent (A2A)</strong> orchestration layer built natively on the <strong>Model Context Protocol (MCP)</strong>. 
+          BATON is a universal routing layer for autonomous systems. At its core, it is a high-performance <strong>Agent-to-Agent (A2A)</strong> orchestration layer built natively on the <strong>Model Context Protocol (MCP)</strong>. 
         </p>
       </div>
 

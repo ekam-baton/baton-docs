@@ -17,10 +17,10 @@ export default function Home() {
           <p className="hero-subtitle" style={{ margin: '0 0 3rem', textAlign: 'left', textShadow: '0 5px 15px rgba(0,0,0,0.8)' }}>
             BATON is the definitive natural-language routing platform. Securely connect to cloud models, local multi-agent teams, or physical robots without ever storing API keys on your device.
           </p>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <a href="#" className="store-badge">
-              <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style={{ height: '48px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))' }} />
-            </a>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div className="store-badge" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '48px', padding: '0 1.5rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem', fontWeight: 500, backdropFilter: 'blur(10px)' }}>
+              Coming soon to iPhones
+            </div>
             <a href="#" className="store-badge">
               <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" style={{ height: '48px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))' }} />
             </a>
@@ -40,8 +40,7 @@ export default function Home() {
             <h3>The Communication Layer of the Future</h3>
             <p style={{ fontSize: '1.1rem' }}>
               BATON is built to be the universal bridge between humans and autonomous systems. 
-              Today, you use it for high-performance text and voice chats with digital agents. 
-              Tomorrow, you will simply dial up your household physical robots through BATON to talk to them in natural language.
+              Today, you use it as the secure mobile interface for enterprise LLMs and digital agents.
             </p>
           </div>
           

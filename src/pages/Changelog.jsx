@@ -7,7 +7,7 @@ export default function Changelog() {
       <div className="section-header">
         <h1 className="section-title">Changelog & Roadmap</h1>
         <p className="section-subtitle">
-          Track the evolution of the BATON Universal Router. From initial mobile chat interfaces to future integrations with physical household robotics.
+          Track the evolution of the BATON Universal Router. From initial local routing architectures to future integrations with physical household robotics.
         </p>
       </div>
 

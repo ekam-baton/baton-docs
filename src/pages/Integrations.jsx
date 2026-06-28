@@ -30,7 +30,7 @@ export default function Integrations() {
         <div className="bento-card span-6">
           <Code2 className="card-icon" />
           <h3>Custom AI & Agent Frameworks</h3>
-          <p>Build your own custom AI workforce and use BATON as the stunning mobile frontend.</p>
+          <p>Build your own custom AI workforce and use BATON as the zero-trust mobile routing client.</p>
           <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
             <li style={{ marginBottom: '0.5rem' }}><strong>Antigravity:</strong> Interface with advanced autonomous coding agents.</li>
             <li style={{ marginBottom: '0.5rem' }}><strong>LangChain & LangGraph:</strong> Connect conversational AI apps.</li>
@@ -51,7 +51,7 @@ export default function Integrations() {
         <div className="bento-card span-4">
           <Home className="card-icon" />
           <h3>Smart Home Control</h3>
-          <p>Use BATON as a dedicated chat interface to control your physical world.</p>
+          <p>Use BATON as a secure command center to control your physical world.</p>
           <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
             <li><strong>Home Assistant:</strong> Point BATON to a HA webhook to turn on lights, unlock doors, or trigger automation scripts.</li>
           </ul>
