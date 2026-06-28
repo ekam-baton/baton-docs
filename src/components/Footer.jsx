@@ -20,7 +20,7 @@ export default function Footer() {
             <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Code size={20} /></a>
             <a href="https://x.com/Batonorg" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Twitter size={20} /></a>
             <a href="https://www.linkedin.com/company/135244230/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Linkedin size={20} /></a>
-            <a href="#" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Instagram size={20} /></a>
+            <a href="https://www.instagram.com/baton_org/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Instagram size={20} /></a>
           </div>
         </div>
 
