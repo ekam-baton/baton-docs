@@ -16,8 +16,8 @@ export default function Footer() {
             The universal way to talk to agents & robots. Native MCP support with Zero Trust architecture.
           </p>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <a href="#" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><MessageCircle size={20} /></a>
-            <a href="#" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Code size={20} /></a>
+            <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><MessageCircle size={20} /></a>
+            <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Code size={20} /></a>
             <a href="#" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><MessageSquare size={20} /></a>
           </div>
         </div>

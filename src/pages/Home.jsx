@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layers, Zap, Lock, Cpu, Globe2, Activity } from 'lucide-react';
+import TiltMockup from '../components/TiltMockup';
 
 export default function Home() {
   return (
@@ -8,7 +9,7 @@ export default function Home() {
         <div className="hero-content">
           <h1 className="hero-title" style={{ textAlign: 'left' }}>The Universal Way to<br />Talk to Agents & Robots.</h1>
           <p className="hero-subtitle" style={{ margin: '0 0 3rem', textAlign: 'left' }}>
-            Whether you're chatting with a cloud model, orchestrating local multi-agent teams, or preparing for the future of household robots, BATON is the definitive natural-language communication platform.
+            BATON is the definitive natural-language routing platform. Securely connect to cloud models, local multi-agent teams, or physical robots without ever storing API keys on your device.
           </p>
           <div style={{ display: 'flex', gap: '1rem' }}>
             <a href="#" className="store-badge">
@@ -22,8 +23,8 @@ export default function Home() {
         <div className="hero-mockup-container" style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '-11rem' }}>
           <div className="glow-effect" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '400px', height: '400px', background: 'var(--accent-glow)', filter: 'blur(80px)', borderRadius: '50%', zIndex: -1 }}></div>
           
-          <div className="universe-border-wrapper">
-            <img src="/baton_phones_staggered.png" alt="BATON Staggered Interface Mockup" className="hero-mockup" />
+          <div style={{ marginTop: '12rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <TiltMockup />
           </div>
         </div>
       </div>
@@ -66,9 +67,9 @@ export default function Home() {
 
           <div className="bento-card span-12" style={{ textAlign: 'center', padding: '4rem 2rem', background: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%), var(--bg-card)' }}>
             <Cpu className="card-icon" style={{ margin: '0 auto 1.5rem', width: '48px', height: '48px' }} />
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', letterSpacing: '-0.02em' }}>Your Systems. Your Hardware.</h2>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', letterSpacing: '-0.02em' }}>Enterprise Secure. Zero API Keys Stored.</h2>
             <p style={{ maxWidth: '600px', margin: '0 auto', fontSize: '1.15rem', color: 'var(--text-muted)' }}>
-              BATON doesn't lock you into a single cloud ecosystem. Run Anthropic via Bedrock, scale on Azure OpenAI, or spin up Llama 3 entirely locally. The interface remains gorgeous, the routing remains flawless.
+              BATON is just a router. By connecting to secure Adapter Servers, BATON lets your employees use OpenAI Codex, Claude for Work, and Gemini Enterprise without ever putting billing accounts or sensitive API keys on mobile devices.
             </p>
           </div>
         </div>

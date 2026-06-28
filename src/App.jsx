@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import LocalHarnesses from './pages/LocalHarnesses';
 import Frameworks from './pages/Frameworks';
 import Workspaces from './pages/Workspaces';
-import CloudProviders from './pages/CloudProviders';
+import AdaptersGuide from './pages/AdaptersGuide';
 import Integrations from './pages/Integrations';
 import A2A from './pages/A2A';
 import Terms from './pages/Terms';
@@ -26,7 +26,7 @@ function App() {
           <Route path="/local" element={<LocalHarnesses />} />
           <Route path="/frameworks" element={<Frameworks />} />
           <Route path="/workspaces" element={<Workspaces />} />
-          <Route path="/cloud" element={<CloudProviders />} />
+          <Route path="/adapters" element={<AdaptersGuide />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/changelog" element={<Changelog />} />

@@ -18,7 +18,9 @@ export default function Community() {
           <p>
             Join our official Discord server to chat with the core engineering team, share your custom MCP tools, and get real-time help setting up your local AI environments.
           </p>
-          <button className="btn-primary" style={{ marginTop: '1.5rem', width: 'fit-content' }}>Join Discord</button>
+          <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+            <button className="btn-primary" style={{ marginTop: '1.5rem', width: 'fit-content' }}>Join Discord</button>
+          </a>
         </div>
 
         <div className="bento-card span-6">
@@ -27,7 +29,9 @@ export default function Community() {
           <p>
             Encountered a bug or want to request a new feature? Head over to our GitHub Discussions to participate in architecture proposals and open-source development.
           </p>
-          <button className="btn-primary" style={{ marginTop: '1.5rem', width: 'fit-content', background: '#333', boxShadow: 'none' }}>View GitHub</button>
+          <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+            <button className="btn-primary" style={{ marginTop: '1.5rem', width: 'fit-content', background: '#333', boxShadow: 'none' }}>View GitHub</button>
+          </a>
         </div>
 
         <div className="bento-card span-12">
