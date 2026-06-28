@@ -1,5 +1,6 @@
 import React from 'react';
-import { MessageSquare, Code, LifeBuoy } from 'lucide-react';
+import { LifeBuoy } from 'lucide-react';
+import { FaDiscord, FaGithub } from 'react-icons/fa';
 
 export default function Community() {
   return (
@@ -13,7 +14,7 @@ export default function Community() {
 
       <div className="bento-grid">
         <div className="bento-card span-6">
-          <MessageSquare className="card-icon" />
+          <FaDiscord className="card-icon" />
           <h3>Discord Server</h3>
           <p>
             Join our official Discord server to chat with the core engineering team, share your custom MCP tools, and get real-time help setting up your local AI environments.
@@ -24,7 +25,7 @@ export default function Community() {
         </div>
 
         <div className="bento-card span-6">
-          <Code className="card-icon" />
+          <FaGithub className="card-icon" />
           <h3>GitHub Discussions</h3>
           <p>
             Encountered a bug or want to request a new feature? Head over to our GitHub Discussions to participate in architecture proposals and open-source development.

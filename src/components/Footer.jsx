@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Code, MessageCircle, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { FaDiscord, FaGithub, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -16,11 +16,11 @@ export default function Footer() {
             The universal way to talk to agents & robots. Native MCP support with Zero Trust architecture.
           </p>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><MessageCircle size={20} /></a>
-            <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Code size={20} /></a>
-            <a href="https://x.com/Batonorg" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Twitter size={20} /></a>
-            <a href="https://www.linkedin.com/company/135244230/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Linkedin size={20} /></a>
-            <a href="https://www.instagram.com/baton_org/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Instagram size={20} /></a>
+            <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaDiscord size={20} /></a>
+            <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaGithub size={20} /></a>
+            <a href="https://x.com/Batonorg" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaTwitter size={20} /></a>
+            <a href="https://www.linkedin.com/company/135244230/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaLinkedin size={20} /></a>
+            <a href="https://www.instagram.com/baton_org/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaInstagram size={20} /></a>
           </div>
         </div>
 
