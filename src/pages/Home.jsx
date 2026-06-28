@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layers, Zap, Lock, Cpu, Globe2, Activity } from 'lucide-react';
-import ImmersivePhone from '../components/ImmersivePhone';
+import RoutingNexus from '../components/RoutingNexus';
 import Starfield from '../components/Starfield';
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
         </div>
         
         <div className="hero-mockup-container" style={{ flex: '1 1 500px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ImmersivePhone />
+          <RoutingNexus />
         </div>
       </div>
 
