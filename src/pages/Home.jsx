@@ -1,35 +1,39 @@
 import React from 'react';
 import { Layers, Zap, Lock, Cpu, Globe2, Activity } from 'lucide-react';
-import TiltMockup from '../components/TiltMockup';
+import ImmersivePhone from '../components/ImmersivePhone';
+import Starfield from '../components/Starfield';
 
 export default function Home() {
   return (
-    <div className="animate-fade-in">
-      <div className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title" style={{ textAlign: 'left' }}>The Universal Way to<br />Talk to Agents & Robots.</h1>
-          <p className="hero-subtitle" style={{ margin: '0 0 3rem', textAlign: 'left' }}>
+    <div className="animate-fade-in" style={{ position: 'relative' }}>
+      
+      {/* Interactive Universe Background */}
+      <Starfield />
+
+      {/* Hero Section */}
+      <div className="hero-section" style={{ position: 'relative', zIndex: 1, minHeight: '100vh', paddingTop: '80px', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div className="hero-content" style={{ flex: '1 1 500px', zIndex: 10 }}>
+          <h1 className="hero-title" style={{ textAlign: 'left', textShadow: '0 10px 30px rgba(0,0,0,0.8)' }}>The Universal Way to<br />Talk to Agents & Robots.</h1>
+          <p className="hero-subtitle" style={{ margin: '0 0 3rem', textAlign: 'left', textShadow: '0 5px 15px rgba(0,0,0,0.8)' }}>
             BATON is the definitive natural-language routing platform. Securely connect to cloud models, local multi-agent teams, or physical robots without ever storing API keys on your device.
           </p>
           <div style={{ display: 'flex', gap: '1rem' }}>
             <a href="#" className="store-badge">
-              <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style={{ height: '48px' }} />
+              <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style={{ height: '48px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))' }} />
             </a>
             <a href="#" className="store-badge">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" style={{ height: '48px' }} />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" style={{ height: '48px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))' }} />
             </a>
           </div>
         </div>
-        <div className="hero-mockup-container" style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '-11rem' }}>
-          <div className="glow-effect" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '400px', height: '400px', background: 'var(--accent-glow)', filter: 'blur(80px)', borderRadius: '50%', zIndex: -1 }}></div>
-          
-          <div style={{ marginTop: '12rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
-            <TiltMockup />
-          </div>
+        
+        <div className="hero-mockup-container" style={{ flex: '1 1 500px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <ImmersivePhone />
         </div>
       </div>
 
-      <div className="page-wrapper" style={{ paddingTop: 0 }}>
+      {/* Feature Grid - Gradient transition from Starfield to Solid Dark Background */}
+      <div className="page-wrapper" style={{ position: 'relative', zIndex: 1, background: 'linear-gradient(to bottom, rgba(2,6,23,0) 0%, var(--bg-dark) 200px)', paddingTop: '8rem' }}>
         <div className="bento-grid">
           <div className="bento-card span-8">
             <Globe2 className="card-icon" />
@@ -77,5 +81,3 @@ export default function Home() {
     </div>
   );
 }
-
-
