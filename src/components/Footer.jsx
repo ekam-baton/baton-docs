@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Code, MessageCircle, MessageSquare } from 'lucide-react';
+import { Code, MessageCircle, Twitter } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -18,7 +18,7 @@ export default function Footer() {
           <div style={{ display: 'flex', gap: '1rem' }}>
             <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><MessageCircle size={20} /></a>
             <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Code size={20} /></a>
-            <a href="#" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><MessageSquare size={20} /></a>
+            <a href="https://x.com/Batonorg" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><Twitter size={20} /></a>
           </div>
         </div>
 
