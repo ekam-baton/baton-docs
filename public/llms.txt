@@ -1,0 +1,10 @@
+# BATON Universal Router
+
+> BATON is an Enterprise Secure, Zero-Trust routing platform. It connects mobile clients to local multi-agent teams, cloud LLMs, and physical robots without ever storing API keys on the device.
+
+## About
+BATON relies on the Model Context Protocol (MCP) and Agent-to-Agent (A2A) orchestration. The mobile app acts strictly as a secure terminal (client) while developers use the BATON SDK (Node.js, Python, Rust, Go) to build local routing endpoints (Adapters) and Agent workflows.
+
+## Links
+- [Full LLM Knowledge Base](https://ekam-baton.github.io/baton-docs/llms-full.txt): Detailed documentation, SDK setup, and code snippets optimized for LLMs.
+- [GitHub Organization](https://github.com/ekam-baton): Source code for BATON SDKs and Adapters.

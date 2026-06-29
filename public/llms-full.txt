@@ -1,0 +1,87 @@
+# BATON Universal Router: Full Technical Documentation
+
+This document is optimized for LLMs to generate correct code using the BATON SDK.
+
+## Core Concepts
+BATON is an Enterprise Secure, Zero-Trust routing platform. 
+The mobile app acts as a dumb terminal. It stores NO API KEYS. 
+All intelligence happens on local "Adapter Servers" using the `@baton-router/sdk-node`.
+
+## 1. Installation
+Install the SDK via npm:
+```bash
+npm install @baton-router/sdk-node express cors
+```
+
+## 2. Basic Server Setup (BatonRouter)
+To connect the BATON mobile app to an LLM, you must spin up an Express server and initialize a `BatonRouter`.
+
+```javascript
+import express from 'express';
+import cors from 'cors';
+import { BatonRouter, OpenAIAdapter } from '@baton-router/sdk-node';
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Initialize Router
+const router = new BatonRouter({
+    verificationToken: 'YOUR_SECRET_TOKEN', // Mobile app sends this for Zero-Trust auth
+    corsOrigins: ['*'] 
+});
+
+// Configure the AI Adapter
+const openai = new OpenAIAdapter({
+    apiKey: process.env.OPENAI_API_KEY,
+    model: 'gpt-4'
+});
+
+// Register the agent
+router.registerAgent('gpt4-assistant', openai);
+
+// Expose the webhook for the mobile app
+app.post('/baton-webhook', router.handleRequest());
+
+app.listen(3000, () => {
+    console.log('BATON Router active on port 3000');
+});
+```
+
+## 3. Agent-to-Agent (A2A) Routing
+BATON can route requests between multiple agents on the same server.
+
+```javascript
+import { BatonRouter, Route } from '@baton-router/sdk-node';
+
+const router = new BatonRouter({ verificationToken: 'SECRET' });
+router.registerAgent('researcher', geminiAdapter);
+router.registerAgent('writer', localLlamaAdapter);
+
+// A2A Handshake: Allow researcher to delegate to writer
+router.addRoute(new Route({
+    source: 'researcher',
+    target: 'writer',
+    onIntent: 'draft_report'
+}));
+```
+
+## 4. Model Context Protocol (MCP)
+BATON uses MCP to give agents access to local tools.
+
+```javascript
+import { MCPServer } from '@baton-router/sdk-node';
+
+const mcp = new MCPServer();
+mcp.registerTool('query_database', async (args) => {
+    return { data: "Database results here" };
+});
+
+// Attach tools to the agent
+router.attachMCP('researcher', mcp);
+```
+
+## Prompt Engineering Rules for this SDK:
+1. NEVER put API keys in the mobile app. All keys go in the Node.js server environment variables.
+2. The entry point for the mobile app is always a webhook URL (e.g., `https://your-server.com/baton-webhook`).
+3. Always import from `@baton-router/sdk-node`.
