@@ -62,7 +62,7 @@ export default function Home() {
               }}
             >
               <span style={{ width: '8px', height: '8px', background: '#a78bfa', borderRadius: '50%', display: 'inline-block', animation: 'pulse 2s infinite' }}></span>
-              Copy Prompt for ChatGPT/Claude
+              Copy Prompt for LLMs
             </button>
           </div>
         </div>
