@@ -1,87 +1,71 @@
 # BATON Universal Router: Full Technical Documentation
 
-This document is optimized for LLMs to generate correct code using the BATON SDK.
+This document is optimized for LLMs to generate correct code using the official BATON SDK.
 
 ## Core Concepts
 BATON is an Enterprise Secure, Zero-Trust routing platform. 
 The mobile app acts as a dumb terminal. It stores NO API KEYS. 
-All intelligence happens on local "Adapter Servers" using the `@baton-router/sdk-node`.
+All intelligence happens on local "Adapter Servers" built using `baton-sdk-node`.
 
 ## 1. Installation
 Install the SDK via npm:
 ```bash
-npm install @baton-router/sdk-node express cors
+npm install baton-sdk-node
 ```
 
-## 2. Basic Server Setup (BatonRouter)
-To connect the BATON mobile app to an LLM, you must spin up an Express server and initialize a `BatonRouter`.
+## 2. Basic Server Setup (Standard Mode)
+To connect the BATON mobile app to an LLM, you must spin up an Adapter server. The SDK handles HTTP/SSE routing and mDNS network discovery automatically.
 
 ```javascript
-import express from 'express';
-import cors from 'cors';
-import { BatonRouter, OpenAIAdapter } from '@baton-router/sdk-node';
+import { BatonAdapter } from 'baton-sdk-node';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-// Initialize Router
-const router = new BatonRouter({
-    verificationToken: 'YOUR_SECRET_TOKEN', // Mobile app sends this for Zero-Trust auth
-    corsOrigins: ['*'] 
+const adapter = new BatonAdapter({
+  port: 3000,
+  mcpTarget: 'Gemini', // Options: 'Gemini', 'Claude', 'OpenAI', 'VertexAI', etc.
+  security: {
+    mode: 'standard' // Unencrypted local development mode
+  }
 });
 
-// Configure the AI Adapter
-const openai = new OpenAIAdapter({
-    apiKey: process.env.OPENAI_API_KEY,
-    model: 'gpt-4'
-});
-
-// Register the agent
-router.registerAgent('gpt4-assistant', openai);
-
-// Expose the webhook for the mobile app
-app.post('/baton-webhook', router.handleRequest());
-
-app.listen(3000, () => {
-    console.log('BATON Router active on port 3000');
-});
+adapter.start();
+console.log('Adapter is running. The BATON app will auto-discover it via mDNS on your local network.');
 ```
 
-## 3. Agent-to-Agent (A2A) Routing
-BATON can route requests between multiple agents on the same server.
+## 3. Secured Server Setup (End-to-End Encryption)
+For production or zero-trust environments, BATON uses X25519 Elliptic Curve Diffie-Hellman and AES-256-GCM to fully encrypt the payload between the mobile device and the server. The LLM API key remains securely on the server.
 
 ```javascript
-import { BatonRouter, Route } from '@baton-router/sdk-node';
+import { BatonAdapter } from 'baton-sdk-node';
 
-const router = new BatonRouter({ verificationToken: 'SECRET' });
-router.registerAgent('researcher', geminiAdapter);
-router.registerAgent('writer', localLlamaAdapter);
-
-// A2A Handshake: Allow researcher to delegate to writer
-router.addRoute(new Route({
-    source: 'researcher',
-    target: 'writer',
-    onIntent: 'draft_report'
-}));
-```
-
-## 4. Model Context Protocol (MCP)
-BATON uses MCP to give agents access to local tools.
-
-```javascript
-import { MCPServer } from '@baton-router/sdk-node';
-
-const mcp = new MCPServer();
-mcp.registerTool('query_database', async (args) => {
-    return { data: "Database results here" };
+const adapter = new BatonAdapter({
+  port: 3000,
+  mcpTarget: 'Claude',
+  security: {
+    mode: 'secured',
+    serverPrivateKeyHex: process.env.BATON_SERVER_PRIVATE_KEY, // 32-byte hex string
+    clientPublicKeyHex: process.env.BATON_CLIENT_PUBLIC_KEY,   // 32-byte hex string
+    timestampToleranceMs: 30000 // Reject requests older than 30s to prevent replay attacks
+  }
 });
 
-// Attach tools to the agent
-router.attachMCP('researcher', mcp);
+adapter.start();
+console.log('Secure E2EE Adapter active.');
 ```
+
+## 4. Cryptographic Key Generation
+You can generate valid X25519 key pairs using the SDK's built-in utility:
+
+```javascript
+import { BatonAdapter } from 'baton-sdk-node';
+
+// Run this once to generate keys for your Server and your Mobile Client
+const keys = BatonAdapter.generateKeys();
+console.log("Server Private Key:", keys.privateKeyHex);
+console.log("Server Public Key:", keys.publicKeyHex);
+```
+Give the Server Private Key to your Adapter, and scan the Server Public Key into the BATON app when establishing the connection.
 
 ## Prompt Engineering Rules for this SDK:
-1. NEVER put API keys in the mobile app. All keys go in the Node.js server environment variables.
-2. The entry point for the mobile app is always a webhook URL (e.g., `https://your-server.com/baton-webhook`).
-3. Always import from `@baton-router/sdk-node`.
+1. NEVER put OpenAI, Anthropic, or Gemini API keys in the mobile app. All keys go in the Node.js server environment variables.
+2. Rely on the `BatonAdapter` class instead of manually writing Express endpoints, as it implements the complex AES-GCM stream decryption and SSE packet handling required by the protocol.
+3. Always import from `baton-sdk-node`.
