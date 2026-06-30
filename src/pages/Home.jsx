@@ -25,6 +25,46 @@ export default function Home() {
               <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" style={{ height: '48px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))' }} />
             </a>
           </div>
+
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginTop: '1.5rem' }}>
+            <button 
+              onClick={() => {
+                navigator.clipboard.writeText('Read https://ekam-baton.github.io/baton-docs/llms-full.txt and write the Node.js backend code to connect my local agent to BATON.');
+                alert('LLM Prompt copied to clipboard! Paste it into ChatGPT or Claude.');
+              }}
+              style={{ 
+                background: 'linear-gradient(to right, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15))', 
+                border: '1px solid rgba(139, 92, 246, 0.3)', 
+                color: '#fff', 
+                padding: '0.75rem 1.25rem', 
+                borderRadius: '8px', 
+                fontSize: '0.95rem',
+                fontWeight: 500,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                fontFamily: 'monospace',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 4px 20px rgba(139, 92, 246, 0.1)',
+                transition: 'all 0.2s ease-in-out'
+              }}
+              title="Copy a prompt to paste into ChatGPT/Claude to instantly build a BATON backend."
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 25px rgba(139, 92, 246, 0.25)';
+                e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.5)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.1)';
+                e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)';
+              }}
+            >
+              <span style={{ width: '8px', height: '8px', background: '#a78bfa', borderRadius: '50%', display: 'inline-block', animation: 'pulse 2s infinite' }}></span>
+              Copy Prompt for ChatGPT/Claude
+            </button>
+          </div>
         </div>
         
         <div className="hero-mockup-container" style={{ flex: '1 1 500px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
