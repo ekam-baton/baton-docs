@@ -1,71 +1,69 @@
 # BATON Universal Router: Full Technical Documentation
 
-This document is optimized for LLMs to generate correct code using the official BATON SDK.
+This document is optimized for LLMs to generate correct code for the production-grade BATON Rust Adapter.
 
 ## Core Concepts
 BATON is an Enterprise Secure, Zero-Trust routing platform. 
-The mobile app acts as a dumb terminal. It stores NO API KEYS. 
-All intelligence happens on local "Adapter Servers" built using `baton-sdk-node`.
+The mobile app acts as a client. It stores NO API KEYS. 
+All intelligence happens on local "Adapter Servers" built in Rust.
 
-## 1. Installation
-Install the SDK via npm:
-```bash
-npm install baton-sdk-node
+## 1. Cargo.toml Configuration
+Install dependencies required for E2EE and SSE streaming:
+```toml
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+x25519-dalek = { version = "2", features = ["static_secrets"] }
+aes-gcm = "0.10"
+hkdf = "0.12"
+hmac = "0.12"
+sha2 = "0.10"
+hex = "0.4"
+base64 = "0.22"
+dashmap = "6"
+time = { version = "0.3", features = ["std"] }
 ```
 
-## 2. Basic Server Setup (Standard Mode)
-To connect the BATON mobile app to an LLM, you must spin up an Adapter server. The SDK handles HTTP/SSE routing and mDNS network discovery automatically.
+## 2. Server Setup (Rust / Axum)
+To connect the BATON mobile app to your LLM, write an Axum route that accepts raw request bodies, performs E2EE decryption, processes the MCP/LLM tool calls, and returns a Server-Sent Events (SSE) stream.
 
-```javascript
-import { BatonAdapter } from 'baton-sdk-node';
+```rust
+use axum::{routing::post, Router, Json, response::IntoResponse, http::{HeaderMap, StatusCode}};
+use std::net::SocketAddr;
+use serde_json::Value;
 
-const adapter = new BatonAdapter({
-  port: 3000,
-  mcpTarget: 'Gemini', // Options: 'Gemini', 'Claude', 'OpenAI', 'VertexAI', etc.
-  security: {
-    mode: 'standard' // Unencrypted local development mode
-  }
-});
+#[tokio::main]
+async fn main() {
+    let app = Router::new().route("/tools/call", post(handle_mcp_execute));
+    
+    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
+    axum::serve(listener, app).await.unwrap();
+}
 
-adapter.start();
-console.log('Adapter is running. The BATON app will auto-discover it via mDNS on your local network.');
+async fn handle_mcp_execute(
+    headers: HeaderMap,
+    body: axum::body::Bytes,
+) -> impl IntoResponse {
+    // 1. Read E2EE headers: x-baton-timestamp, x-baton-nonce, x-baton-signature
+    // 2. Perform X25519 ECDH key agreement with Client Public Key
+    // 3. Derive symmetric key via HKDF (info = "timestamp:nonce")
+    // 4. Decrypt body via AES-256-GCM
+    // 5. Parse decrypted JSON as MCP Request, invoke LLM, and stream SSE packets
+    
+    (StatusCode::OK, "Stream packet data")
+}
 ```
 
-## 3. Secured Server Setup (End-to-End Encryption)
-For production or zero-trust environments, BATON uses X25519 Elliptic Curve Diffie-Hellman and AES-256-GCM to fully encrypt the payload between the mobile device and the server. The LLM API key remains securely on the server.
+## 3. Cryptographic Verification & Replay Protection
+The server MUST validate:
+1. **Timestamp:** Must be within ±30 seconds of server local time (against replay).
+2. **Replay Cache:** Store `x-baton-nonce` in a thread-safe `DashMap` for at least 60s. Reject duplicate nonces.
+3. **Signature:** Verify HMAC-SHA256 signature calculated over `timestamp:nonce:ciphertextBase64` using derived signing key `SHA-256(shared_key || "signing-key-derivation-label")`.
 
-```javascript
-import { BatonAdapter } from 'baton-sdk-node';
-
-const adapter = new BatonAdapter({
-  port: 3000,
-  mcpTarget: 'Claude',
-  security: {
-    mode: 'secured',
-    serverPrivateKeyHex: process.env.BATON_SERVER_PRIVATE_KEY, // 32-byte hex string
-    clientPublicKeyHex: process.env.BATON_CLIENT_PUBLIC_KEY,   // 32-byte hex string
-    timestampToleranceMs: 30000 // Reject requests older than 30s to prevent replay attacks
-  }
-});
-
-adapter.start();
-console.log('Secure E2EE Adapter active.');
-```
-
-## 4. Cryptographic Key Generation
-You can generate valid X25519 key pairs using the SDK's built-in utility:
-
-```javascript
-import { BatonAdapter } from 'baton-sdk-node';
-
-// Run this once to generate keys for your Server and your Mobile Client
-const keys = BatonAdapter.generateKeys();
-console.log("Server Private Key:", keys.privateKeyHex);
-console.log("Server Public Key:", keys.publicKeyHex);
-```
-Give the Server Private Key to your Adapter, and scan the Server Public Key into the BATON app when establishing the connection.
-
-## Prompt Engineering Rules for this SDK:
-1. NEVER put OpenAI, Anthropic, or Gemini API keys in the mobile app. All keys go in the Node.js server environment variables.
-2. Rely on the `BatonAdapter` class instead of manually writing Express endpoints, as it implements the complex AES-GCM stream decryption and SSE packet handling required by the protocol.
-3. Always import from `baton-sdk-node`.
+## Prompt Engineering Rules for this Stack:
+1. NEVER put API keys in the mobile app. All keys go in the Rust adapter's `.env` environment variables.
+2. Rely on Rust constant-time crypto crates (`x25519-dalek` and `aes-gcm`) for payload encryption and signature verification to guarantee no timing attacks.
+3. Keep the network discovery advertise module configured for mDNS (`_baton._tcp.local.`) so the app can auto-connect.

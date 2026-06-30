@@ -172,10 +172,10 @@ app.listen(3000, () => console.log('Claude for Work Adapter running on port 3000
         <div className="bento-card span-12">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
             <Box className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Adapter Builder Guide (Using baton-sdk-node)</h3>
+            <h3 style={{ margin: 0 }}>Adapter Builder Guide (Rust & Node.js)</h3>
           </div>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-            The easiest way to build an Adapter is with our official Node SDK. It handles E2EE, HTTP/SSE routing, and mDNS discovery out of the box.
+            For maximum security and performance, we recommend deploying our production-grade **Rust Adapter**. We also provide a Node.js SDK for fast prototyping.
           </p>
           
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
@@ -183,40 +183,37 @@ app.listen(3000, () => console.log('Claude for Work Adapter running on port 3000
               className={activeTab === 'gemini' ? 'btn-primary' : 'btn-secondary'}
               onClick={() => setActiveTab('gemini')}
             >
-              Standard Configuration
+              Rust Adapter (E2EE Production)
             </button>
             <button 
               className={activeTab === 'openai' ? 'btn-primary' : 'btn-secondary'}
               onClick={() => setActiveTab('openai')}
             >
-              Secured (E2EE) Configuration
+              Node.js SDK (E2EE Alternative)
             </button>
             <button 
               className={activeTab === 'claude' ? 'btn-primary' : 'btn-secondary'}
               onClick={() => setActiveTab('claude')}
             >
-              Generating Keys
+              Generating Keys (Rust CLI)
             </button>
           </div>
 
           <div style={{ display: activeTab === 'gemini' ? 'block' : 'none' }}>
-            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Basic Setup (Development)</h4>
-            <CodeBlock code={`import { BatonAdapter } from 'baton-sdk-node';
-
-// Create a standard, unencrypted adapter for local testing
-const adapter = new BatonAdapter({
-  port: 3000,
-  mcpTarget: 'Gemini', // Or 'OpenAI', 'Claude'
-  security: {
-    mode: 'standard' // No encryption required
-  }
-});
-
-adapter.start();
-console.log('Adapter is running and discoverable via mDNS.');`} language="javascript" />
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Rust Adapter Setup (`mcp-connector`)</h4>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Configure E2EE and environment variables in a `.env` file:</p>
+            <CodeBlock code={`# .env
+BATON_PORT=3000
+BATON_SECURITY_MODE=secured # Options: standard, signed, secured
+BATON_SERVER_PRIVATE_KEY=38b7ef... # 32-byte X25519 private key (Hex)
+BATON_CLIENT_PUBLIC_KEY=f8a2de...  # 32-byte X25519 client public key (Hex)
+BATON_TIMESTAMP_TOLERANCE_SECS=30 # Replay attack tolerance`} language="bash" />
+            <p style={{ color: 'var(--text-muted)', marginTop: '1.5rem', marginBottom: '1rem' }}>Compile and run the server with Cargo:</p>
+            <CodeBlock code={`# Build and run the secure Rust adapter
+cargo run --release --package mcp-connector`} language="bash" />
           </div>
           <div style={{ display: activeTab === 'openai' ? 'block' : 'none' }}>
-            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Secured Setup (Production E2EE)</h4>
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Node.js E2EE Setup (`baton-sdk-node`)</h4>
             <CodeBlock code={`import { BatonAdapter } from 'baton-sdk-node';
 
 // Create an adapter that requires encrypted payloads using X25519 & AES-GCM
@@ -232,21 +229,20 @@ const adapter = new BatonAdapter({
 });
 
 adapter.start();
-console.log('Secure E2EE Adapter running.');`} language="javascript" />
+console.log('Secure E2EE Node Adapter running.');`} language="javascript" />
           </div>
           <div style={{ display: activeTab === 'claude' ? 'block' : 'none' }}>
-            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Generating Cryptographic Keys</h4>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>BATON uses standard X25519 key pairs. You can generate them easily using the SDK's built-in utility:</p>
-            <CodeBlock code={`import { BatonAdapter } from 'baton-sdk-node';
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Generating Cryptographic Keys via Rust</h4>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>BATON uses standard X25519 key pairs. You can generate secure private and public key pairs in Rust:</p>
+            <CodeBlock code={`use x25519_dalek::{StaticSecret, PublicKey};
 
-// Run this once to generate keys for your Server and your Mobile Client
-const keys = BatonAdapter.generateKeys();
-
-console.log("Server Private Key:", keys.privateKeyHex);
-console.log("Server Public Key:", keys.publicKeyHex);
-
-// 1. Give the Server Private Key to your Adapter (env var)
-// 2. Scan the Server Public Key into the BATON app when connecting`} language="javascript" />
+fn main() {
+    let private_key = StaticSecret::random_from_rng(rand::thread_rng());
+    let public_key = PublicKey::from(&private_key);
+    
+    println!("Private Key (Hex): {}", hex::encode(private_key.to_bytes()));
+    println!("Public Key (Hex): {}", hex::encode(public_key.as_bytes()));
+}`} language="rust" />
           </div>
         </div>
       </div>
