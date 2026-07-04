@@ -13,7 +13,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="hero-section" style={{ position: 'relative', zIndex: 1, minHeight: '80vh', paddingTop: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
         <div className="hero-content" style={{ flex: '1 1 500px', zIndex: 10 }}>
-          <h1 className="hero-title" style={{ textAlign: 'left', textShadow: '0 10px 30px rgba(0,0,0,0.8)' }}>The Universal Mobile Router for AI.</h1>
+          <h1 className="hero-title" style={{ textAlign: 'left', textShadow: '0 10px 30px rgba(0,0,0,0.8)' }}>The Universal Mobile Router for AI Agents</h1>
           <p className="hero-subtitle" style={{ margin: '0 0 3rem', textAlign: 'left', textShadow: '0 5px 15px rgba(0,0,0,0.8)' }}>
             BATON is a highly secure, local-first Android client. Connect to your local AI agents, custom webhooks, or cloud endpoints using encrypted tunnels—all without storing your API keys in the cloud.
           </p>
