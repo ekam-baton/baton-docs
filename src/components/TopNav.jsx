@@ -23,8 +23,9 @@ export default function TopNav() {
 
         <nav className={`nav-links ${mobileOpen ? 'mobile-open' : ''}`}>
           <NavLink to="/a2a" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>A2A Core</NavLink>
+          <NavLink to="/agents" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Personal Agents</NavLink>
+          <NavLink to="/routing" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Routing & Tunnels</NavLink>
           <NavLink to="/adapters" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Enterprise Adapters</NavLink>
-          <NavLink to="/local" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Local Sandbox</NavLink>
           <NavLink to="/frameworks" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Frameworks</NavLink>
           <NavLink to="/integrations" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Integrations</NavLink>
           <NavLink to="/workspaces" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Workspaces</NavLink>

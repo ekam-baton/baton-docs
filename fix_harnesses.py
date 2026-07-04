@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import textwrap
+
+content = """import React, { useState } from 'react';
 import CodeTabs from '../components/CodeTabs';
 
 export default function LocalHarnesses() {
@@ -7,18 +9,16 @@ export default function LocalHarnesses() {
   const openClawCode = {
     rust: `// OpenClaw Integration
 let openclaw = OpenClawAdapter::new("http://localhost:8080/v1");
-router.register(openclaw);`
-  };
+router.register(openclaw);`,
+    python: `# OpenClaw Python Bridge
+from baton import OpenClaw
+claw = OpenClaw(endpoint="http://localhost:8080/v1")
+claw.connect()`,
+    go: `// OpenClaw Go Bridge
+import "github.com/baton-router/sdk-go"
 
-  const hermesCode = {
-    python: `# Hermes Agent Integration
-from baton.agents import HermesAgent
-from baton import BatonRouter
-
-hermes = HermesAgent(model="NousResearch/Hermes-3")
-router = BatonRouter()
-router.register(hermes, port=8080)
-router.start()`
+claw := baton.NewOpenClaw("http://localhost:8080/v1")
+err := claw.Connect()`
   };
 
   const nemoClawCode = {
@@ -28,87 +28,112 @@ let secure_nemo = NemoClawAdapter::with_sandbox(
         .allow_network(false)
         .allow_fs_read("/app/data")
 );
-router.register(secure_nemo);`
+router.register(secure_nemo);`,
+    go: `// NemoClaw Secure Sandbox (Go)
+sandbox := baton.NewSandboxConfig().
+    AllowNetwork(false).
+    AllowFSRead("/app/data")
+secureNemo := baton.NewNemoClawAdapter(sandbox)`,
+    bash: `# Launch NemoClaw with Seccomp Profile
+nemoclaw start --profile strict-sandbox.json`
   };
 
-  const piCode = {
-    python: `# Pi Agent Core SDK
-from baton.adapters import PiAdapter
-import pi_agent_core
+  const ollamaCode = {
+    bash: `# 1. Start Ollama exposing the port
+OLLAMA_HOST=0.0.0.0 ollama serve
 
-agent = pi_agent_core.Agent()
-router.register(PiAdapter(agent))`
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:11434`,
+    baton_app: `Endpoint URL: https://xxx.trycloudflare.com
+Auth Type: None (or add API key if using proxy)`
   };
 
-  const khojCode = {
-    bash: `# Start Khoj
-khoj-server --port 8000
+  const autoGenCode = {
+    python: `# AutoGen HTTP Bridge
+from autogen import ConversableAgent
+from baton import BatonRouter
 
-# Expose securely to Baton
+agent = ConversableAgent("chatbot")
+router = BatonRouter()
+router.register_agent("autogen", agent, port=5000)
+router.start()`,
+  };
+
+  const crewAiCode = {
+    python: `# CrewAI Baton Adapter
+from crewai import Crew
+from baton.adapters import CrewAdapter
+
+my_crew = Crew(agents=[researcher, writer], tasks=[task1])
+router.register(CrewAdapter(my_crew, port=8080))`
+  };
+
+  const langChainCode = {
+    python: `# LangGraph Baton Adapter
+from baton.adapters import LangGraphAdapter
+from my_app import workflow
+
+app = workflow.compile()
+router.register(LangGraphAdapter(app, port=8080))`
+  };
+
+  const vllmCode = {
+    bash: `# 1. Start vLLM OpenAI-compatible server
+python -m vllm.entrypoints.openai.api_server --model meta-llama/Llama-3-8b --port 8000
+
+# 2. Expose via tunnel
 cloudflared tunnel --url http://localhost:8000`
   };
 
-  const agentZeroCode = {
-    python: `# Agent Zero Framework
-from agent_zero import Zero
-from baton.adapters import ZeroAdapter
+  const localAiCode = {
+    bash: `# 1. Start LocalAI docker
+docker run -p 8080:8080 localai/localai:latest-cpu
 
-zero_instance = Zero.initialize()
-router.register(ZeroAdapter(zero_instance))`
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:8080`
   };
 
-  const openHarnessCode = {
-    bash: `# OpenHarness Research Node
-npm install -g @hkuds/openharness
-openharness start --port 3000
-
-# Expose securely to Baton
-cloudflared tunnel --url http://localhost:3000`
+  const lmStudioCode = {
+    bash: `# 1. Start LM Studio Local Server (Port 1234)
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:1234`,
+    baton_app: `Endpoint URL: https://xxx.trycloudflare.com/v1
+Auth Type: None`
   };
 
-  const zCodeCode = {
-    bash: `# Connect ZCode (GLM-5.2) to Baton
-# Ensure you have your Z.ai API key configured
-zcode connect --proxy-port 8080`
+  const llamaCppCode = {
+    bash: `# 1. Start Llama.cpp server
+./server -m models/llama3.gguf --port 8080 --host 0.0.0.0
+
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:8080`
   };
 
-  const scoutCode = {
-    powershell: `# Microsoft Scout Container
-Invoke-ScoutNode -UseOpenClawHarness -Port 8080
-
-# Connect via mDNS to Baton on local network`
-  };
-
-  const kiloClawCode = {
-    bash: `# KiloClaw Managed Host
-# Paste the generated Managed URL directly into Baton Endpoint
-kiloclaw deploy --model hermes-3 --cloud`
-  };
 
   const steps = [
     {
       number: '01',
       title: 'Start Your Local Agent',
       description: 'Run your local AI agent (e.g., using Ollama or a custom Python script). Make sure it is listening on a local port, such as 8080.',
-      code: `// Start your local agent on port 8080\npython my_agent.py --port 8080`,
+      code: `// Start your local agent on port 8080\\npython my_agent.py --port 8080`,
     },
     {
       number: '02',
       title: 'Remote Access: Cloudflare Tunnels',
       description: 'To securely access your agent from outside your house, use Cloudflare Tunnels. It creates an encrypted link without opening router ports.',
-      code: `// Install cloudflared and expose port 8080\ncloudflared tunnel --url http://localhost:8080\n\n// Copy the generated URL (e.g., https://xxx.trycloudflare.com)\n// Paste this into the Endpoint URL field in Baton.`,
+      code: `// Install cloudflared and expose port 8080\\ncloudflared tunnel --url http://localhost:8080\\n\\n// Copy the generated URL (e.g., https://xxx.trycloudflare.com)\\n// Paste this into the Endpoint URL field in Baton.`,
     },
     {
       number: '03',
       title: 'Remote Access: Ngrok Tunnels',
       description: 'Ngrok is another quick alternative for exposing local environments to your mobile device over the internet.',
-      code: `// Install ngrok and expose port 8080\nngrok http 8080\n\n// Copy the generated URL (e.g., https://xxx.ngrok-free.app)\n// Paste this into the Endpoint URL field in Baton.`,
+      code: `// Install ngrok and expose port 8080\\nngrok http 8080\\n\\n// Copy the generated URL (e.g., https://xxx.ngrok-free.app)\\n// Paste this into the Endpoint URL field in Baton.`,
     },
     {
       number: '04',
       title: 'Local Wi-Fi Only: mDNS Discovery',
       description: 'If you only use Baton at home on the same Wi-Fi, the backend can register via mDNS. Baton discovers it automatically without any URL.',
-      code: `// Backend registers:  _baton._tcp.local  (port 8081)\n// Baton discovers it automatically.\n// Works like AirDrop — same network, zero config.`,
+      code: `// Backend registers:  _baton._tcp.local  (port 8081)\\n// Baton discovers it automatically.\\n// Works like AirDrop — same network, zero config.`,
     },
   ];
 
@@ -123,129 +148,129 @@ kiloclaw deploy --model hermes-3 --cloud`
 
       {/* ── 1. Supported AI Frameworks & Harnesses ────────────────────────── */}
       <div className="section-header" style={{ marginTop: '3rem', marginBottom: '2rem' }}>
-        <h1 className="section-title" style={{ fontSize: '2.5rem' }}>1. The "Always-On Personal Agent" Harnesses</h1>
+        <h1 className="section-title" style={{ fontSize: '2.5rem' }}>1. Supported Frameworks</h1>
         <p className="section-subtitle" style={{ maxWidth: '800px' }}>
-          Baton seamlessly proxies the world's most popular persistent agent harnesses, letting you securely interact with them from anywhere.
+          Baton's architecture is completely agnostic. It acts as a drop-in mobile proxy for the world's most popular open-source AI frameworks.
         </p>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>OpenClaw</h2>
-            <p>The category pioneer (formerly Clawdbot/Moltbot). Built around a persistent Gateway daemon connecting to 25+ messaging channels. Largest ecosystem with 373K+ GitHub stars and 44,000+ community skills on ClawHub. Broad coverage, but requires careful security management due to its massive attack surface.</p>
+            <h2>OpenClaw Integration</h2>
+            <p>Provides raw, unrestricted messaging capabilities for local agents running directly on your hardware via our native SDK.</p>
           </div>
         </div>
         <div className="z-code">
           <CodeTabs codeBlocks={openClawCode} />
         </div>
       </div>
-      
+
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Hermes Agent (Nous Research)</h2>
-            <p>The main challenger. Built around a self-improving learning loop, autonomously writing and refining its own reusable skills. Features conservative-by-default security (read-only root filesystems, prompt-injection scanning) and includes a built-in migrate tool for OpenClaw configs.</p>
-          </div>
-        </div>
-        <div className="z-code">
-          <CodeTabs codeBlocks={hermesCode} />
-        </div>
-      </div>
-      
-      <div className="z-block">
-        <div className="z-text">
-          <div>
-            <h2>NemoClaw (NVIDIA)</h2>
-            <p>A security/orchestration layer wrapping OpenClaw or Hermes with NVIDIA's OpenShell runtime. Enforces policy-based sandboxing and zero-permission-by-default execution. Positioned as the "enterprise-safe" way to run these harnesses securely.</p>
+            <h2>NemoClaw Sandbox</h2>
+            <p>Wraps your agents in a strict seccomp-bpf sandbox, preventing network exfiltration and restricting filesystem access.</p>
           </div>
         </div>
         <div className="z-code">
           <CodeTabs codeBlocks={nemoClawCode} />
         </div>
       </div>
-      
+
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Pi (Pi Agent Core)</h2>
-            <p>The minimal terminal-coding harness underneath OpenClaw itself. Shipped as a robust SDK (pi-ai, pi-agent-core, pi-tui). The best pick if you want to embed a harness directly into your own software rather than run a full assistant daemon.</p>
+            <h2>Ollama</h2>
+            <p>The most popular runner for local open-weight models. Simply start the server and expose it via a tunnel.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={piCode} />
+          <CodeTabs codeBlocks={ollamaCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Khoj</h2>
-            <p>An open-source personal AI focused on self-hosted knowledge assistant use cases. Highly popular in the "always-on personal agent" category for managing private data.</p>
+            <h2>LangChain / LangGraph</h2>
+            <p>The industry standard for building robust RAG and agentic workflows. Connect it using our dedicated Python adapter.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={khojCode} />
+          <CodeTabs codeBlocks={langChainCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Agent Zero</h2>
-            <p>A general-purpose, persistent, self-hosted agent framework oriented toward flexible tool use and long-running autonomous tasks.</p>
+            <h2>AutoGen</h2>
+            <p>Microsoft's framework for building complex multi-agent conversations. Seamlessly bridge AutoGen to the Baton router.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={agentZeroCode} />
+          <CodeTabs codeBlocks={autoGenCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>OpenHarness (HKUDS)</h2>
-            <p>An academic/research-origin harness frequently cited in current rankings alongside open-source personal-agent options. Highly experimental and flexible.</p>
+            <h2>CrewAI</h2>
+            <p>A role-playing multi-agent framework for delegating autonomous tasks to specific AI personas.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={openHarnessCode} />
+          <CodeTabs codeBlocks={crewAiCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>ZCode (Z.ai)</h2>
-            <p>The official harness for the GLM-5.2 model. Features million-token context, multi-agent Goals, mobile bot control, and a plugin architecture. A fast-emerging vendor-backed alternative.</p>
+            <h2>LM Studio</h2>
+            <p>A powerful local GUI and OpenAI-compatible drop-in server for testing and running GGUF models.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={zCodeCode} />
+          <CodeTabs codeBlocks={lmStudioCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Scout (Microsoft)</h2>
-            <p>Microsoft's always-on enterprise agent built directly on top of OpenClaw's open-source harness. Showcased at Build 2026, it runs natively in Microsoft's execution containers.</p>
+            <h2>vLLM</h2>
+            <p>High-throughput and memory-efficient serving engine designed for production deployments.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={scoutCode} />
+          <CodeTabs codeBlocks={vllmCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Honcho / KiloClaw</h2>
-            <p>Managed hosting layers (e.g., KiloClaw for OpenClaw) that wrap open-source harnesses with one-click deployment, security hardening, and multi-model routing. Ideal for those bypassing self-hosting pains.</p>
+            <h2>LocalAI</h2>
+            <p>A complete drop-in replacement REST API for OpenAI, running entirely on consumer hardware.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={kiloClawCode} />
+          <CodeTabs codeBlocks={localAiCode} />
+        </div>
+      </div>
+
+      <div className="z-block">
+        <div className="z-text">
+          <div>
+            <h2>Llama.cpp</h2>
+            <p>The core C++ engine for running GGUF models on CPU and GPU with minimal overhead.</p>
+          </div>
+        </div>
+        <div className="z-code">
+          <CodeTabs codeBlocks={llamaCppCode} />
         </div>
       </div>
 
@@ -337,3 +362,7 @@ kiloclaw deploy --model hermes-3 --cloud`
     </div>
   );
 }
+"""
+
+with open("src/pages/LocalHarnesses.jsx", "w", encoding="utf-8") as f:
+    f.write(content)

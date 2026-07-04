@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import LocalHarnesses from './pages/LocalHarnesses';
+import PersonalAgents from './pages/PersonalAgents';
+import RoutingTunnels from './pages/RoutingTunnels';
 import Frameworks from './pages/Frameworks';
 import Workspaces from './pages/Workspaces';
 import AdaptersGuide from './pages/AdaptersGuide';
@@ -23,7 +24,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/a2a" element={<A2A />} />
-          <Route path="/local" element={<LocalHarnesses />} />
+          <Route path="/agents" element={<PersonalAgents />} />
+          <Route path="/routing" element={<RoutingTunnels />} />
           <Route path="/frameworks" element={<Frameworks />} />
           <Route path="/workspaces" element={<Workspaces />} />
           <Route path="/adapters" element={<AdaptersGuide />} />
