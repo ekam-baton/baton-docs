@@ -75,47 +75,38 @@ router.start()`
   const steps = [
     {
       number: '01',
-      title: 'Start Your Local Backend',
-      description: 'Run mcp-connector on your laptop, or start an agent built with our Developer SDKs. It auto-detects your IP and prints a QR code in the terminal.',
-      code: `cd baton-backend
-cargo run -p mcp-connector
-# OR: node my-agent.js
-
-
-# ╔══════════════════════════════════════════╗
-# ║       📱  Scan to Connect in Baton        ║
-# ╚══════════════════════════════════════════╝
-# [QR CODE DISPLAYED HERE]
-#   URL: http://192.168.1.10:8081
-#   Or: open Baton → tap + → paste URL above
-#
-# mDNS: Registered as _baton._tcp.local`,
+      title: 'Start Your Local Agent',
+      description: 'Run your local AI agent (e.g., using Ollama or a custom Python script). Make sure it is listening on a local port, such as 8080.',
+      code: `// Start your local agent on port 8080
+python my_agent.py --port 8080`,
     },
     {
       number: '02',
-      title: 'Scan QR in Baton (Recommended)',
-      description: 'Open Baton → tap + (Add Agent) → tap the QR icon next to the URL field → point your camera at the terminal. Done.',
-      code: `// No manual typing needed.
-// Baton auto-fills and validates the URL from the scan.
-// Works with any QR reader on the same network.`,
+      title: 'Remote Access: Cloudflare Tunnels',
+      description: 'To securely access your agent from outside your house, use Cloudflare Tunnels. It creates an encrypted link without opening router ports.',
+      code: `// Install cloudflared and expose port 8080
+cloudflared tunnel --url http://localhost:8080
+
+// Copy the generated URL (e.g., https://xxx.trycloudflare.com)
+// Paste this into the Endpoint URL field in Baton.`,
     },
     {
       number: '03',
-      title: 'Auto-Discover via mDNS',
-      description: 'The backend registers as _baton._tcp.local. On the same Wi-Fi, Baton can list discovered servers automatically.',
-      code: `// Backend registers:  _baton._tcp.local  (port 8081)
-// Baton discovers it without any QR or URL.
-// Works like AirDrop — same network, zero config.`,
+      title: 'Remote Access: Ngrok Tunnels',
+      description: 'Ngrok is another quick alternative for exposing local environments to your mobile device over the internet.',
+      code: `// Install ngrok and expose port 8080
+ngrok http 8080
+
+// Copy the generated URL (e.g., https://xxx.ngrok-free.app)
+// Paste this into the Endpoint URL field in Baton.`,
     },
     {
       number: '04',
-      title: 'Manual Fallback',
-      description: 'Switched Wi-Fi? Tap the chat title in Baton → edit Endpoint URL → Save. No reconnect wizard needed.',
-      code: `// Find your new IP after switching networks:
-ipconfig                    // Windows
-ifconfig | grep "inet "     // Mac / Linux
-
-// Then in Baton: tap agent name in chat → edit URL → Save`,
+      title: 'Local Wi-Fi Only: mDNS Discovery',
+      description: 'If you only use Baton at home on the same Wi-Fi, the backend can register via mDNS. Baton discovers it automatically without any URL.',
+      code: `// Backend registers:  _baton._tcp.local  (port 8081)
+// Baton discovers it automatically.
+// Works like AirDrop — same network, zero config.`,
     },
   ];
 
@@ -144,8 +135,8 @@ ifconfig | grep "inet "     // Mac / Linux
         </div>
         <p style={{ color: 'rgba(255,255,255,0.65)', marginBottom: '2rem', maxWidth: '640px', lineHeight: 1.6 }}>
           When you start <code style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 6px', borderRadius: 4 }}>mcp-connector</code> (or any custom agent built with the <strong>Baton Developer SDKs</strong>),
-          it detects your local IP, prints a scannable QR code, and registers on your local network via <strong>mDNS</strong>.
-          No manual IP lookup. No copy-paste. Just scan and go.
+          you can access it on your local Wi-Fi via <strong>mDNS</strong>, or securely expose it to your phone anywhere in the world using <strong>encrypted tunnels</strong>.
+          No open router ports. Maximum security.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
@@ -208,8 +199,7 @@ ifconfig | grep "inet "     // Mac / Linux
           color: 'rgba(255,255,255,0.6)',
           lineHeight: 1.5,
         }}>
-          💡 <strong style={{ color: '#FF9F0A' }}>Changed Wi-Fi networks?</strong> Your laptop gets a new IP.
-          Re-scan the terminal QR code, or tap the agent name in any Baton chat to edit the URL on-the-fly.
+          💡 <strong style={{ color: '#FF9F0A' }}>Security Tip:</strong> Tunnels ensure that your agent is only reachable by Baton. Add API Key Authentication in Baton for an extra layer of defense against unauthorized access.
         </div>
       </div>
 
