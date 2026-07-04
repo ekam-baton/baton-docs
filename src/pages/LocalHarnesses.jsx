@@ -72,6 +72,122 @@ router.registerAgent("autogpt", AutoGPT.listenHTTP(port: 5000))
 router.start()`
   };
 
+  const top10Harnesses = [
+    {
+      name: 'Ollama',
+      desc: 'The most popular runner for local Llama 3 and open-weight models.',
+      code: {
+        bash: `# 1. Start Ollama exposing the port
+OLLAMA_HOST=0.0.0.0 ollama serve
+
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:11434`,
+        baton_app: `Endpoint URL: https://xxx.trycloudflare.com
+Auth Type: None (or add API key if using proxy)`
+      }
+    },
+    {
+      name: 'LM Studio',
+      desc: 'Powerful local GUI and OpenAI-compatible drop-in server.',
+      code: {
+        bash: `# 1. Start LM Studio Local Server (Port 1234)
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:1234`,
+        baton_app: `Endpoint URL: https://xxx.trycloudflare.com/v1
+Auth Type: None`
+      }
+    },
+    {
+      name: 'vLLM',
+      desc: 'High-throughput and memory-efficient serving engine for production.',
+      code: {
+        bash: `# 1. Start vLLM OpenAI-compatible server
+python -m vllm.entrypoints.openai.api_server --model meta-llama/Llama-3-8b --port 8000
+
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:8000`,
+      }
+    },
+    {
+      name: 'Llama.cpp',
+      desc: 'The core C++ engine for running GGUF models on consumer hardware.',
+      code: {
+        bash: `# 1. Start Llama.cpp server
+./server -m models/llama3.gguf --port 8080 --host 0.0.0.0
+
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:8080`,
+      }
+    },
+    {
+      name: 'LocalAI',
+      desc: 'Complete drop-in replacement REST API for OpenAI.',
+      code: {
+        bash: `# 1. Start LocalAI docker
+docker run -p 8080:8080 localai/localai:latest-cpu
+
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:8080`,
+      }
+    },
+    {
+      name: 'AutoGen',
+      desc: 'Microsoft\'s framework for building complex multi-agent conversations.',
+      code: {
+        python: `from autogpt import AutoGPT
+from baton import BatonRouter
+
+router = BatonRouter()
+router.register_agent("autogpt", AutoGPT.listen_http(port=5000))
+router.start()`,
+        bash: `docker run -d -p 5000:5000 autogpt-baton-bridge`
+      }
+    },
+    {
+      name: 'CrewAI',
+      desc: 'Role-playing multi-agent framework for delegating autonomous tasks.',
+      code: {
+        python: `# CrewAI Baton Adapter
+from crewai import Crew
+from baton.adapters import CrewAdapter
+
+my_crew = Crew(agents=[researcher, writer], tasks=[task1])
+router.register(CrewAdapter(my_crew, port=8080))`
+      }
+    },
+    {
+      name: 'LangChain / LangGraph',
+      desc: 'The industry standard for building robust RAG and agentic workflows.',
+      code: {
+        python: `# LangGraph Baton Adapter
+from baton.adapters import LangGraphAdapter
+
+app = workflow.compile()
+router.register(LangGraphAdapter(app, port=8080))`
+      }
+    },
+    {
+      name: 'Hugging Face TGI',
+      desc: 'Text Generation Inference toolkit for deploying massive models.',
+      code: {
+        bash: `# 1. Start TGI Docker
+docker run -p 8080:80 ghcr.io/huggingface/text-generation-inference
+
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:8080`,
+      }
+    },
+    {
+      name: 'GPT4All / Jan',
+      desc: 'Privacy-first desktop clients with built-in API routing capabilities.',
+      code: {
+        bash: `# 1. Enable API Server in Settings (port 4891 for GPT4All, 1337 for Jan)
+# 2. Expose via tunnel
+cloudflared tunnel --url http://localhost:1337`,
+      }
+    }
+  ];
+
   const steps = [
     {
       number: '01',
@@ -203,42 +319,14 @@ ngrok http 8080
         </div>
       </div>
 
-      {/* ── Top 10 Compatible Harnesses ─────────────────────────── */}
-      <div className="z-block" style={{ flexDirection: 'column', alignItems: 'flex-start', padding: '2rem 0' }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', background: 'linear-gradient(90deg, #fff, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-          World's Top 10 Supported Harnesses
-        </h2>
-        <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', marginBottom: '2rem', maxWidth: '800px' }}>
-          Baton's routing architecture is completely agnostic. Because it speaks standard Model Context Protocol (MCP) and HTTP/WebSocket, it acts as a drop-in mobile proxy for the world's most powerful open-source AI frameworks.
+            {/* ── Baton Native SDK Bridges ────────────────────────────── */}
+      <div className="section-header" style={{ marginTop: '4rem', marginBottom: '2rem' }}>
+        <h1 className="section-title" style={{ fontSize: '2.5rem' }}>Baton Native Bridges</h1>
+        <p className="section-subtitle">
+          SDK Adapters for building native agents from scratch.
         </p>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', width: '100%' }}>
-          {[
-            { name: 'Ollama', desc: 'The most popular runner for local Llama 3 and open-weight models.' },
-            { name: 'LM Studio', desc: 'Powerful local GUI and OpenAI-compatible drop-in server.' },
-            { name: 'vLLM', desc: 'High-throughput and memory-efficient serving engine for production.' },
-            { name: 'Llama.cpp', desc: 'The core C++ engine for running GGUF models on consumer hardware.' },
-            { name: 'LocalAI', desc: 'Complete drop-in replacement REST API for OpenAI.' },
-            { name: 'AutoGen', desc: 'Microsoft\'s framework for building complex multi-agent conversations.' },
-            { name: 'CrewAI', desc: 'Role-playing multi-agent framework for delegating autonomous tasks.' },
-            { name: 'LangChain / LangGraph', desc: 'The industry standard for building robust RAG and agentic workflows.' },
-            { name: 'Hugging Face TGI', desc: 'Text Generation Inference toolkit for deploying massive models.' },
-            { name: 'GPT4All / Jan', desc: 'Privacy-first desktop clients with built-in API routing capabilities.' }
-          ].map((harness, i) => (
-            <div key={harness.name} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', padding: '1.5rem', borderRadius: '12px' }}>
-              <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', margin: '0 0 0.5rem', fontSize: '1.2rem' }}>
-                <span style={{ color: '#a78bfa', fontWeight: 'bold' }}>#{i + 1}</span>
-                {harness.name}
-              </h3>
-              <p style={{ color: 'rgba(255,255,255,0.6)', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                {harness.desc}
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
 
-      {/* ── Existing harness docs ────────────────────────────── */}
       <div className="z-block">
         <div className="z-text">
           <div>
@@ -263,17 +351,33 @@ ngrok http 8080
         </div>
       </div>
 
-      <div className="z-block">
-        <div className="z-text">
-          <div>
-            <h2>AutoGPT Bridge</h2>
-            <p>Connect your existing AutoGPT instances to the BATON router using the HTTP bridge, allowing it to delegate tasks to other agents.</p>
+      {/* ── Top 10 Compatible Harnesses ─────────────────────────── */}
+      <div className="section-header" style={{ marginTop: '4rem', marginBottom: '2rem' }}>
+        <h1 className="section-title" style={{ fontSize: '2.5rem', background: 'linear-gradient(90deg, #fff, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          World's Top 10 Supported Harnesses
+        </h1>
+        <p className="section-subtitle" style={{ maxWidth: '800px' }}>
+          Baton's routing architecture is completely agnostic. It acts as a drop-in mobile proxy for the world's most powerful open-source AI frameworks.
+        </p>
+      </div>
+      
+      {top10Harnesses.map((harness, i) => (
+        <div className="z-block" key={harness.name}>
+          <div className="z-text">
+            <div>
+              <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.8rem', marginBottom: '0.5rem', marginTop: 0 }}>
+                <span style={{ color: '#a78bfa', fontWeight: 'bold' }}>#{i + 1}</span>
+                {harness.name}
+              </h2>
+              <p style={{ margin: 0 }}>{harness.desc}</p>
+            </div>
+          </div>
+          <div className="z-code">
+            <CodeTabs codeBlocks={harness.code} />
           </div>
         </div>
-        <div className="z-code">
-          <CodeTabs codeBlocks={autoGptCode} />
-        </div>
-      </div>
+      ))}
     </div>
+
   );
 }
