@@ -4,44 +4,21 @@ import CodeTabs from '../components/CodeTabs';
 export default function LocalHarnesses() {
   const [activeStep, setActiveStep] = useState(null);
 
-  const frameworkCode = {
-    "Ollama": `# 1. Start Ollama exposing the port
-OLLAMA_HOST=0.0.0.0 ollama serve
-
-# 2. Expose via Cloudflare Tunnel
-cloudflared tunnel --url http://localhost:11434
-
-# 3. Paste the generated URL into Baton!`,
-    "Python (LangChain)": `# LangChain / CrewAI / AutoGen Adapter
-from baton.adapters import LangChainAdapter
-from baton import BatonRouter
-from my_agent import my_langchain_workflow
-
-router = BatonRouter()
-# Drop your existing LangChain app right into Baton
-router.register(LangChainAdapter(my_langchain_workflow, port=8080))
-router.start()`,
-    "Docker (vLLM)": `# Deploy a high-throughput model via Docker
-docker run --gpus all -p 8000:8000 vllm/vllm-openai \
-    --model meta-llama/Llama-3-8b
-
-# Expose securely to your mobile device
-cloudflared tunnel --url http://localhost:8000`
-  };
-
   const openClawCode = {
     rust: `// OpenClaw Integration
 let openclaw = OpenClawAdapter::new("http://localhost:8080/v1");
-router.register(openclaw);`,
-    python: `# OpenClaw Python Bridge
-from baton import OpenClaw
-claw = OpenClaw(endpoint="http://localhost:8080/v1")
-claw.connect()`,
-    go: `// OpenClaw Go Bridge
-import "github.com/baton-router/sdk-go"
+router.register(openclaw);`
+  };
 
-claw := baton.NewOpenClaw("http://localhost:8080/v1")
-err := claw.Connect()`
+  const hermesCode = {
+    python: `# Hermes Agent Integration
+from baton.agents import HermesAgent
+from baton import BatonRouter
+
+hermes = HermesAgent(model="NousResearch/Hermes-3")
+router = BatonRouter()
+router.register(hermes, port=8080)
+router.start()`
   };
 
   const nemoClawCode = {
@@ -51,54 +28,61 @@ let secure_nemo = NemoClawAdapter::with_sandbox(
         .allow_network(false)
         .allow_fs_read("/app/data")
 );
-router.register(secure_nemo);`,
-    go: `// NemoClaw Secure Sandbox (Go)
-sandbox := baton.NewSandboxConfig().
-    AllowNetwork(false).
-    AllowFSRead("/app/data")
-secureNemo := baton.NewNemoClawAdapter(sandbox)`,
-    bash: `# Launch NemoClaw with Seccomp Profile
-nemoclaw start --profile strict-sandbox.json`
+router.register(secure_nemo);`
   };
 
-  const githubMcpCode = {
-    bash: `# Run the official GitHub MCP server
-npx -y @modelcontextprotocol/server-github`
+  const piCode = {
+    python: `# Pi Agent Core SDK
+from baton.adapters import PiAdapter
+import pi_agent_core
+
+agent = pi_agent_core.Agent()
+router.register(PiAdapter(agent))`
   };
 
-  const postgresMcpCode = {
-    bash: `# Run the PostgreSQL MCP server with your DB URL
-npx -y @modelcontextprotocol/server-postgres postgresql://localhost/mydb`
+  const khojCode = {
+    bash: `# Start Khoj
+khoj-server --port 8000
+
+# Expose securely to Baton
+cloudflared tunnel --url http://localhost:8000`
   };
 
-  const playwrightMcpCode = {
-    bash: `# Run the Playwright Browser Automation MCP Server
-npx -y @modelcontextprotocol/server-playwright`
+  const agentZeroCode = {
+    python: `# Agent Zero Framework
+from agent_zero import Zero
+from baton.adapters import ZeroAdapter
+
+zero_instance = Zero.initialize()
+router.register(ZeroAdapter(zero_instance))`
   };
 
-  const braveSearchMcpCode = {
-    bash: `# Run Brave Search MCP (requires API key)
-BRAVE_API_KEY=your_key npx -y @modelcontextprotocol/server-brave-search`
+  const openHarnessCode = {
+    bash: `# OpenHarness Research Node
+npm install -g @hkuds/openharness
+openharness start --port 3000
+
+# Expose securely to Baton
+cloudflared tunnel --url http://localhost:3000`
   };
 
-  const filesystemMcpCode = {
-    bash: `# Run Filesystem MCP to expose specific directories
-npx -y @modelcontextprotocol/server-filesystem /path/to/expose`
+  const zCodeCode = {
+    bash: `# Connect ZCode (GLM-5.2) to Baton
+# Ensure you have your Z.ai API key configured
+zcode connect --proxy-port 8080`
   };
 
-  const memoryMcpCode = {
-    bash: `# Run the Knowledge Graph Memory MCP Server
-npx -y @modelcontextprotocol/server-memory`
+  const scoutCode = {
+    powershell: `# Microsoft Scout Container
+Invoke-ScoutNode -UseOpenClawHarness -Port 8080
+
+# Connect via mDNS to Baton on local network`
   };
 
-  const slackMcpCode = {
-    bash: `# Run the Slack MCP server for workspace interaction
-SLACK_BOT_TOKEN=xoxb-... npx -y @modelcontextprotocol/server-slack`
-  };
-
-  const googleDriveMcpCode = {
-    bash: `# Run the Google Drive MCP server
-npx -y @modelcontextprotocol/server-gdrive`
+  const kiloClawCode = {
+    bash: `# KiloClaw Managed Host
+# Paste the generated Managed URL directly into Baton Endpoint
+kiloclaw deploy --model hermes-3 --cloud`
   };
 
   const steps = [
@@ -137,155 +121,136 @@ npx -y @modelcontextprotocol/server-gdrive`
         </p>
       </div>
 
-      {/* ── 1. Connect Existing Frameworks ─────────────────────── */}
-      <div className="z-block" style={{ marginTop: '2rem' }}>
-        <div className="z-text">
-          <div>
-            <h2 style={{ fontSize: '2rem', background: 'linear-gradient(90deg, #fff, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              1. Connect Existing Frameworks
-            </h2>
-            <p style={{ fontSize: '1.1rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.7)' }}>
-              Baton's routing architecture is completely agnostic. It acts as a drop-in mobile proxy for the world's most powerful open-source AI frameworks.
-            </p>
-            <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '1rem' }}>
-              Seamlessly connect to runners like <strong>Ollama, vLLM, and LM Studio</strong>, or orchestrate advanced autonomous agents built on <strong>LangChain, CrewAI, and AutoGen</strong>.
-            </p>
-          </div>
-        </div>
-        <div className="z-code">
-          <CodeTabs codeBlocks={frameworkCode} />
-        </div>
-      </div>
-
-      {/* ── 2. Popular MCP Servers & SDK Bridges ────────────────────────── */}
-      <div className="section-header" style={{ marginTop: '5rem', marginBottom: '2rem' }}>
-        <h1 className="section-title" style={{ fontSize: '2.5rem' }}>2. Real-World MCP Servers & Adapters</h1>
+      {/* ── 1. Supported AI Frameworks & Harnesses ────────────────────────── */}
+      <div className="section-header" style={{ marginTop: '3rem', marginBottom: '2rem' }}>
+        <h1 className="section-title" style={{ fontSize: '2.5rem' }}>1. The "Always-On Personal Agent" Harnesses</h1>
         <p className="section-subtitle" style={{ maxWidth: '800px' }}>
-          Connect real-world tools to Baton. Use native adapters like OpenClaw/NemoClaw to build from scratch, or instantly connect the world's most popular open-source Model Context Protocol (MCP) servers.
+          Baton seamlessly proxies the world's most popular persistent agent harnesses, letting you securely interact with them from anywhere.
         </p>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>OpenClaw Integration</h2>
-            <p>Provides raw, unrestricted messaging capabilities for local agents running directly on your hardware via our native SDK.</p>
+            <h2>OpenClaw</h2>
+            <p>The category pioneer (formerly Clawdbot/Moltbot). Built around a persistent Gateway daemon connecting to 25+ messaging channels. Largest ecosystem with 373K+ GitHub stars and 44,000+ community skills on ClawHub. Broad coverage, but requires careful security management due to its massive attack surface.</p>
           </div>
         </div>
         <div className="z-code">
           <CodeTabs codeBlocks={openClawCode} />
         </div>
       </div>
-
+      
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>NemoClaw Sandbox</h2>
-            <p>Wraps your agents in a strict seccomp-bpf sandbox, preventing network exfiltration and restricting filesystem access.</p>
+            <h2>Hermes Agent (Nous Research)</h2>
+            <p>The main challenger. Built around a self-improving learning loop, autonomously writing and refining its own reusable skills. Features conservative-by-default security (read-only root filesystems, prompt-injection scanning) and includes a built-in migrate tool for OpenClaw configs.</p>
+          </div>
+        </div>
+        <div className="z-code">
+          <CodeTabs codeBlocks={hermesCode} />
+        </div>
+      </div>
+      
+      <div className="z-block">
+        <div className="z-text">
+          <div>
+            <h2>NemoClaw (NVIDIA)</h2>
+            <p>A security/orchestration layer wrapping OpenClaw or Hermes with NVIDIA's OpenShell runtime. Enforces policy-based sandboxing and zero-permission-by-default execution. Positioned as the "enterprise-safe" way to run these harnesses securely.</p>
           </div>
         </div>
         <div className="z-code">
           <CodeTabs codeBlocks={nemoClawCode} />
         </div>
       </div>
-
+      
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>GitHub MCP Server</h2>
-            <p>A standard for managing developer workflows. Allows agents to interact with repositories, issues, PRs, and discussions using GitHub's native identity.</p>
+            <h2>Pi (Pi Agent Core)</h2>
+            <p>The minimal terminal-coding harness underneath OpenClaw itself. Shipped as a robust SDK (pi-ai, pi-agent-core, pi-tui). The best pick if you want to embed a harness directly into your own software rather than run a full assistant daemon.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={githubMcpCode} />
+          <CodeTabs codeBlocks={piCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Playwright MCP Server</h2>
-            <p>One of the most essential servers in the ecosystem. It allows your agents to drive browser automation, perform testing, and scrape web content.</p>
+            <h2>Khoj</h2>
+            <p>An open-source personal AI focused on self-hosted knowledge assistant use cases. Highly popular in the "always-on personal agent" category for managing private data.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={playwrightMcpCode} />
+          <CodeTabs codeBlocks={khojCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>PostgreSQL MCP Server</h2>
-            <p>Instantly gives your AI agents secure, read-only or read-write access to local database schemas and records for Data Analysis tasks.</p>
+            <h2>Agent Zero</h2>
+            <p>A general-purpose, persistent, self-hosted agent framework oriented toward flexible tool use and long-running autonomous tasks.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={postgresMcpCode} />
+          <CodeTabs codeBlocks={agentZeroCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Memory MCP Server</h2>
-            <p>A popular reference server that implements a knowledge graph-based persistent memory system, helping agents maintain context over long sessions.</p>
+            <h2>OpenHarness (HKUDS)</h2>
+            <p>An academic/research-origin harness frequently cited in current rankings alongside open-source personal-agent options. Highly experimental and flexible.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={memoryMcpCode} />
+          <CodeTabs codeBlocks={openHarnessCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Filesystem MCP Server</h2>
-            <p>A core reference implementation that provides secure, tightly-controlled access to local files and directories, fundamental for coding assistants.</p>
+            <h2>ZCode (Z.ai)</h2>
+            <p>The official harness for the GLM-5.2 model. Features million-token context, multi-agent Goals, mobile bot control, and a plugin architecture. A fast-emerging vendor-backed alternative.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={filesystemMcpCode} />
+          <CodeTabs codeBlocks={zCodeCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Brave Search MCP Server</h2>
-            <p>Equips your local agents with live internet access via the Brave Search API, allowing them to pull real-time data and news into Baton.</p>
+            <h2>Scout (Microsoft)</h2>
+            <p>Microsoft's always-on enterprise agent built directly on top of OpenClaw's open-source harness. Showcased at Build 2026, it runs natively in Microsoft's execution containers.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={braveSearchMcpCode} />
+          <CodeTabs codeBlocks={scoutCode} />
         </div>
       </div>
 
       <div className="z-block">
         <div className="z-text">
           <div>
-            <h2>Slack MCP Server</h2>
-            <p>Allows your Baton agents to read messages, post updates, and interact directly with your team's Slack workspaces.</p>
+            <h2>Honcho / KiloClaw</h2>
+            <p>Managed hosting layers (e.g., KiloClaw for OpenClaw) that wrap open-source harnesses with one-click deployment, security hardening, and multi-model routing. Ideal for those bypassing self-hosting pains.</p>
           </div>
         </div>
         <div className="z-code">
-          <CodeTabs codeBlocks={slackMcpCode} />
+          <CodeTabs codeBlocks={kiloClawCode} />
         </div>
       </div>
 
-      <div className="z-block">
-        <div className="z-text">
-          <div>
-            <h2>Google Drive MCP Server</h2>
-            <p>Enables secure access to your Google Docs, Sheets, and Drive files, allowing your local agent to search and read your private documents.</p>
-          </div>
-        </div>
-        <div className="z-code">
-          <CodeTabs codeBlocks={googleDriveMcpCode} />
-        </div>
-      </div>
 
-      {/* ── 3. Routing & Remote Access ─────────────────────────── */}
+      {/* ── 2. Routing & Remote Access ─────────────────────────── */}
       <div style={{
         background: 'linear-gradient(135deg, rgba(61,142,255,0.08) 0%, rgba(100,210,255,0.05) 100%)',
         border: '1px solid rgba(61,142,255,0.25)',
@@ -297,7 +262,7 @@ npx -y @modelcontextprotocol/server-gdrive`
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
           <span style={{ fontSize: '1.5rem' }}>🌐</span>
           <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: 700, color: '#3D8EFF' }}>
-            3. Remote Access & Tunneling
+            2. Remote Access & Tunneling
           </h2>
         </div>
         <p style={{ color: 'rgba(255,255,255,0.65)', marginBottom: '2rem', maxWidth: '640px', lineHeight: 1.6 }}>
