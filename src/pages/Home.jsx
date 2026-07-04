@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Zap, Lock, Cpu, Globe2, Activity } from 'lucide-react';
+import { Layers, Zap, Lock, Cpu, Globe2, Activity, Shield } from 'lucide-react';
 import RoutingNexus from '../components/RoutingNexus';
 import Starfield from '../components/Starfield';
 
@@ -90,19 +90,25 @@ export default function Home() {
             <p>Built for extremely dense RAG pipelines and real-time voice synthesis with continuous streaming WebSockets.</p>
           </div>
 
-          <div className="bento-card span-4">
+          <div className="bento-card span-3">
             <Lock className="card-icon" />
             <h3>NemoClaw Sandbox</h3>
             <p>Strict Seccomp-BPF execution boundaries. Keep your autonomous agents entirely fenced off from your sensitive filesystem and network data.</p>
           </div>
 
-          <div className="bento-card span-4">
+          <div className="bento-card span-3">
             <Layers className="card-icon" />
             <h3>MCP Native</h3>
             <p>Built from day one to support the Model Context Protocol. Expose internal databases and bespoke APIs to agents effortlessly.</p>
           </div>
 
-          <div className="bento-card span-4">
+          <div className="bento-card span-3">
+            <Shield className="card-icon" />
+            <h3>SSRF & DNS Security</h3>
+            <p>Custom DNS resolvers block local IP rebinding attacks. Malicious cloud models cannot probe your local network space.</p>
+          </div>
+
+          <div className="bento-card span-3">
             <Activity className="card-icon" />
             <h3>Agent-to-Agent (A2A)</h3>
             <p>Configure advanced handshakes. Watch as your Researcher agents securely delegate complex tasks to Code-Writer agents in real-time.</p>
@@ -110,9 +116,9 @@ export default function Home() {
 
           <div className="bento-card span-12" style={{ textAlign: 'center', padding: '4rem 2rem', background: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%), var(--bg-card)' }}>
             <Cpu className="card-icon" style={{ margin: '0 auto 1.5rem', width: '48px', height: '48px' }} />
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', letterSpacing: '-0.02em' }}>Enterprise Secure. Zero API Keys Stored.</h2>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', letterSpacing: '-0.02em' }}>Enterprise Secure. Firebase Authenticated.</h2>
             <p style={{ maxWidth: '600px', margin: '0 auto', fontSize: '1.15rem', color: 'var(--text-muted)' }}>
-              BATON is just a router. By connecting to secure Adapter Servers, BATON lets your employees use OpenAI Codex, Claude for Work, and Gemini Enterprise without ever putting billing accounts or sensitive API keys on mobile devices.
+              BATON is just a router. By connecting to secure Adapter Servers, BATON lets your employees use OpenAI Codex, Claude for Work, and Gemini Enterprise without ever putting billing accounts or sensitive API keys on mobile devices. Now fortified with Google Play Subscriptions, Firebase Backend Auth, and Deep-Link verification.
             </p>
           </div>
         </div>
