@@ -17,10 +17,10 @@ export default function Home() {
           <p className="hero-subtitle" style={{ margin: '0 0 3rem', textAlign: 'left', textShadow: '0 5px 15px rgba(0,0,0,0.8)' }}>
             BATON is a highly secure, local-first Android client. Connect to your local AI agents, custom webhooks, or cloud endpoints using encrypted tunnels—all without storing your API keys in the cloud.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-            <a href="#" className="store-badge">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" style={{ height: '48px', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))' }} />
-            </a>
+          <div style={{ marginTop: '1rem' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', fontWeight: 500, borderLeft: '3px solid var(--accent-blue)', paddingLeft: '1rem' }}>
+              Available on Play Store and Coming soon to Apple Store.
+            </p>
           </div>
         </div>
         

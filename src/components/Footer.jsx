@@ -9,7 +9,7 @@ export default function Footer() {
         
         <div>
           <div className="nav-logo" style={{ marginBottom: '1.5rem' }}>
-            <img src="/baton-logo.svg" alt="BATON Logo" className="logo-img" />
+            
             BATON
           </div>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
