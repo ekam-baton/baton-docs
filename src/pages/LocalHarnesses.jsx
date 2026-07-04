@@ -72,7 +72,7 @@ router.registerAgent("autogpt", AutoGPT.listenHTTP(port: 5000))
 router.start()`
   };
 
-  const top10Harnesses = [
+  const supportedHarnesses = [
     {
       name: 'Ollama',
       desc: 'The most popular runner for local Llama 3 and open-weight models.',
@@ -351,22 +351,21 @@ ngrok http 8080
         </div>
       </div>
 
-      {/* ── Top 10 Compatible Harnesses ─────────────────────────── */}
+      {/* ── Compatible Harnesses ─────────────────────────── */}
       <div className="section-header" style={{ marginTop: '4rem', marginBottom: '2rem' }}>
         <h1 className="section-title" style={{ fontSize: '2.5rem', background: 'linear-gradient(90deg, #fff, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-          World's Top 10 Supported Harnesses
+          Supported Harnesses & Frameworks
         </h1>
         <p className="section-subtitle" style={{ maxWidth: '800px' }}>
           Baton's routing architecture is completely agnostic. It acts as a drop-in mobile proxy for the world's most powerful open-source AI frameworks.
         </p>
       </div>
       
-      {top10Harnesses.map((harness, i) => (
+      {supportedHarnesses.map((harness, i) => (
         <div className="z-block" key={harness.name}>
           <div className="z-text">
             <div>
               <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.8rem', marginBottom: '0.5rem', marginTop: 0 }}>
-                <span style={{ color: '#a78bfa', fontWeight: 'bold' }}>#{i + 1}</span>
                 {harness.name}
               </h2>
               <p style={{ margin: 0 }}>{harness.desc}</p>
