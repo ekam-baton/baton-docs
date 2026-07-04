@@ -46,25 +46,25 @@ export default function Home() {
             <p>Secure identity management powered by Firebase Authentication, ensuring only authorized users can access your configured agents.</p>
           </div>
 
-          <div className="bento-card span-3">
+          <div className="bento-card span-6">
             <Lock className="card-icon" />
             <h3>SQLCipher</h3>
             <p>All of your agent configurations, API keys, and chat histories are locally encrypted on your Android device using SQLCipher 256-bit AES encryption.</p>
           </div>
 
-          <div className="bento-card span-3">
+          <div className="bento-card span-6">
             <Link className="card-icon" />
             <h3>Deep Link Provisioning</h3>
             <p>Distribute agent configurations to your team instantly. A simple tap on a Baton deep-link securely configures endpoints and auth types inside the app.</p>
           </div>
 
-          <div className="bento-card span-3">
+          <div className="bento-card span-6">
             <Zap className="card-icon" />
             <h3>Cloudflare & Ngrok</h3>
             <p>Natively designed to work with secure tunneling tools, letting you expose local LLMs to your phone without opening ports on your home router.</p>
           </div>
 
-          <div className="bento-card span-3">
+          <div className="bento-card span-6">
             <Layers className="card-icon" />
             <h3>Strict Network Security</h3>
             <p>The Android app implements strict Network Security Configurations, enforcing HTTPS, blocking cleartext traffic, and providing hooks for certificate pinning.</p>

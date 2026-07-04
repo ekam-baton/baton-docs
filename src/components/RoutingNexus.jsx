@@ -55,15 +55,15 @@ export default function RoutingNexus() {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
-    const width = 600;
-    const height = 600;
+    const width = 500;
+    const height = 500;
     canvas.width = width;
     canvas.height = height;
 
     const orbits = [
-      { rx: 250, ry: 100, angle: 0, speed: 0.005, color: 'rgba(59, 130, 246, 0.4)' },
-      { rx: 180, ry: 200, angle: Math.PI / 4, speed: -0.007, color: 'rgba(139, 92, 246, 0.4)' },
-      { rx: 220, ry: 150, angle: -Math.PI / 6, speed: 0.004, color: 'rgba(99, 102, 241, 0.4)' }
+      { rx: 200, ry: 80, angle: 0, speed: 0.005, color: 'rgba(59, 130, 246, 0.4)' },
+      { rx: 140, ry: 160, angle: Math.PI / 4, speed: -0.007, color: 'rgba(139, 92, 246, 0.4)' },
+      { rx: 180, ry: 120, angle: -Math.PI / 6, speed: 0.004, color: 'rgba(99, 102, 241, 0.4)' }
     ];
 
     const draw = () => {
@@ -111,7 +111,7 @@ export default function RoutingNexus() {
       onMouseLeave={handleMouseLeave}
       style={{
         width: '100%',
-        height: '600px',
+        height: '500px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -125,8 +125,8 @@ export default function RoutingNexus() {
           transform,
           transition: 'transform 0.15s ease-out',
           position: 'relative',
-          width: '600px',
-          height: '600px',
+          width: '500px',
+          height: '500px',
           transformStyle: 'preserve-3d',
           display: 'flex',
           justifyContent: 'center',
@@ -147,8 +147,8 @@ export default function RoutingNexus() {
 
         {/* The Holographic Terminal */}
         <div style={{
-          width: '450px',
-          height: '300px',
+          width: '400px',
+          height: '260px',
           background: 'rgba(2, 6, 23, 0.65)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
