@@ -203,6 +203,41 @@ ngrok http 8080
         </div>
       </div>
 
+      {/* ── Top 10 Compatible Harnesses ─────────────────────────── */}
+      <div className="z-block" style={{ flexDirection: 'column', alignItems: 'flex-start', padding: '2rem 0' }}>
+        <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', background: 'linear-gradient(90deg, #fff, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          World's Top 10 Supported Harnesses
+        </h2>
+        <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', marginBottom: '2rem', maxWidth: '800px' }}>
+          Baton's routing architecture is completely agnostic. Because it speaks standard Model Context Protocol (MCP) and HTTP/WebSocket, it acts as a drop-in mobile proxy for the world's most powerful open-source AI frameworks.
+        </p>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', width: '100%' }}>
+          {[
+            { name: 'Ollama', desc: 'The most popular runner for local Llama 3 and open-weight models.' },
+            { name: 'LM Studio', desc: 'Powerful local GUI and OpenAI-compatible drop-in server.' },
+            { name: 'vLLM', desc: 'High-throughput and memory-efficient serving engine for production.' },
+            { name: 'Llama.cpp', desc: 'The core C++ engine for running GGUF models on consumer hardware.' },
+            { name: 'LocalAI', desc: 'Complete drop-in replacement REST API for OpenAI.' },
+            { name: 'AutoGen', desc: 'Microsoft\'s framework for building complex multi-agent conversations.' },
+            { name: 'CrewAI', desc: 'Role-playing multi-agent framework for delegating autonomous tasks.' },
+            { name: 'LangChain / LangGraph', desc: 'The industry standard for building robust RAG and agentic workflows.' },
+            { name: 'Hugging Face TGI', desc: 'Text Generation Inference toolkit for deploying massive models.' },
+            { name: 'GPT4All / Jan', desc: 'Privacy-first desktop clients with built-in API routing capabilities.' }
+          ].map((harness, i) => (
+            <div key={harness.name} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', padding: '1.5rem', borderRadius: '12px' }}>
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', margin: '0 0 0.5rem', fontSize: '1.2rem' }}>
+                <span style={{ color: '#a78bfa', fontWeight: 'bold' }}>#{i + 1}</span>
+                {harness.name}
+              </h3>
+              <p style={{ color: 'rgba(255,255,255,0.6)', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
+                {harness.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ── Existing harness docs ────────────────────────────── */}
       <div className="z-block">
         <div className="z-text">
