@@ -5,11 +5,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import PersonalAgents from './pages/PersonalAgents';
 import RoutingTunnels from './pages/RoutingTunnels';
-import Frameworks from './pages/Frameworks';
-import Workspaces from './pages/Workspaces';
 import AdaptersGuide from './pages/AdaptersGuide';
 import Integrations from './pages/Integrations';
-import A2A from './pages/A2A';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Changelog from './pages/Changelog';
@@ -23,11 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/integrations" element={<Integrations />} />
-          <Route path="/a2a" element={<A2A />} />
           <Route path="/agents" element={<PersonalAgents />} />
           <Route path="/routing" element={<RoutingTunnels />} />
-          <Route path="/frameworks" element={<Frameworks />} />
-          <Route path="/workspaces" element={<Workspaces />} />
           <Route path="/adapters" element={<AdaptersGuide />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />

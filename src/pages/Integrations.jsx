@@ -1,6 +1,5 @@
 import React from 'react';
-import CodeTabs from '../components/CodeTabs';
-import { Blocks, Workflow, Home, Server, Code2, CloudCog } from 'lucide-react';
+import { Blocks, Workflow, Server, CloudCog } from 'lucide-react';
 
 export default function Integrations() {
   return (
@@ -11,63 +10,40 @@ export default function Integrations() {
           Connect to Anything
         </h1>
         <p className="section-subtitle">
-          BATON only requires a simple Backend API URL to work. This makes it universally compatible with almost any platform on the internet. Paste a Webhook URL, and BATON becomes your remote control!
+          Because the Baton Android App functions as an HTTP client, you can connect it to any platform that accepts webhooks or REST API POST requests.
         </p>
       </div>
 
       <div className="bento-grid">
         <div className="bento-card span-6">
           <Workflow className="card-icon" />
-          <h3>No-Code / Low-Code Automations</h3>
-          <p>Instantly trigger complex workflows across thousands of apps.</p>
+          <h3>No-Code Workflow Automations</h3>
+          <p>Instantly trigger complex workflows across thousands of apps by pasting a Webhook URL into the Baton app.</p>
           <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong>Microsoft Power Automate:</strong> Create a flow with the "When an HTTP request is received" trigger and paste the URL into BATON.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong>Zapier & Make.com:</strong> Point BATON to a "Catch Hook" to connect with 5,000+ apps.</li>
-            <li><strong>n8n:</strong> Highly popular open-source workflow automation.</li>
+            <li style={{ marginBottom: '0.5rem' }}><strong>Make.com & Zapier:</strong> Point BATON to a "Catch Hook" to pass mobile text input directly into your automated pipelines.</li>
+            <li><strong>n8n:</strong> Highly popular open-source workflow automation. Simply set up an HTTP Webhook trigger.</li>
           </ul>
         </div>
 
         <div className="bento-card span-6">
-          <Code2 className="card-icon" />
-          <h3>Custom AI & Agent Frameworks</h3>
-          <p>Build your own custom AI workforce and use BATON as the zero-trust mobile routing client.</p>
-          <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong>Antigravity:</strong> Interface with advanced autonomous coding agents.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong>LangChain & LangGraph:</strong> Connect conversational AI apps.</li>
-            <li><strong>CrewAI & AutoGen:</strong> Unified chat interface for AI teams.</li>
-          </ul>
-        </div>
-
-        <div className="bento-card span-4">
           <Server className="card-icon" />
-          <h3>Developers & Self-Hosters</h3>
-          <p>Bring your own server. Your rules, your code, total privacy.</p>
+          <h3>Custom AI Backends</h3>
+          <p>Build your own custom AI server and use Baton as your zero-trust mobile UI.</p>
           <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
-            <li style={{ marginBottom: '0.5rem' }}>Deploy a custom backend on AWS, Linode, or Hetzner.</li>
-            <li>Run Llama 3 via <strong>Ollama</strong> or <strong>LM Studio</strong> completely offline.</li>
+            <li style={{ marginBottom: '0.5rem' }}>Deploy a custom Node.js or Python backend on AWS, Linode, or Hetzner.</li>
+            <li>Point the app directly to an OpenAI-compatible server running locally on your hardware.</li>
           </ul>
         </div>
 
-        <div className="bento-card span-4">
-          <Home className="card-icon" />
-          <h3>Smart Home Control</h3>
-          <p>Use BATON as a secure command center to control your physical world.</p>
-          <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
-            <li><strong>Home Assistant:</strong> Point BATON to a HA webhook to turn on lights, unlock doors, or trigger automation scripts.</li>
-          </ul>
-        </div>
-
-        <div className="bento-card span-4">
+        <div className="bento-card span-12">
           <CloudCog className="card-icon" />
           <h3>Cloud Serverless Functions</h3>
-          <p>Write a tiny script that receives a message, performs logic, and replies instantly.</p>
+          <p>You don't need a heavy server. Write a tiny cloud function that receives Baton's message, performs logic, and replies.</p>
           <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
-            <li><strong>Cloudflare Workers, AWS Lambda, Vercel:</strong> Build highly scalable endpoints without managing infrastructure.</li>
+            <li><strong>Cloudflare Workers, AWS Lambda, Vercel:</strong> Build highly scalable endpoints without managing infrastructure. Paste the endpoint URL into the Baton app and add your API key.</li>
           </ul>
         </div>
       </div>
     </div>
   );
 }
-
-
