@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import PersonalAgents from './pages/PersonalAgents';
 import EnterpriseAgents from './pages/EnterpriseAgents';
-import RoutingTunnels from './pages/RoutingTunnels';
+import SecurityArchitecture from './pages/SecurityArchitecture';
 import AdaptersGuide from './pages/AdaptersGuide';
 import Integrations from './pages/Integrations';
 import Terms from './pages/Terms';
@@ -25,7 +25,7 @@ function App() {
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/agents" element={<PersonalAgents />} />
           <Route path="/enterprise" element={<EnterpriseAgents />} />
-          <Route path="/routing" element={<RoutingTunnels />} />
+          <Route path="/architecture" element={<SecurityArchitecture />} />
           <Route path="/adapters" element={<AdaptersGuide />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
