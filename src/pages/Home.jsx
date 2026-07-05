@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Zap, Lock, Cpu, Globe2, Link, Shield } from 'lucide-react';
+import { Layers, Zap, Lock, Cpu, Globe2, Link, Shield, FileCheck } from 'lucide-react';
 import RoutingNexus from '../components/RoutingNexus';
 import Starfield from '../components/Starfield';
 
@@ -68,6 +68,14 @@ export default function Home() {
             <Layers className="card-icon" />
             <h3>Strict Network Security</h3>
             <p>The Android app implements strict Network Security Configurations, enforcing HTTPS, blocking cleartext traffic, and providing hooks for certificate pinning.</p>
+          </div>
+
+          <div className="bento-card span-12" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+            <FileCheck className="card-icon" style={{ color: '#10b981' }} />
+            <h3 style={{ color: '#10b981' }}>Forensically Audit-Ready (CISA & DISA Compliant)</h3>
+            <p style={{ fontSize: '1.1rem' }}>
+              BATON is architected for legal admissibility. Every action and screenshot is secured using a <strong>Merkle Tree Hash Chain</strong> and <strong>Hardware-Backed Digital Signatures</strong> (Android Keystore). This ensures absolute non-repudiation and tamper-evident Chain of Custody, making your local logs completely valid as evidence in a court of law.
+            </p>
           </div>
 
           <div className="bento-card span-12" style={{ textAlign: 'center', padding: '4rem 2rem', background: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%), var(--bg-card)' }}>
