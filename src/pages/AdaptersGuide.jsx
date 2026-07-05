@@ -9,7 +9,7 @@ export default function AdaptersGuide() {
     <div className="animate-fade-in page-wrapper">
       <div className="section-header">
         <h1>Building Custom Adapters</h1>
-        <p>Learn how to build a custom backend server to receive messages from the Baton Android app.</p>
+        <p>Learn how to build a custom backend server to receive messages from the Baton Android app using the official SDK.</p>
       </div>
 
       <div className="bento-grid">
@@ -18,10 +18,10 @@ export default function AdaptersGuide() {
             <div style={{ flex: '1 1 300px' }}>
               <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>How Baton Communicates</h2>
               <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>
-                The Baton Android app is essentially a highly secure, local-first HTTP client. When you send a message in the app, Baton sends a standard <code>POST</code> request containing the chat history to your configured Endpoint URL.
+                The Baton Android app is a highly secure, local-first HTTP client. When you send a message, Baton sends a POST request to your configured Endpoint URL.
               </p>
               <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: '1.6' }}>
-                An "Adapter" is simply any web server (Node.js, Python, Rust) that you run on your machine or in the cloud. It receives this POST request, processes it (e.g., calls the OpenAI API or a local model), and returns the response back to your phone.
+                An "Adapter" receives this request, processes it (e.g., calls an LLM), and streams the response back to your phone via Server-Sent Events (SSE). The easiest way to build one is using our official <strong>Node.js SDK</strong>, which handles all the cryptography and streaming protocols for you.
               </p>
             </div>
             <div style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', background: 'var(--bg-card)', borderRadius: '1rem' }}>
@@ -38,8 +38,8 @@ export default function AdaptersGuide() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem', background: 'rgba(255, 159, 10, 0.1)', borderRadius: '0.75rem' }}>
                 <Server className="card-icon" style={{ margin: 0, color: '#ff9f0a' }} />
                 <div>
-                  <h4 style={{ margin: '0 0 0.25rem' }}>Your Custom Adapter Server</h4>
-                  <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>Receives webhook, calls LLM, returns text.</p>
+                  <h4 style={{ margin: '0 0 0.25rem' }}>Baton Node SDK Server</h4>
+                  <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>Decrypts payload, calls LLM, streams response.</p>
                 </div>
               </div>
             </div>
@@ -52,85 +52,76 @@ export default function AdaptersGuide() {
             <h3 style={{ margin: 0 }}>Adapter Builder Guide</h3>
           </div>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-            Baton expects standard HTTP responses. Below is guidance on how to build a basic adapter in Node.js and Python.
+            First, install the official SDK package for Node.js:
           </p>
+          <CodeBlock code={`npm install @baton/sdk`} language="bash" />
           
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginTop: '2rem' }}>
             <button 
               className={activeTab === 'nodejs' ? 'btn-primary' : 'btn-secondary'}
               onClick={() => setActiveTab('nodejs')}
             >
-              Node.js / Express
+              Basic Server (Standard)
             </button>
             <button 
-              className={activeTab === 'python' ? 'btn-primary' : 'btn-secondary'}
-              onClick={() => setActiveTab('python')}
+              className={activeTab === 'secure' ? 'btn-primary' : 'btn-secondary'}
+              onClick={() => setActiveTab('secure')}
             >
-              Python / FastAPI
+              E2EE Secure Server
             </button>
           </div>
 
           <div style={{ display: activeTab === 'nodejs' ? 'block' : 'none' }}>
-            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Node.js Express Adapter</h4>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>A simple Express server that receives Baton's payload and returns a static response.</p>
-            <CodeBlock code={`import express from 'express';
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Standard Adapter</h4>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>A simple adapter running in standard HTTP mode. We highly recommend adding an API Key if exposing this over the internet.</p>
+            <CodeBlock code={`import { BatonAdapter } from '@baton/sdk';
 
-const app = express();
-app.use(express.json());
-
-// Baton will POST to this endpoint
-app.post('/api/chat', async (req, res) => {
-  // Baton sends an array of messages
-  const messages = req.body.messages;
-  
-  // Extract the latest message from the user
-  const lastMessage = messages[messages.length - 1].content;
-  console.log("Received from Baton:", lastMessage);
-
-  // You can implement custom logic here (e.g., query a database, call OpenAI)
-  const agentResponse = "Hello from your custom Node.js Adapter! You said: " + lastMessage;
-
-  // Baton expects a standard text or JSON response
-  res.json({
-    choices: [{
-      message: { content: agentResponse }
-    }]
-  });
+const adapter = new BatonAdapter({
+  port: 3000,
+  endpoint: '/api/chat',
+  security: { 
+    mode: 'standard',
+    apiKey: 'your-super-secret-token' // Required to prevent open relay
+  }
 });
 
-app.listen(3000, () => console.log('Baton Adapter running on port 3000'));`} language="javascript" />
+// The SDK handles all HTTP/SSE routing. Just provide a message handler:
+adapter.onMessage(async (messages, stream) => {
+  const lastMessage = messages[messages.length - 1].content;
+  console.log("User said:", lastMessage);
+
+  // Stream your response back in chunks
+  stream("Hello from the ");
+  stream("official Node SDK!");
+});
+
+adapter.start();`} language="typescript" />
           </div>
 
-          <div style={{ display: activeTab === 'python' ? 'block' : 'none' }}>
-            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Python FastAPI Adapter</h4>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>A basic Python FastAPI server to route messages.</p>
-            <CodeBlock code={`from fastapi import FastAPI, Request
-import uvicorn
+          <div style={{ display: activeTab === 'secure' ? 'block' : 'none' }}>
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-green)' }}>End-to-End Encrypted Adapter</h4>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Configure the SDK to use AES-256-GCM encryption and HMAC signatures. Run <code>BatonAdapter.generateKeypair()</code> to get your server keys.</p>
+            <CodeBlock code={`import { BatonAdapter } from '@baton/sdk';
 
-app = FastAPI()
+const adapter = new BatonAdapter({
+  port: 3000,
+  endpoint: '/api/chat',
+  security: { 
+    mode: 'sovereign', // Highest security mode (E2EE + Signatures)
+    serverPrivateKeyHex: 'your-server-private-key-hex',
+    clientPublicKeyHex: 'the-android-app-public-key-hex',
+  }
+});
 
-@app.post("/api/chat")
-async def handle_baton_request(request: Request):
-    # Parse the incoming JSON from Baton
-    data = await request.json()
-    messages = data.get("messages", [])
-    
-    # Get the latest user message
-    last_message = messages[-1].get("content", "")
-    print(f"Received from Baton: {last_message}")
-    
-    # Generate your response
-    agent_response = f"Hello from Python! You said: {last_message}"
-    
-    # Return in standard format
-    return {
-        "choices": [
-            {"message": {"content": agent_response}}
-        ]
-    }
+adapter.onMessage(async (messages, stream) => {
+  // Messages are automatically decrypted here
+  const lastMessage = messages[messages.length - 1].content;
+  
+  // Streamed chunks are automatically AES encrypted before transmission
+  stream("I am completely private.");
+});
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=3000)`} language="python" />
+adapter.start();`} language="typescript" />
           </div>
         </div>
       </div>
