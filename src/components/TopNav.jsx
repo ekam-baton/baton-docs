@@ -28,7 +28,32 @@ export default function TopNav() {
           <NavLink to="/integrations" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Integrations</NavLink>
         </nav>
 
-        <div className="nav-actions">
+        <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button 
+            onClick={() => {
+              navigator.clipboard.writeText('Read https://ekam-baton.github.io/baton-docs/llms-full.txt and write the Node.js backend code to connect my local agent to BATON.');
+              alert('LLM Prompt copied to clipboard!');
+            }}
+            style={{ 
+              background: 'rgba(59, 130, 246, 0.15)', 
+              border: '1px solid rgba(59, 130, 246, 0.4)', 
+              color: '#60a5fa', 
+              padding: '0.5rem 1rem', 
+              borderRadius: '8px', 
+              fontSize: '0.9rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              boxShadow: '0 0 10px rgba(59,130,246,0.2)'
+            }}
+            title="Copy a prompt to paste into any LLM to instantly build a BATON backend."
+            className="llm-button"
+          >
+            <span style={{ width: '8px', height: '8px', background: '#60a5fa', borderRadius: '50%', display: 'inline-block', animation: 'pulse 2s infinite' }}></span>
+            LLM Prompt
+          </button>
           <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
             <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>View on GitHub</button>
           </a>

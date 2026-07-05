@@ -55,29 +55,6 @@ export default function Footer() {
         <p>© 2026 BATON Technologies. All rights reserved.</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <p>Built with React & Vite.</p>
-          <button 
-            onClick={() => {
-              navigator.clipboard.writeText('Read https://ekam-baton.github.io/baton-docs/llms-full.txt and write the Node.js backend code to connect my local agent to BATON.');
-              alert('LLM Prompt copied to clipboard!');
-            }}
-            style={{ 
-              background: 'rgba(59, 130, 246, 0.1)', 
-              border: '1px solid rgba(59, 130, 246, 0.3)', 
-              color: '#3b82f6', 
-              padding: '0.3rem 0.6rem', 
-              borderRadius: '4px', 
-              fontSize: '0.75rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              fontFamily: 'monospace'
-            }}
-            title="Copy a prompt to paste into ChatGPT/Claude to instantly build a BATON backend."
-          >
-            <span style={{ width: '8px', height: '8px', background: '#3b82f6', borderRadius: '50%', display: 'inline-block', animation: 'pulse 2s infinite' }}></span>
-            Optimized for LLMs
-          </button>
         </div>
       </div>
     </footer>
