@@ -33,10 +33,18 @@ export default function Terms() {
 <li className="legal-list-item">ALL ACTIONS TAKEN AND DECISIONS MADE BASED ON AI GENERATED MESSAGES WITHIN THE CHAT INTERFACE ARE SOLELY AT YOUR OWN RISK.</li>
 </ul>
 <div style={{height: "1.5rem"}}></div>
-<h2 className="legal-header">6. GOVERNING LAW</h2>
+<h2 className="legal-header">6. EVIDENTIARY USE & FORENSIC AUDITING</h2>
+<p className="legal-text">BATON incorporates a local cryptographic ledger, Merkle Tree hashing, and hardware-backed digital signatures (AES/QES) designed to comply with global evidentiary standards (including ISO/IEC 27037, eIDAS, and CISA).</p>
+<ul className="legal-list">
+<li className="legal-list-item"><b>No Legal Advice:</b> We provide the cryptographic tools to secure your data, but we do not provide legal advice. You are solely responsible for ensuring that the exported `.baton_evidence` zip and detached `.sig` files meet the specific legal, procedural, and evidentiary requirements of your local jurisdiction before submitting them to any court, tribunal, or regulatory body.</li>
+<li className="legal-list-item"><b>Third-Party QTSP Certificates:</b> If you utilize the `EnterpriseCertificateManager` to inject a Qualified Trust Service Provider (QTSP) certificate for eIDAS QES compliance, you are solely responsible for maintaining the validity, revocation status, and security of that certificate.</li>
+<li className="legal-list-item"><b>Indemnity:</b> We shall not be held liable for the rejection of BATON cryptographic logs or exported archives by any court of law or auditor.</li>
+</ul>
+<div style={{height: "1.5rem"}}></div>
+<h2 className="legal-header">7. GOVERNING LAW</h2>
 <p className="legal-text">These Terms shall be governed and construed in accordance with the laws of your jurisdiction, without regard to its conflict of law provisions.</p>
 <div style={{height: "1.5rem"}}></div>
-<h2 className="legal-header">7. CHANGES TO TERMS</h2>
+<h2 className="legal-header">8. CHANGES TO TERMS</h2>
 <p className="legal-text">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. Continued use of the Application constitutes acceptance of the new Terms.</p>
 <div style={{height: "1.5rem"}}></div>
       </div>

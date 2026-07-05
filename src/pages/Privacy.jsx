@@ -48,7 +48,15 @@ export default function Privacy() {
 <li className="legal-list-item"><b>Data Retention:</b> Images sent to AI endpoints are subject to the data retention policies of the specific AI provider you configure. BATON does not retain a centralized cloud copy of your media.</li>
 </ul>
 <div style={{height: "1.5rem"}}></div>
-<h2 className="legal-header">7. CONTACT US</h2>
+<h2 className="legal-header">7. FORENSIC AUDIT LOGS & GLOBAL GOVERNANCE</h2>
+<p className="legal-text">BATON implements a cryptographic ledger designed for global evidentiary compliance (including ISO/IEC 27037, eIDAS, US CISA/DISA STIG, and India IT Act Sec 65B).</p>
+<ul className="legal-list">
+<li className="legal-list-item"><b>Local Cryptographic Signing:</b> All actions, system events, and captured screenshots are cryptographically hashed using a Merkle Tree and signed using a hardware-backed private key on your device.</li>
+<li className="legal-list-item"><b>eIDAS Qualified Signatures:</b> If your organization uses an MDM to inject a Qualified Trust Service Provider (QTSP) certificate, BATON will use it for signing, establishing a Qualified Electronic Signature (QES) with the legal equivalency of a handwritten signature.</li>
+<li className="legal-list-item"><b>No Cloud Evidence Storage:</b> The forensic audit ledger is stored strictly on-device. We do not transmit, analyze, or possess copies of your cryptographic logs. If you choose to export your logs for a legal proceeding or compliance audit, they are exported directly from your device to an ISO/IEC 27037 compliant `.zip` archive with a detached `.sig` file.</li>
+</ul>
+<div style={{height: "1.5rem"}}></div>
+<h2 className="legal-header">8. CONTACT US</h2>
 <p className="legal-text">For questions regarding this privacy policy or our local-first storage design, please contact the repository maintainers.</p>
 <div style={{height: "1.5rem"}}></div>
       </div>
