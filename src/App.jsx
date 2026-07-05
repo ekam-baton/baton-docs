@@ -11,10 +11,12 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Changelog from './pages/Changelog';
 import Community from './pages/Community';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <div className="app-container">
+      <ScrollToTop />
       <TopNav />
       <main className="main-content">
         <Routes>

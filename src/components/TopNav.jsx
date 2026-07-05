@@ -34,25 +34,14 @@ export default function TopNav() {
               navigator.clipboard.writeText('Read https://ekam-baton.github.io/baton-docs/llms-full.txt and write the Node.js backend code to connect my local agent to BATON.');
               alert('LLM Prompt copied to clipboard!');
             }}
-            style={{ 
-              background: 'rgba(59, 130, 246, 0.15)', 
-              border: '1px solid rgba(59, 130, 246, 0.4)', 
-              color: '#60a5fa', 
-              padding: '0.5rem 1rem', 
-              borderRadius: '8px', 
-              fontSize: '0.9rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              boxShadow: '0 0 10px rgba(59,130,246,0.2)'
-            }}
             title="Copy a prompt to paste into any LLM to instantly build a BATON backend."
-            className="llm-button"
+            className="btn-llm"
           >
-            <span style={{ width: '8px', height: '8px', background: '#60a5fa', borderRadius: '50%', display: 'inline-block', animation: 'pulse 2s infinite' }}></span>
-            LLM Prompt
+            <span className="pulse-dot"></span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+              LLM Prompt
+            </span>
           </button>
           <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
             <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>View on GitHub</button>
