@@ -24,9 +24,9 @@ export default function RoutingTunnels() {
     },
     {
       number: '04',
-      title: 'Local Wi-Fi Only: mDNS Discovery',
-      description: 'If you only use Baton at home on the same Wi-Fi, the backend can register via mDNS. Baton discovers it automatically without any URL.',
-      code: `// Backend registers:  _baton._tcp.local  (port 8081)\n// Baton discovers it automatically.\n// Works like AirDrop — same network, zero config.`,
+      title: 'Local Wi-Fi Only: IP Addressing',
+      description: 'If you only use Baton at home on the same Wi-Fi, you can connect directly to your computer\'s local IP address without the internet.',
+      code: `// Find your local IP address (e.g., 192.168.1.15)\n// Windows: ipconfig  |  Mac/Linux: ifconfig\n// In Baton, enter: http://192.168.1.15:8080`,
     },
   ];
 
@@ -54,7 +54,7 @@ export default function RoutingTunnels() {
           </h2>
         </div>
         <p style={{ color: 'rgba(255,255,255,0.65)', marginBottom: '2rem', maxWidth: '640px', lineHeight: 1.6 }}>
-          Once your agent is running, you can access it on your local Wi-Fi via <strong>mDNS</strong>, or securely expose it to your phone anywhere in the world using <strong>encrypted tunnels</strong>.
+          Once your agent is running, you can access it on your local Wi-Fi via your <strong>local IP address</strong>, or securely expose it to your phone anywhere in the world using <strong>encrypted tunnels</strong>.
           No open router ports. Maximum security.
         </p>
 

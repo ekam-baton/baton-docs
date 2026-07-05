@@ -21,7 +21,7 @@ export default function AdaptersGuide() {
                 The Baton Android app is a highly secure, local-first HTTP client. When you send a message, Baton sends a POST request to your configured Endpoint URL.
               </p>
               <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: '1.6' }}>
-                An "Adapter" receives this request, processes it (e.g., calls an LLM), and streams the response back to your phone via Server-Sent Events (SSE). The easiest way to build one is using our official <strong>Node.js SDK</strong>, which handles all the cryptography and streaming protocols for you.
+                An "Adapter" receives this request, processes it (e.g., calls an LLM), and streams the response back to your phone via Server-Sent Events (SSE) or the standard Model Context Protocol (MCP). The easiest way to build one is using standard HTTP frameworks like Express in Node.js.
               </p>
             </div>
             <div style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', background: 'var(--bg-card)', borderRadius: '1rem' }}>
@@ -38,8 +38,8 @@ export default function AdaptersGuide() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem', background: 'rgba(255, 159, 10, 0.1)', borderRadius: '0.75rem' }}>
                 <Server className="card-icon" style={{ margin: 0, color: '#ff9f0a' }} />
                 <div>
-                  <h4 style={{ margin: '0 0 0.25rem' }}>Baton Node SDK Server</h4>
-                  <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>Decrypts payload, calls LLM, streams response.</p>
+                  <h4 style={{ margin: '0 0 0.25rem' }}>Your Custom Backend</h4>
+                  <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>Receives payload, calls LLM, streams response via SSE.</p>
                 </div>
               </div>
             </div>
@@ -52,76 +52,84 @@ export default function AdaptersGuide() {
             <h3 style={{ margin: 0 }}>Adapter Builder Guide</h3>
           </div>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-            First, install the official SDK package for Node.js:
+            To build a backend, you just need a standard HTTP server that can return Server-Sent Events (SSE). Here's how to do it in Node.js:
           </p>
-          <CodeBlock code={`npm install @baton/sdk`} language="bash" />
+          <CodeBlock code={`npm install express cors`} language="bash" />
           
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginTop: '2rem' }}>
             <button 
               className={activeTab === 'nodejs' ? 'btn-primary' : 'btn-secondary'}
               onClick={() => setActiveTab('nodejs')}
             >
-              Basic Server (Standard)
+              Raw SSE Server (Express)
             </button>
             <button 
               className={activeTab === 'secure' ? 'btn-primary' : 'btn-secondary'}
               onClick={() => setActiveTab('secure')}
             >
-              E2EE Secure Server
+              MCP Tool Server
             </button>
           </div>
 
           <div style={{ display: activeTab === 'nodejs' ? 'block' : 'none' }}>
-            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Standard Adapter</h4>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>A simple adapter running in standard HTTP mode. We highly recommend adding an API Key if exposing this over the internet.</p>
-            <CodeBlock code={`import { BatonAdapter } from '@baton/sdk';
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-blue)' }}>Standard Express Adapter</h4>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>A simple Express server returning SSE. (Note: use our 'LLM Prompt' button in the navbar to generate this instantly!)</p>
+            <CodeBlock code={`const express = require('express');
+const cors = require('cors');
 
-const adapter = new BatonAdapter({
-  port: 3000,
-  endpoint: '/api/chat',
-  security: { 
-    mode: 'standard',
-    apiKey: 'your-super-secret-token' // Required to prevent open relay
-  }
-});
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-// The SDK handles all HTTP/SSE routing. Just provide a message handler:
-adapter.onMessage(async (messages, stream) => {
+app.post('/api/chat', async (req, res) => {
+  const { messages } = req.body;
   const lastMessage = messages[messages.length - 1].content;
   console.log("User said:", lastMessage);
 
+  // Set headers for Server-Sent Events
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+  });
+
   // Stream your response back in chunks
-  stream("Hello from the ");
-  stream("official Node SDK!");
+  res.write(\`data: {"content": "Hello from your "}\\n\\n\`);
+  res.write(\`data: {"content": "custom Express backend!"}\\n\\n\`);
+  res.write(\`data: [DONE]\\n\\n\`);
+  res.end();
 });
 
-adapter.start();`} language="typescript" />
+app.listen(3000, () => console.log('Baton adapter listening on port 3000'));`} language="javascript" />
           </div>
 
           <div style={{ display: activeTab === 'secure' ? 'block' : 'none' }}>
-            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-green)' }}>End-to-End Encrypted Adapter</h4>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Configure the SDK to use AES-256-GCM encryption and HMAC signatures. Run <code>BatonAdapter.generateKeypair()</code> to get your server keys.</p>
-            <CodeBlock code={`import { BatonAdapter } from '@baton/sdk';
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-green)' }}>Model Context Protocol (MCP) Server</h4>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Baton is fully compatible with MCP servers. You can tunnel an MCP connection over standard HTTP.</p>
+            <CodeBlock code={`import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
 
-const adapter = new BatonAdapter({
-  port: 3000,
-  endpoint: '/api/chat',
-  security: { 
-    mode: 'sovereign', // Highest security mode (E2EE + Signatures)
-    serverPrivateKeyHex: 'your-server-private-key-hex',
-    clientPublicKeyHex: 'the-android-app-public-key-hex',
+const server = new McpServer({
+  name: "weather",
+  version: "1.0.0"
+});
+
+// Add an MCP tool
+server.tool(
+  "get-weather",
+  "Get weather for location",
+  { location: z.string() },
+  async ({ location }) => {
+    return {
+      content: [{ type: "text", text: \`Weather in \${location} is sunny.\` }]
+    };
   }
-});
+);
 
-adapter.onMessage(async (messages, stream) => {
-  // Messages are automatically decrypted here
-  const lastMessage = messages[messages.length - 1].content;
-  
-  // Streamed chunks are automatically AES encrypted before transmission
-  stream("I am completely private.");
-});
-
-adapter.start();`} language="typescript" />
+// Start the server (can be proxied to Baton via an HTTP wrapper)
+const transport = new StdioServerTransport();
+await server.connect(transport);`} language="typescript" />
           </div>
         </div>
       </div>

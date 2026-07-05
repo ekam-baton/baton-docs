@@ -42,8 +42,8 @@ export default function Home() {
           
           <div className="bento-card span-4">
             <Shield className="card-icon" />
-            <h3>Firebase Auth</h3>
-            <p>Secure identity management powered by Firebase Authentication, ensuring only authorized users can access your configured agents.</p>
+            <h3>Hardware-Backed Biometrics</h3>
+            <p>Secure identity management using Android Keystore and biometric authentication, ensuring only authorized physical users can access your configurations.</p>
           </div>
 
           <div className="bento-card span-6">
