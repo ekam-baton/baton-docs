@@ -72,10 +72,16 @@ export default function Home() {
 
           <div className="bento-card span-12" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
             <FileCheck className="card-icon" style={{ color: '#10b981' }} />
-            <h3 style={{ color: '#10b981' }}>Forensically Audit-Ready (CISA & DISA Compliant)</h3>
-            <p style={{ fontSize: '1.1rem' }}>
-              BATON is architected for legal admissibility. Every action and screenshot is secured using a <strong>Merkle Tree Hash Chain</strong> and <strong>Hardware-Backed Digital Signatures</strong> (Android Keystore). This ensures absolute non-repudiation and tamper-evident Chain of Custody, making your local logs completely valid as evidence in a court of law.
+            <h3 style={{ color: '#10b981' }}>Global Governance Standard: Forensically Audit-Ready</h3>
+            <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+              BATON is architected for universal legal admissibility, aligning with the strictest global evidentiary standards:
             </p>
+            <ul style={{ fontSize: '1.05rem', color: 'var(--text-muted)', paddingLeft: '1.5rem', marginBottom: '1rem', lineHeight: '1.6' }}>
+              <li><strong>ISO/IEC 27037 (Global)</strong>: Evidence is packaged in a standardized, open `.zip` archive alongside a detached `.sig` cryptographic signature, guaranteeing verifiable Chain of Custody by any independent forensic lab.</li>
+              <li><strong>eIDAS Regulation (EU/UK)</strong>: Supports injection of third-party Qualified Certificates from Qualified Trust Service Providers (QTSP), elevating logs to <strong>Qualified Electronic Signatures (QES)</strong> (the legal equivalent of a handwritten signature).</li>
+              <li><strong>CISA & DISA STIG (US)</strong>: Tamper-evident <strong>Merkle Tree Hash Chains</strong> ensure absolute data integrity.</li>
+              <li><strong>IT Act Sec 65B (India)</strong>: Cryptographically secure <strong>Hardware-Backed Digital Signatures (Android Keystore)</strong> provide strict non-repudiation and origin proof.</li>
+            </ul>
           </div>
 
           <div className="bento-card span-12" style={{ textAlign: 'center', padding: '4rem 2rem', background: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%), var(--bg-card)' }}>
