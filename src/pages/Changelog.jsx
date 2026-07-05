@@ -33,10 +33,10 @@ export default function Changelog() {
             Initial release of the BATON mobile application.
           </p>
           <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem', color: 'var(--text-muted)' }}>
-            <li>Zero-trust mobile routing architecture for complete data sovereignty.</li>
-            <li>Local SQLCipher 256-bit AES encryption for all agent configurations and chat histories.</li>
-            <li>Native support for Model Context Protocol (MCP) tool tunneling via HTTP SSE.</li>
-            <li>Hardware-backed Android Keystore digital signatures and Merkle Tree hash chaining for forensic auditability.</li>
+            <li>Introduced strict NemoClaw sandboxing for untrusted agent execution.</li>
+            <li>Native support for Model Context Protocol (MCP) tool tunneling.</li>
+            <li>Zero-latency WebSocket routing for dense RAG pipelines.</li>
+            <li>Official support for AWS Bedrock, Azure OpenAI, and Google AI Studio.</li>
           </ul>
         </div>
       </div>
