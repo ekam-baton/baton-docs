@@ -76,6 +76,16 @@ export default function SecurityArchitecture() {
                   cloudflared tunnel --url http://localhost:8080
                 </pre>
               </div>
+
+              <div style={{ background: 'rgba(255,255,255,0.04)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <h3 style={{ color: '#fff', marginBottom: '0.5rem' }}>🔒 Bring-Your-Own-Server (BYOS) Auth</h3>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', marginBottom: '1rem' }}>
+                  Never expose your personal AI agents to the public. The a2a-router uses BYOS authentication. Simply define a custom <strong>JWT_SECRET</strong> in your server's <code>.env</code> file, and enter this exact secret in the Baton Android App under <em>Settings &gt; Server Secret Key</em>. 
+                </p>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', marginBottom: '0' }}>
+                  The app performs a secure challenge-response, exchanging the secret for a short-lived Bearer token before upgrading the connection to WebSocket.
+                </p>
+              </div>
             </div>
           </div>
         )}
