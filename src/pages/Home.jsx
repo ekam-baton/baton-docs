@@ -84,11 +84,27 @@ export default function Home() {
             </ul>
           </div>
 
+          <div className="bento-card span-6" style={{ background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%)', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
+            <Zap className="card-icon" style={{ color: '#f59e0b' }} />
+            <h3 style={{ color: '#f59e0b' }}>All Features Unlocked for 250 RS</h3>
+            <p>
+              No hidden subscriptions or paywalls. A single, flat lifetime fee of <strong>250 RS</strong> unlocks the entire Baton mobile client. Once unlocked, you have full access to both Managed and BYOS modes.
+            </p>
+          </div>
+
+          <div className="bento-card span-6" style={{ background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(109, 40, 217, 0.05) 100%)', border: '1px solid rgba(139, 92, 246, 0.2)' }}>
+            <Layers className="card-icon" style={{ color: '#8b5cf6' }} />
+            <h3 style={{ color: '#8b5cf6' }}>Dual-Mode Pipeline</h3>
+            <p>
+              Choose how you connect. Use our <strong>Managed (EKAM Cloud)</strong> for a frictionless, zero-setup experience. Or, for complete data sovereignty, choose <strong>Custom Server (BYOS)</strong> to securely connect to your own endpoints.
+            </p>
+          </div>
+
           <div className="bento-card span-12" style={{ textAlign: 'center', padding: '4rem 2rem', background: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%), var(--bg-card)' }}>
             <Cpu className="card-icon" style={{ margin: '0 auto 1.5rem', width: '48px', height: '48px' }} />
             <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', letterSpacing: '-0.02em' }}>Enterprise Architecture. Local Control.</h2>
             <p style={{ maxWidth: '600px', margin: '0 auto', fontSize: '1.15rem', color: 'var(--text-muted)' }}>
-              BATON doesn't lock you into a vendor ecosystem. It gives you an enterprise-grade mobile interface, complete with Fake Billing flows and API Key management, to control the custom AI endpoints you build on your own hardware.
+              BATON doesn't lock you into a vendor ecosystem. It gives you an enterprise-grade mobile interface, complete with secure authentication and API Key management, to control the custom AI endpoints you build on your own hardware.
             </p>
           </div>
         </div>
