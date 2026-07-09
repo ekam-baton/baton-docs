@@ -84,14 +84,6 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="bento-card span-6" style={{ background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%)', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
-            <Zap className="card-icon" style={{ color: '#f59e0b' }} />
-            <h3 style={{ color: '#f59e0b' }}>All Features Unlocked for 250 RS</h3>
-            <p>
-              No hidden subscriptions or paywalls. A single, flat lifetime fee of <strong>250 RS</strong> unlocks the entire Baton mobile client. Once unlocked, you have full access to both Managed and BYOS modes.
-            </p>
-          </div>
-
           <div className="bento-card span-6" style={{ background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(109, 40, 217, 0.05) 100%)', border: '1px solid rgba(139, 92, 246, 0.2)' }}>
             <Layers className="card-icon" style={{ color: '#8b5cf6' }} />
             <h3 style={{ color: '#8b5cf6' }}>Dual-Mode Pipeline</h3>
