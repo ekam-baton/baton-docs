@@ -68,8 +68,7 @@ export default function GalaxyBackground() {
     };
 
     const animate = () => {
-      ctx.fillStyle = 'rgba(3, 7, 18, 0.4)'; // Matches --bg-dark with trail effect
-      ctx.fillRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, height);
 
       stars.forEach(star => {
         star.update();
