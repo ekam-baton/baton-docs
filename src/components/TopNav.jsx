@@ -22,20 +22,18 @@ export default function TopNav() {
         </NavLink>
 
         <nav className={`nav-links ${mobileOpen ? 'mobile-open' : ''}`}>
-          <NavLink to="/agents" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Personal Agents</NavLink>
           <NavLink to="/enterprise" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Enterprise</NavLink>
-          <NavLink to="/architecture" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Security & Architecture</NavLink>
-          <NavLink to="/adapters" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Build an Adapter</NavLink>
-          <NavLink to="/integrations" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Integrations</NavLink>
+          <NavLink to="/security" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Security</NavLink>
+          <NavLink to="/developers" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Developers</NavLink>
         </nav>
 
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <button 
             onClick={() => {
-              navigator.clipboard.writeText('Read https://ekam-baton.github.io/baton-docs/llms-full.txt and write the Node.js backend code to connect my local agent to BATON.');
+              navigator.clipboard.writeText('Read https://ekam-baton.github.io/baton-docs/ and help me write a Python MCP stdio agent to connect to the Baton Connector. The agent should: read JSON-RPC messages from stdin, implement the initialize and tools/call methods, and write JSON responses to stdout. It will be registered with MCP_AGENT_<NAME>_CMD and MCP_AGENT_<NAME>_ARGS environment variables on the Connector.');
               alert('LLM Prompt copied to clipboard!');
             }}
-            title="Copy a prompt to paste into any LLM to instantly build a BATON backend."
+            title="Copy a prompt to paste into any LLM to instantly build a Baton MCP agent."
             className="btn-llm"
           >
             <span className="pulse-dot"></span>

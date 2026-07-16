@@ -13,7 +13,7 @@ export default function Footer() {
             BATON
           </div>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-            The universal way to talk to agents & robots. Native MCP support with Zero Trust architecture.
+            E2EE mobile bridge to your local AI agents. Zero cloud data. Native MCP.
           </p>
           <div style={{ display: 'flex', gap: '1rem' }}>
             <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaDiscord size={20} /></a>
@@ -27,8 +27,8 @@ export default function Footer() {
         <div>
           <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1.5rem', color: '#fff' }}>Product</h4>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <li><a href="#" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Download iOS</a></li>
-            <li><a href="#" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Download Android</a></li>
+            <li><a href="/downloads/Baton-Setup.exe" download style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Windows Desktop App (.exe)</a></li>
+            <li><a href="https://github.com/ekam-baton/baton-backend" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Connector (Build from Source)</a></li>
             <li><Link to="/changelog" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Changelog</Link></li>
           </ul>
         </div>
@@ -36,8 +36,8 @@ export default function Footer() {
         <div>
           <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1.5rem', color: '#fff' }}>Resources</h4>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <li><Link to="/a2a" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Documentation</Link></li>
-            <li><Link to="/integrations" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Integrations</Link></li>
+            <li><Link to="/security" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Architecture</Link></li>
+            <li><Link to="/developers" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Developers & API</Link></li>
             <li><Link to="/community" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Community</Link></li>
           </ul>
         </div>

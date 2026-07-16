@@ -4,11 +4,11 @@ import { FaDiscord, FaGithub } from 'react-icons/fa';
 
 export default function Community() {
   return (
-    <div className="page-wrapper animate-fade-in">
+    <div className="page-wrapper animate-fade-in" style={{ paddingTop: '6rem' }}>
       <div className="section-header">
-        <h1 className="section-title">Community & Support</h1>
-        <p className="section-subtitle">
-          Join thousands of developers building custom autonomous backends and robotics workflows using BATON.
+        <h1>Community & Support</h1>
+        <p>
+          Ask questions, share your MCP agents, and follow development on Discord and GitHub.
         </p>
       </div>
 
@@ -39,7 +39,7 @@ export default function Community() {
           <LifeBuoy className="card-icon" />
           <h3>Enterprise Support</h3>
           <p style={{ maxWidth: '800px' }}>
-            Running BATON in a critical enterprise environment? We offer dedicated support channels, priority bug fixes, and custom integration assistance for your private infrastructure. Contact our sales team for Enterprise Service Level Agreements (SLAs).
+            Need help deploying the Baton Connector on a VPS or setting up team access? Reach out via GitHub Discussions or Discord — we respond to every message.
           </p>
         </div>
       </div>
