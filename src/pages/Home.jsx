@@ -13,7 +13,7 @@ export default function Home() {
       <div className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            Own Your Workflow.<br />Cryptographic Proof.<br />Zero Compromises.
+            Own Your Workflow.<br />Zero Compromises.
           </h1>
           <p className="hero-subtitle">
             Baton is a fully end-to-end encrypted bridge between your Android phone and any AI agent running on your desktop or VPS. No data ever touches our servers.
