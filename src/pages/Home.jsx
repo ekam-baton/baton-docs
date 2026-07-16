@@ -1,6 +1,7 @@
 import React from 'react';
 import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight } from 'lucide-react';
 import GalaxyBackground from '../components/GalaxyBackground';
+import AuditLogFeed from '../components/AuditLogFeed';
 
 export default function Home() {
   return (
@@ -29,6 +30,9 @@ export default function Home() {
               </button>
             </a>
           </div>
+        </div>
+        <div className="hero-mockup-container">
+          <AuditLogFeed />
         </div>
       </div>
 

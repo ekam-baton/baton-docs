@@ -204,7 +204,68 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.04em;
 }
 .hero-subtitle { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2.5rem; font-weight: 300; line-height: 1.6; max-width: 550px; }
-.hero-mockup-container { display: none; } /* Removed to make it starker */
+.hero-mockup-container { 
+  display: flex; 
+  flex: 1; 
+  justify-content: flex-end; 
+  align-items: center; 
+  z-index: 10; 
+}
+
+/* Audit Feed Component */
+.audit-feed-card {
+  background: rgba(17, 24, 39, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  width: 400px;
+  max-width: 100%;
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  font-family: 'JetBrains Mono', monospace;
+  backdrop-filter: blur(10px);
+}
+
+.audit-feed-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.audit-feed-content {
+  flex: 1;
+  padding: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse; /* New logs at bottom pushing up */
+}
+
+.audit-log-line {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  animation: slideIn 0.3s ease forwards;
+  opacity: 0;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.log-time { color: var(--text-muted); margin-right: 0.5rem; }
+.log-event { margin-right: 0.5rem; font-weight: 600; }
+.log-event.info { color: #3b82f6; } /* Blue */
+.log-event.success { color: #10b981; } /* Green */
+.log-event.warning { color: #f59e0b; } /* Yellow */
+.log-detail { color: #e5e7eb; }
+
 
 /* Bento Grid */
 .bento-grid {
