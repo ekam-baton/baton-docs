@@ -226,6 +226,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   font-family: 'JetBrains Mono', monospace;
   backdrop-filter: blur(10px);
+  transform: translate(2rem, -3rem); /* Moved slightly top right */
 }
 
 .audit-feed-header {
