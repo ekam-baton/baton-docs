@@ -1,9 +1,12 @@
 import React from 'react';
 import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight } from 'lucide-react';
+import GalaxyBackground from '../components/GalaxyBackground';
 
 export default function Home() {
   return (
-    <div className="animate-fade-in" style={{ position: 'relative' }}>
+    <div className="animate-fade-in" style={{ position: 'relative', minHeight: '100vh' }}>
+      <GalaxyBackground />
+
       
       {/* ── Hero ── */}
       <div className="hero-section">
