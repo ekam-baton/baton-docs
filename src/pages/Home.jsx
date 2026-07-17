@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, ArrowDown, ExternalLink, Zap } from 'lucide-react';
+import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, ArrowDown, ExternalLink, Zap, Play } from 'lucide-react';
 import GalaxyBackground from '../components/GalaxyBackground';
 import AuditLogFeed from '../components/AuditLogFeed';
 
@@ -26,6 +26,11 @@ export default function Home() {
             <a href="/downloads/Baton-Android.apk" download style={{ textDecoration: 'none' }}>
               <button className="btn-secondary" style={{ padding: '0.75rem 1.75rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Smartphone size={18} /> Download APK
+              </button>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.ekam.baton" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <button className="btn-secondary" style={{ padding: '0.75rem 1.75rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Play size={18} /> Get on Google Play
               </button>
             </a>
           </div>
