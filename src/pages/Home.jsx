@@ -23,7 +23,7 @@ export default function Home() {
                 Download for Windows
               </button>
             </a>
-            <a href="/downloads/Baton-Android.apk" download style={{ textDecoration: 'none', flex: 1 }}>
+            <a href="/baton-docs/downloads/Baton-Android.apk" download style={{ textDecoration: 'none', flex: 1 }}>
               <button className="btn-secondary" style={{ width: '100%', padding: '0.75rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
                 <Smartphone size={18} /> Download APK
               </button>
