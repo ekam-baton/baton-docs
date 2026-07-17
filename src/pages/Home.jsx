@@ -18,7 +18,7 @@ export default function Home() {
             Baton is a fully end-to-end encrypted bridge between your Android phone and any AI agent running on your desktop or VPS. No data ever touches our servers.
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <a href="/downloads/Baton-Setup.msi" download style={{ textDecoration: 'none' }}>
+            <a href="/baton-docs/downloads/Baton-Setup.exe" download style={{ textDecoration: 'none' }}>
               <button className="btn-primary" style={{ padding: '0.75rem 1.75rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 Download for Windows
               </button>
