@@ -28,7 +28,7 @@ export default function Home() {
                 <Smartphone size={18} /> Download APK
               </button>
             </a>
-            <a href="https://play.google.com/store/apps/details?id=com.ekam.baton" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', flex: 1 }}>
+            <a href="#" style={{ textDecoration: 'none', flex: 1 }}>
               <button className="btn-secondary" style={{ width: '100%', padding: '0.75rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
                 <Play size={18} /> Get on Google Play
               </button>
