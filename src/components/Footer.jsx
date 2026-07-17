@@ -27,7 +27,7 @@ export default function Footer() {
         <div>
           <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1.5rem', color: '#fff' }}>Product</h4>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <li><a href="/baton-docs/downloads/Baton-Setup.exe" download style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Windows Desktop App (.exe)</a></li>
+            <li><a href="/baton-docs/downloads/Baton-Setup-v1.1.exe" download style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Windows Desktop App (.exe)</a></li>
             <li><a href="https://github.com/ekam-baton/baton-backend" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Connector (Build from Source)</a></li>
             <li><Link to="/changelog" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Changelog</Link></li>
           </ul>
