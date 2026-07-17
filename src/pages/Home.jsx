@@ -12,13 +12,13 @@ export default function Home() {
       <div className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            Own Your Workflow.<br />Zero Compromises.
+            Own Your Workflow.<br />Direct Your Agents.
           </h1>
           <p className="hero-subtitle">
             Baton is a fully end-to-end encrypted bridge between your Android phone and any AI agent running on your desktop or VPS. No data ever touches our servers.
           </p>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <a href="/baton-docs/downloads/Baton-Setup-v1.1.exe" download style={{ textDecoration: 'none', flex: 1 }}>
+            <a href="/baton-docs/downloads/Baton-Setup-v1.2.exe" download style={{ textDecoration: 'none', flex: 1 }}>
               <button className="btn-primary" style={{ width: '100%', padding: '0.75rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
                 Download for Windows
               </button>
