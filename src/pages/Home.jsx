@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, Play, QrCode } from 'lucide-react';
+import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, Play, QrCode, FileText } from 'lucide-react';
 import GalaxyBackground from '../components/GalaxyBackground';
 import AuditLogFeed from '../components/AuditLogFeed';
 
@@ -119,12 +119,18 @@ export default function Home() {
             <p>Your private cryptographic keys never leave the secure hardware enclave on your Android device.</p>
           </div>
 
-          <div className="bento-card span-12">
+          <div className="bento-card span-8">
             <Cpu className="card-icon" />
             <h3>Universal MCP Support</h3>
             <p>
               The Desktop Hub acts as a bridge to your locally-running tools via the standard Model Context Protocol. Point it at OpenClaw, Hermes, or compatible custom agents.
             </p>
+          </div>
+
+          <div className="bento-card span-4">
+            <FileText className="card-icon" />
+            <h3>Uncompromising Auditability</h3>
+            <p>Every action is logged. Baton provides the verifiable accountability of enterprise accounting software, ensuring your AI workflows are traceable.</p>
           </div>
 
         </div>
