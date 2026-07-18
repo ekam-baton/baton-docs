@@ -15,7 +15,7 @@ export default function Home() {
             Own Your Workflow.<br />Deploy Your Agents.
           </h1>
           <p className="hero-subtitle">
-            Baton is a secure chat app and bridge connecting your Android phone to compatible AI agents running locally on your computer or VPS. Your data stays yours.
+            Baton is a secure chat app and bridge connecting your Android phone to compatible AI agents running locally on your computer or VPS. Your work flow stays yours.
           </p>
           <div className="hero-buttons">
             <a href="/baton-docs/downloads/Baton-Setup-v1.3.exe" download className="hero-btn-link">
