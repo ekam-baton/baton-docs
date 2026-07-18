@@ -15,7 +15,7 @@ export default function Home() {
             Own Your Workflow.<br />Deploy Your Agents.
           </h1>
           <p className="hero-subtitle">
-            Baton is a secure chat app and bridge connecting your Android phone to compatible AI agents running locally on your computer or VPS. Your work flow stays yours.
+            Baton is a secure chat app and bridge connecting your smartphone to compatible AI agents running locally on your computer or VPS. Your work flow stays yours.
           </p>
           <div className="hero-buttons">
             <a href="/baton-docs/downloads/Baton-Setup-v1.3.exe" download className="hero-btn-link">
@@ -34,6 +34,9 @@ export default function Home() {
               </button>
             </a>
           </div>
+          <p style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+            * iOS support coming soon.
+          </p>
         </div>
         <div className="hero-mockup-container">
           <AuditLogFeed />
@@ -57,7 +60,7 @@ export default function Home() {
           <div className="bento-card span-4" style={{ textAlign: 'center', alignItems: 'center' }}>
             <Smartphone className="card-icon" style={{ width: 40, height: 40, marginBottom: '1rem', color: '#10b981' }} />
             <h3>2. Install the App</h3>
-            <p style={{ fontSize: '0.9rem' }}>Install the Baton Android app on your phone via the Google Play Store or direct APK download.</p>
+            <p style={{ fontSize: '0.9rem' }}>Install the Baton app on your smartphone via the Google Play Store or direct APK download.</p>
           </div>
 
           <div className="bento-card span-4" style={{ textAlign: 'center', alignItems: 'center' }}>
