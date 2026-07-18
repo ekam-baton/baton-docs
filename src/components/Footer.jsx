@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaDiscord, FaGithub, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export default function Footer() {
   return (
@@ -16,9 +17,8 @@ export default function Footer() {
             E2EE mobile bridge to your local AI agents. Zero cloud data. Native MCP.
           </p>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaDiscord size={20} /></a>
             <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaGithub size={20} /></a>
-            <a href="https://x.com/Batonorg" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaTwitter size={20} /></a>
+            <a href="https://x.com/Batonorg" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaXTwitter size={20} /></a>
             <a href="https://www.linkedin.com/company/135244230/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaLinkedin size={20} /></a>
             <a href="https://www.instagram.com/baton_org/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}><FaInstagram size={20} /></a>
           </div>
