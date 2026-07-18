@@ -334,7 +334,7 @@ footer {
 /* Responsive */
 @media (max-width: 1024px) {
   .hero-title { font-size: 3rem; }
-  .bento-card.span-4, .bento-card.span-8 { grid-column: span 12; }
+  .bento-card.span-4, .bento-card.span-6, .bento-card.span-8 { grid-column: span 12; }
 }
 
 @media (max-width: 768px) {
@@ -349,6 +349,22 @@ footer {
   .nav-links.mobile-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
   .mobile-toggle { display: block; }
   .nav-actions .btn-primary { display: none; }
-  .hero-section { text-align: left; padding-top: 2rem; }
+  .hero-section { text-align: left; padding-top: 2rem; flex-direction: column; }
   .hero-title { font-size: 2.5rem; }
+  .hero-buttons { flex-direction: column; width: 100%; }
+  .hero-mockup-container { margin-top: 3rem; justify-content: center; width: 100%; }
+  .audit-feed-card { transform: none; width: 100%; }
+  .footer-container { flex-direction: column; gap: 1.5rem; text-align: center; }
 }
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.hero-btn-link {
+  flex: 1;
+  text-decoration: none;
+}
+
