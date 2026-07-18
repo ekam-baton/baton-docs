@@ -14,7 +14,7 @@ export default function Security() {
         <div className="bento-card span-12">
           <h2>Three Layers. Zero Leaks.</h2>
           <p>
-            Baton uses a three-pillar architecture. The Android App encrypts messages using X25519 and AES-256-GCM. 
+            Baton uses a three-pillar architecture. The App encrypts all messages locally before transit. 
             The A2A Cloud Relay is a dumb, zero-knowledge router. The Desktop Connector decrypts the messages locally and forwards them to your AI agents.
           </p>
         </div>
@@ -22,13 +22,13 @@ export default function Security() {
         <div className="bento-card span-4">
           <Lock className="card-icon" />
           <h2>Local Key Generation</h2>
-          <p>Cryptographic keys are generated on-device and stored in the Android Hardware Keystore.</p>
+          <p>Cryptographic keys are generated on-device and stored in secure, hardware-backed storage.</p>
         </div>
 
         <div className="bento-card span-4">
           <Shield className="card-icon" />
           <h2>Perfect Forward Secrecy</h2>
-          <p>Session keys are rotated regularly to ensure past messages cannot be decrypted even if keys are compromised.</p>
+          <p>Connections are secured dynamically, ensuring historical data remains protected.</p>
         </div>
 
         <div className="bento-card span-4">

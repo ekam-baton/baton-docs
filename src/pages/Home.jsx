@@ -109,14 +109,14 @@ export default function Home() {
             <Lock className="card-icon" />
             <h3>End-to-End Encrypted</h3>
             <p>
-              Every payload uses X25519 Diffie-Hellman key exchange and AES-256-GCM encryption. Our routing servers only relay encrypted blobs and have zero knowledge of your data.
+              Every connection is secured with industry-standard end-to-end encryption. Our routing servers only relay unreadable data and have zero knowledge of your information.
             </p>
           </div>
 
           <div className="bento-card span-4">
             <Shield className="card-icon" />
             <h3>Biometric Auth</h3>
-            <p>Your private cryptographic keys never leave the secure hardware enclave on your Android device.</p>
+            <p>Your authentication keys remain locked safely on your physical device, protected by native biometrics.</p>
           </div>
 
           <div className="bento-card span-8">
@@ -149,7 +149,7 @@ export default function Home() {
               <Smartphone size={32} color="#D4D4D4" />
             </div>
             <h3 style={{ fontSize: '1.2rem', fontWeight: '500' }}>Mobile App</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Encrypts payloads with AES-256-GCM and sends via secure WebSocket.</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Encrypts data locally and establishes a secure, persistent connection to the Hub.</p>
           </div>
           
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }} className="arch-arrow">
