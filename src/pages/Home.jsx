@@ -171,6 +171,36 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ── FAQ Section ── */}
+      <div className="page-wrapper" style={{ paddingTop: '6rem', paddingBottom: '4rem' }}>
+        <div className="section-header">
+          <h2 style={{ fontSize: '2.5rem' }}>Frequently Asked Questions</h2>
+          <p>Everything you need to know about Baton's security, privacy, and pricing.</p>
+        </div>
+        
+        <div className="faq-container">
+          <details className="faq-item">
+            <summary>Why does Baton cost money when other apps are free?</summary>
+            <p>Because if an app is free, you are the product. Free apps monetize by mining your data or serving ads. Baton charges a tiny subscription ($9.99/year globally, ₹199/year in India) so we can keep the routing servers running without ever compromising your privacy. We don't want your data, and our architecture mathematically prevents us from accessing it.</p>
+          </details>
+          
+          <details className="faq-item">
+            <summary>Do my messages ever touch the cloud?</summary>
+            <p>Yes, but only as unreadable, encrypted blobs. Our zero-knowledge relay router passes the data between your phone and your desktop, but it cannot decrypt the contents.</p>
+          </details>
+          
+          <details className="faq-item">
+            <summary>Can I use Baton to talk to my friends?</summary>
+            <p>Baton is primarily designed as a secure bridge between you and your private AI agents, databases, and local tools. While it uses chat interfaces, it is an infrastructure tool, not a social network.</p>
+          </details>
+
+          <details className="faq-item">
+            <summary>What AI models are supported?</summary>
+            <p>Anything that supports the Model Context Protocol (MCP). You can connect it to local instances of Llama, Mistral, Hermes, or even custom Python scripts.</p>
+          </details>
+        </div>
+      </div>
+
     </div>
   );
 }

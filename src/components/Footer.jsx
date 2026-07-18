@@ -39,6 +39,7 @@ export default function Footer() {
             <li><Link to="/security" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Architecture</Link></li>
             <li><Link to="/developers" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Developers & API</Link></li>
             <li><Link to="/community" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Community</Link></li>
+            <li><a href="mailto:ekam.baton@gmail.com" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem' }}>Support</a></li>
           </ul>
         </div>
 
