@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, Play, QrCode, FileText } from 'lucide-react';
+import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, Play, QrCode, FileText, Monitor, Apple } from 'lucide-react';
 import GalaxyBackground from '../components/GalaxyBackground';
 import AuditLogFeed from '../components/AuditLogFeed';
 
@@ -17,25 +17,30 @@ export default function Home() {
           <p className="hero-subtitle">
             Baton is a secure chat app and bridge connecting your smartphone to compatible AI agents running locally on your computer or VPS. Your work flow stays yours.
           </p>
-          <div className="hero-buttons">
+          <div className="hero-buttons" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem', width: '100%', maxWidth: '800px' }}>
             <a href="/baton-docs/downloads/Baton-Setup-v1.3.exe" download className="hero-btn-link">
-              <button className="btn-primary" style={{ width: '100%', padding: '0.75rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
-                Download for Windows
+              <button className="btn-primary" style={{ width: '100%', padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
+                <Monitor size={18} /> Windows PC (.exe)
+              </button>
+            </a>
+            <a href="/baton-docs/downloads/Baton-macOS.dmg" download className="hero-btn-link">
+              <button className="btn-primary" style={{ width: '100%', padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
+                <Apple size={18} /> macOS (Mac)
               </button>
             </a>
             <a href="/baton-docs/downloads/Baton-Android.apk" download className="hero-btn-link">
-              <button className="btn-secondary" style={{ width: '100%', padding: '0.75rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
-                <Smartphone size={18} /> Download APK
+              <button className="btn-secondary" style={{ width: '100%', padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
+                <Smartphone size={18} /> Android (.apk)
               </button>
             </a>
-            <a href="#" className="hero-btn-link">
-              <button className="btn-secondary" style={{ width: '100%', padding: '0.75rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
-                <Play size={18} /> Get on Google Play
+            <a href="/baton-docs/downloads/BatonNetwork.xcframework.zip" download className="hero-btn-link">
+              <button className="btn-secondary" style={{ width: '100%', padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
+                <Apple size={18} /> iPhone (iOS)
               </button>
             </a>
           </div>
           <p style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            * iOS support coming soon.
+            ✓ Universal 4-Platform Support: Windows, macOS (M1-M4/Intel), Android & iOS
           </p>
         </div>
         <div className="hero-mockup-container">
