@@ -17,31 +17,40 @@ export default function Home() {
           <p className="hero-subtitle">
             Baton is a secure chat app and bridge connecting your smartphone to compatible AI agents running locally on your computer or VPS. Your work flow stays yours.
           </p>
-          <div className="hero-buttons-grid">
-            <a href="/baton-docs/downloads/Baton-Setup-v1.3.exe" download className="hero-btn-wrapper">
-              <button className="btn-elongated btn-primary-gradient">
-                <Monitor size={20} />
-                <span>Download for Windows</span>
-              </button>
-            </a>
-            <a href="/baton-docs/downloads/Baton-macOS.dmg" download className="hero-btn-wrapper">
-              <button className="btn-elongated btn-primary-gradient">
-                <Apple size={20} />
-                <span>Download for macOS</span>
-              </button>
-            </a>
-            <a href="/baton-docs/downloads/Baton-Android.apk" download className="hero-btn-wrapper">
-              <button className="btn-elongated btn-secondary-glass">
-                <Smartphone size={20} />
-                <span>Download Android APK</span>
-              </button>
-            </a>
-            <a href="/baton-docs/downloads/BatonNetwork.xcframework.zip" download className="hero-btn-wrapper">
-              <button className="btn-elongated btn-secondary-glass">
-                <Apple size={20} />
-                <span>Download for iOS</span>
-              </button>
-            </a>
+          <div className="hero-platforms-container">
+            {/* Column 1: Windows Desktop Hub + Android Mobile Controller */}
+            <div className="hero-platform-column">
+              <span className="platform-col-header">Windows Ecosystem</span>
+              <a href="/baton-docs/downloads/Baton-Setup-v1.3.exe" download className="hero-btn-wrapper">
+                <button className="btn-elongated btn-primary-gradient">
+                  <Monitor size={20} />
+                  <span>Download for Windows</span>
+                </button>
+              </a>
+              <a href="/baton-docs/downloads/Baton-Android.apk" download className="hero-btn-wrapper">
+                <button className="btn-elongated btn-secondary-glass">
+                  <Smartphone size={20} />
+                  <span>Download Android APK</span>
+                </button>
+              </a>
+            </div>
+
+            {/* Column 2: macOS Desktop Hub + iOS Mobile Controller */}
+            <div className="hero-platform-column">
+              <span className="platform-col-header">Apple Ecosystem</span>
+              <a href="/baton-docs/downloads/Baton-macOS.dmg" download className="hero-btn-wrapper">
+                <button className="btn-elongated btn-primary-gradient">
+                  <Apple size={20} />
+                  <span>Download for macOS</span>
+                </button>
+              </a>
+              <a href="/baton-docs/downloads/BatonNetwork.xcframework.zip" download className="hero-btn-wrapper">
+                <button className="btn-elongated btn-secondary-glass">
+                  <Apple size={20} />
+                  <span>Download for iOS</span>
+                </button>
+              </a>
+            </div>
           </div>
           <p className="hero-platform-tagline">
             ⚡ Universal 4-Platform Support: Windows, macOS (M1-M4/Intel), Android & iOS
