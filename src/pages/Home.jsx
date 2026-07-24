@@ -21,13 +21,13 @@ export default function Home() {
             {/* Column 1: Windows Desktop Hub + Android Mobile Controller */}
             <div className="hero-platform-column">
               <span className="platform-col-header">Windows Ecosystem</span>
-              <a href="/baton-docs/downloads/Baton-Setup-v1.3.exe" download className="hero-btn-wrapper">
+              <a href="https://github.com/ekam-baton/baton/releases/latest/download/Baton-Setup-v1.3.exe" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
                 <button className="btn-elongated btn-primary-gradient">
                   <Monitor size={20} />
                   <span>Download for Windows</span>
                 </button>
               </a>
-              <a href="/baton-docs/downloads/Baton-Android.apk" download className="hero-btn-wrapper">
+              <a href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
                 <button className="btn-elongated btn-secondary-glass">
                   <Smartphone size={20} />
                   <span>Download Android APK</span>
@@ -38,13 +38,13 @@ export default function Home() {
             {/* Column 2: macOS Desktop Hub + iOS Mobile Controller */}
             <div className="hero-platform-column">
               <span className="platform-col-header">Apple Ecosystem</span>
-              <a href="/baton-docs/downloads/Baton-macOS.dmg" download className="hero-btn-wrapper">
+              <a href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
                 <button className="btn-elongated btn-primary-gradient">
                   <Apple size={20} />
                   <span>Download for macOS</span>
                 </button>
               </a>
-              <a href="/baton-docs/downloads/BatonNetwork.xcframework.zip" download className="hero-btn-wrapper">
+              <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
                 <button className="btn-elongated btn-secondary-glass">
                   <Apple size={20} />
                   <span>Download for iOS</span>
