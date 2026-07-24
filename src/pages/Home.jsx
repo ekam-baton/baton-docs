@@ -22,14 +22,14 @@ export default function Home() {
             <div className="hero-platform-column">
               <span className="platform-col-header">Windows Ecosystem</span>
               <a href="https://github.com/ekam-baton/baton/releases/latest/download/Baton-Setup-v1.3.exe" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
-                <button className="btn-elongated btn-primary-gradient">
-                  <Monitor size={20} />
+                <button className="btn-boxy btn-primary-boxy">
+                  <Monitor size={18} />
                   <span>Download for Windows</span>
                 </button>
               </a>
               <a href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
-                <button className="btn-elongated btn-secondary-glass">
-                  <Smartphone size={20} />
+                <button className="btn-boxy btn-secondary-boxy">
+                  <Smartphone size={18} />
                   <span>Download Android APK</span>
                 </button>
               </a>
@@ -39,14 +39,14 @@ export default function Home() {
             <div className="hero-platform-column">
               <span className="platform-col-header">Apple Ecosystem</span>
               <a href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
-                <button className="btn-elongated btn-primary-gradient">
-                  <Apple size={20} />
+                <button className="btn-boxy btn-primary-boxy">
+                  <Apple size={18} />
                   <span>Download for macOS</span>
                 </button>
               </a>
               <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
-                <button className="btn-elongated btn-secondary-glass">
-                  <Apple size={20} />
+                <button className="btn-boxy btn-secondary-boxy">
+                  <Apple size={18} />
                   <span>Download for iOS</span>
                 </button>
               </a>
