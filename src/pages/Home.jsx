@@ -21,9 +21,9 @@ export default function Home() {
             {/* Column 1: Windows Desktop Hub + Android Mobile Controller */}
             <div className="hero-platform-column">
               <span className="platform-col-header">Windows Ecosystem</span>
-              <a href="https://github.com/ekam-baton/baton/releases/latest/download/Baton-Setup-v1.3.exe" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
+              <a href="/baton-docs/Baton_0.1.0_x64_en-US.msi" download className="hero-btn-wrapper">
                 <button className="btn-boxy btn-primary-boxy">
-                  <span>Download for Windows</span>
+                  <span>Download for Windows (.msi)</span>
                 </button>
               </a>
               <a href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
