@@ -24,7 +24,7 @@ export default function Home() {
               <a href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`} download className="btn-boxy btn-primary-boxy" style={{ textDecoration: 'none' }}>
                 <span>Download for Windows</span>
               </a>
-              <a href={`${import.meta.env.BASE_URL}downloads/baton-app.apk`} download className="btn-boxy btn-secondary-boxy" style={{ textDecoration: 'none' }}>
+              <a href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" target="_blank" rel="noopener noreferrer" className="btn-boxy btn-secondary-boxy" style={{ textDecoration: 'none' }}>
                 <span>Download Android APK</span>
               </a>
             </div>
