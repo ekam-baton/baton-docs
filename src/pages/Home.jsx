@@ -21,30 +21,22 @@ export default function Home() {
             {/* Column 1: Windows Desktop Hub + Android Mobile Controller */}
             <div className="hero-platform-column">
               <span className="platform-col-header">Windows Ecosystem</span>
-              <a href="/baton-docs/Baton_0.1.0_x64_en-US.msi" download className="hero-btn-wrapper">
-                <button className="btn-boxy btn-primary-boxy">
-                  <span>Download for Windows (.msi)</span>
-                </button>
+              <a href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`} download className="btn-boxy btn-primary-boxy" style={{ textDecoration: 'none' }}>
+                <span>Download for Windows</span>
               </a>
-              <a href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
-                <button className="btn-boxy btn-secondary-boxy">
-                  <span>Download Android APK</span>
-                </button>
+              <a href={`${import.meta.env.BASE_URL}downloads/baton-app.apk`} download className="btn-boxy btn-secondary-boxy" style={{ textDecoration: 'none' }}>
+                <span>Download Android APK</span>
               </a>
             </div>
 
             {/* Column 2: macOS Desktop Hub + iOS Mobile Controller */}
             <div className="hero-platform-column">
               <span className="platform-col-header">Apple Ecosystem</span>
-              <a href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
-                <button className="btn-boxy btn-primary-boxy">
-                  <span>Download for macOS</span>
-                </button>
+              <a href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" target="_blank" rel="noopener noreferrer" className="btn-boxy btn-primary-boxy" style={{ textDecoration: 'none' }}>
+                <span>Download for macOS</span>
               </a>
-              <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer" className="hero-btn-wrapper">
-                <button className="btn-boxy btn-secondary-boxy">
-                  <span>Download for iOS</span>
-                </button>
+              <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer" className="btn-boxy btn-secondary-boxy" style={{ textDecoration: 'none' }}>
+                <span>Download for iOS</span>
               </a>
             </div>
           </div>
