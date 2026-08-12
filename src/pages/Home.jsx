@@ -12,7 +12,7 @@ export default function Home() {
       <div className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            Own Your Workflow.<br />Deploy Your Agents.
+            Own Your Workflow.<br />Deploy Integelence.
           </h1>
           <p className="hero-subtitle">
             Baton is a secure chat app and bridge connecting your smartphone to compatible AI agents running locally on your computer or VPS. Your work flow stays yours.
