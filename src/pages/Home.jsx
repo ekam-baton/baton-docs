@@ -1,14 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import GalaxyBackground from '../components/GalaxyBackground';
 import AuditLogFeed from '../components/AuditLogFeed';
 
 export default function Home() {
   return (
     <div className="animate-fade-in" style={{ position: 'relative' }}>
-      {/* 3D Traveling Galaxy Background */}
-      <GalaxyBackground />
-
       {/* ── Hero Section (Two-Column with Live Telemetry) ── */}
       <section className="home-hero-container" aria-label="Hero">
         <div className="home-hero-grid">

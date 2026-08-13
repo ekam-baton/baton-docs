@@ -76,7 +76,8 @@ pre code {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--bg-dark);
+  background-color: transparent;
+  position: relative;
 }
 
 .main-content {
@@ -561,10 +562,14 @@ pre code {
 /* ─── Home sections ─── */
 .home-section {
   padding: 5rem 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .home-section-alt {
-  background: var(--bg-canvas);
+  background: rgba(7, 8, 10, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
 }
