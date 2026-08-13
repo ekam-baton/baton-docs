@@ -11,12 +11,10 @@ import Privacy from './pages/Privacy';
 import Changelog from './pages/Changelog';
 import Community from './pages/Community';
 import ScrollToTop from './components/ScrollToTop';
-import GalaxyBackground from './components/GalaxyBackground';
 
 function App() {
   return (
     <div className="app-container">
-      <GalaxyBackground />
       <ScrollToTop />
       <TopNav />
       <main className="main-content">

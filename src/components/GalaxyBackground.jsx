@@ -8,16 +8,15 @@ export default function GalaxyBackground() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    let centerX = width / 2;
-    let centerY = height / 2;
+    let width, height;
+    let centerX, centerY;
     let animationFrameId;
 
-    const STAR_COUNT = 450;
-    const SPEED = 3.2;
-    const MAX_DEPTH = 1200;
-    const FOV = 320;
+    // Star configuration
+    const STAR_COUNT = 360;
+    const BASE_SPEED = 2.4;
+    const MAX_DEPTH = 1500;
+    const FOV = 280;
 
     let targetMouseX = 0;
     let targetMouseY = 0;
@@ -25,12 +24,14 @@ export default function GalaxyBackground() {
     let mouseY = 0;
 
     const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
       centerX = width / 2;
       centerY = height / 2;
-      canvas.width = width;
-      canvas.height = height;
     };
 
     class Star {
@@ -39,78 +40,75 @@ export default function GalaxyBackground() {
       }
 
       reset(initial = false) {
-        // Spread evenly in 3D volume around center
-        this.x = (Math.random() - 0.5) * width * 2.2;
-        this.y = (Math.random() - 0.5) * height * 2.2;
-        this.z = initial ? Math.random() * MAX_DEPTH + 1 : MAX_DEPTH;
+        // Distribute in a spherical cylinder around center
+        const radius = Math.random() * (width * 0.9) + 40;
+        const angle = Math.random() * Math.PI * 2;
+        this.x = Math.cos(angle) * radius;
+        this.y = Math.sin(angle) * radius;
+        this.z = initial ? Math.random() * MAX_DEPTH : MAX_DEPTH;
         this.pz = this.z;
-        this.baseSize = Math.random() * 1.5 + 0.8;
-        // 20% subtle icy blue stars, 80% bright white
-        this.isBlue = Math.random() > 0.8;
+        this.baseSize = Math.random() * 1.4 + 0.6;
+        this.hue = Math.random() > 0.85 ? 210 : 0; // Subtle cool silver/cyan stars mixed with pure white
       }
 
-      update() {
+      update(speed) {
         this.pz = this.z;
-        this.z -= SPEED;
+        this.z -= speed;
 
-        // Subtle mouse steering
-        this.x += mouseX * 0.12;
-        this.y += mouseY * 0.12;
+        // Interactive mouse parallax steering
+        this.x += mouseX * 0.08;
+        this.y += mouseY * 0.08;
 
-        if (this.z <= 1) {
+        if (this.z <= 2) {
           this.reset(false);
           this.pz = this.z;
         }
       }
 
       draw() {
-        // Perspective projection
+        // Project current position
         const k = FOV / this.z;
         const px = this.x * k + centerX;
         const py = this.y * k + centerY;
 
-        // Previous position for velocity warp trail
+        // If outside viewport, don't draw
+        if (px < -50 || px > width + 50 || py < -50 || py > height + 50) {
+          return;
+        }
+
+        // Project previous position for warp streaks
         const prevK = FOV / this.pz;
         const prevPx = this.x * prevK + centerX;
         const prevPy = this.y * prevK + centerY;
 
-        // Bounds check
-        if (px < -100 || px > width + 100 || py < -100 || py > height + 100) {
-          return;
-        }
+        // Depth brightness factor (closer = brighter & larger)
+        const depthRatio = 1 - this.z / MAX_DEPTH;
+        const alpha = Math.min(1, Math.max(0, depthRatio * 1.1));
+        const size = Math.max(0.5, this.baseSize * k * 0.6);
 
-        // Brightness and size scale with closeness
-        const depthRatio = Math.max(0, Math.min(1, 1 - this.z / MAX_DEPTH));
-        const alpha = Math.min(1, depthRatio * 1.25);
-        const size = Math.max(0.6, this.baseSize * k * 0.45);
-
-        // Draw traveling warp streak line
+        // Draw light streak line
         ctx.beginPath();
         ctx.moveTo(prevPx, prevPy);
         ctx.lineTo(px, py);
 
-        if (this.isBlue) {
-          ctx.strokeStyle = `rgba(147, 197, 253, ${alpha * 0.85})`;
+        if (this.hue === 210) {
+          ctx.strokeStyle = `rgba(180, 215, 255, ${alpha * 0.75})`;
         } else {
-          ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
+          ctx.strokeStyle = `rgba(235, 240, 255, ${alpha * 0.7})`;
         }
 
-        ctx.lineWidth = Math.min(size, 2.5);
+        ctx.lineWidth = Math.min(size, 2.2);
         ctx.lineCap = 'round';
         ctx.stroke();
 
-        // Draw bright star head
+        // Draw glowing head of star
         ctx.beginPath();
-        ctx.arc(px, py, size * 0.55, 0, Math.PI * 2);
-        ctx.fillStyle = this.isBlue ? `rgba(191, 219, 254, ${alpha})` : `rgba(255, 255, 255, ${alpha})`;
+        ctx.arc(px, py, size * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.95})`;
         ctx.fill();
       }
     }
 
-    // Set canvas dimensions first
-    resize();
-
-    // Now instantiate stars with valid width & height
     const stars = Array.from({ length: STAR_COUNT }, () => new Star());
 
     const handleMouseMove = (e) => {
@@ -120,16 +118,18 @@ export default function GalaxyBackground() {
 
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', handleMouseMove);
+    resize();
 
     const animate = () => {
+      // Clear with slight motion persistence or full clear
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth mouse damping
+      // Smooth mouse interpolation
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
       for (let i = 0; i < stars.length; i++) {
-        stars[i].update();
+        stars[i].update(BASE_SPEED);
         stars[i].draw();
       }
 
@@ -156,7 +156,7 @@ export default function GalaxyBackground() {
         height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.85,
+        opacity: 0.65,
       }}
       aria-hidden="true"
     />
