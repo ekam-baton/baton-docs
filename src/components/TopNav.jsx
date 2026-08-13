@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import batonLogo from '../assets/baton-logo.png';
+import batonLogo from '../assets/baton-logo.jpg';
 
 export default function TopNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -17,7 +17,7 @@ export default function TopNav() {
     <header className={`top-nav ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
         <NavLink to="/" className="nav-logo">
-          <img src={batonLogo} alt="BATON Logo" className="logo-img" />
+          <img src={batonLogo} alt="BATON Logo" className="logo-img" style={{ borderRadius: '15%' }} />
           <span className="logo-text">BATON</span>
         </NavLink>
 
