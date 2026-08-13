@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import GalaxyBackground from '../components/GalaxyBackground';
 
 export default function Home() {
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in relative z-10">
+      <GalaxyBackground />
 
       {/* ── Hero ── */}
-      <section className="home-hero" aria-label="Hero">
+      <section className="home-hero relative z-10" aria-label="Hero">
         <div className="home-hero-inner">
           <h1>
             Own Your Workflow.<br />Deploy Intelligence.
@@ -47,8 +49,8 @@ export default function Home() {
       </section>
 
       {/* ── How it works ── */}
-      <section className="home-section" aria-label="How it works">
-        <div className="home-narrow text-center">
+      <section className="home-section relative z-10" aria-label="How it works">
+        <div className="home-narrow text-center relative z-10 p-8 rounded-xl bg-black/40 backdrop-blur-sm border border-white/5">
           <h2>How it works</h2>
           <p className="home-body">
             You run an AI model on your computer — Ollama, LM Studio, vLLM, whatever you prefer.
@@ -64,8 +66,8 @@ export default function Home() {
       </section>
 
       {/* ── The problem ── */}
-      <section className="home-section home-section-alt" aria-label="The problem we solve">
-        <div className="home-symmetric-wrapper">
+      <section className="home-section home-section-alt relative z-10" aria-label="The problem we solve">
+        <div className="home-symmetric-wrapper relative z-10 p-8 rounded-xl bg-black/40 backdrop-blur-sm border border-white/5">
           <div className="text-center" style={{ marginBottom: '3rem' }}>
             <h2>The problem with cloud AI</h2>
             <p className="home-body" style={{ maxWidth: '640px', margin: '0 auto' }}>
@@ -98,8 +100,8 @@ export default function Home() {
       </section>
 
       {/* ── Setup ── */}
-      <section className="home-section" aria-label="Setup">
-        <div className="home-symmetric-wrapper">
+      <section className="home-section relative z-10" aria-label="Setup">
+        <div className="home-symmetric-wrapper relative z-10 p-8 rounded-xl bg-black/40 backdrop-blur-sm border border-white/5">
           <div className="text-center" style={{ marginBottom: '3rem' }}>
             <h2>Quick 3-Step Setup</h2>
             <p className="home-body" style={{ maxWidth: '580px', margin: '0 auto' }}>
@@ -128,8 +130,8 @@ export default function Home() {
       </section>
 
       {/* ── For developers ── */}
-      <section className="home-section home-section-alt" aria-label="Developers">
-        <div className="home-narrow text-center">
+      <section className="home-section home-section-alt relative z-10" aria-label="Developers">
+        <div className="home-narrow text-center relative z-10 p-8 rounded-xl bg-black/40 backdrop-blur-sm border border-white/5">
           <h2>Extend with Model Context Protocol</h2>
           <p className="home-body">
             BATON implements the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">Model Context Protocol</a> (MCP)
@@ -154,8 +156,8 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── Security ── */}
-      <section className="home-section" aria-label="Security">
-        <div className="home-narrow text-center">
+      <section className="home-section relative z-10" aria-label="Security">
+        <div className="home-narrow text-center relative z-10 p-8 rounded-xl bg-black/40 backdrop-blur-sm border border-white/5">
           <h2>Cryptographic Security</h2>
           <p className="home-body">
             Every session begins with an authenticated X25519 key exchange. Messages are encrypted
@@ -169,8 +171,8 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── Enterprise ── */}
-      <section className="home-section home-section-alt" aria-label="Enterprise">
-        <div className="home-narrow text-center">
+      <section className="home-section home-section-alt relative z-10" aria-label="Enterprise">
+        <div className="home-narrow text-center relative z-10 p-8 rounded-xl bg-black/40 backdrop-blur-sm border border-white/5">
           <h2>Enterprise & Private VPC</h2>
           <p className="home-body">
             Deploy the BATON connector within your corporate VPC via Docker. Provide employees with
@@ -184,8 +186,8 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── Pricing ── */}
-      <section className="home-section" aria-label="Pricing">
-        <div className="home-narrow text-center">
+      <section className="home-section relative z-10" aria-label="Pricing">
+        <div className="home-narrow text-center relative z-10 p-8 rounded-xl bg-black/40 backdrop-blur-sm border border-white/5">
           <h2>Transparent Pricing</h2>
           <p className="home-body">
             The desktop connector and mobile application are completely free.
@@ -198,8 +200,8 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── FAQ ── */}
-      <section className="home-section home-section-alt" aria-label="FAQ">
-        <div className="home-narrow">
+      <section className="home-section home-section-alt relative z-10" aria-label="FAQ">
+        <div className="home-narrow relative z-10 p-8 rounded-xl bg-black/40 backdrop-blur-sm border border-white/5">
           <h2 className="text-center" style={{ marginBottom: '2.5rem' }}>Frequently Asked Questions</h2>
           <div className="home-faq">
             <details>
