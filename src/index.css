@@ -300,7 +300,7 @@ pre code {
 .home-hero {
   max-width: 740px;
   margin: 0 auto;
-  padding: 6rem 1.5rem 4rem;
+  padding: 8.5rem 1.5rem 5rem;
   text-align: center;
 }
 
@@ -1072,7 +1072,7 @@ footer.footer {
 
   .mobile-toggle { display: block; }
 
-  .home-hero { padding: 3rem 1.5rem 2.5rem; }
+  .home-hero { padding: 4.5rem 1.5rem 3rem; }
   .home-hero h1 { font-size: 2.25rem; }
   .home-section { padding: 3rem 1.5rem; }
 
