@@ -1,70 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import { Activity } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 
-const LOG_TEMPLATES = [
-  { event: 'CONNECTION_SECURED', detail: 'X25519 Handshake complete', severity: 'success' },
-  { event: 'AGENT_ROUTED', detail: 'Payload delivered to Local Hermes', severity: 'info' },
-  { event: 'KEY_EXCHANGE', detail: 'Ephemeral key generated', severity: 'info' },
-  { event: 'SIGNATURE_VERIFIED', detail: 'Client signature valid', severity: 'success' },
-  { event: 'ENCLAVE_READY', detail: 'Hardware backed keys active', severity: 'info' },
-  { event: 'DATA_ENCRYPTED', detail: 'AES-256-GCM encryption applied', severity: 'success' },
-  { event: 'ROUTER_PING', detail: 'Latency 14ms', severity: 'info' },
-  { event: 'AUTH_CHALLENGE', detail: 'Biometric verification required', severity: 'warning' },
-  { event: 'MCP_BRIDGE_UP', detail: 'Model Context Protocol active', severity: 'success' }
+const CONNECTION_SEQUENCE = [
+  { text: 'connector started on port 3000' },
+  { text: 'loading baton.json — 2 MCP servers registered' },
+  { text: 'spawning "my-tools" (python server.py)' },
+  { text: 'spawning "dev-utils" (node server.js)' },
+  { text: 'mDNS broadcast: _baton._tcp.local' },
+  { text: 'mobile device discovered on LAN (192.168.1.42)' },
+  { text: 'X25519 key exchange initiated' },
+  { text: 'shared secret derived — session established' },
+  { text: 'AES-256-GCM channel active' },
+  { text: 'prompt received (247 bytes, encrypted)' },
+  { text: 'decrypted — routing to ollama@127.0.0.1:11434' },
+  { text: 'streaming response — 312 tokens' },
+  { text: 'response encrypted and sent to mobile' },
+  { text: 'tool call: my-tools.query_notes("project deadlines")' },
+  { text: 'tool result returned (3 matches)' },
+  { text: 'idle — waiting for next message' },
 ];
 
-export default function AuditLogFeed() {
-  const [logs, setLogs] = useState([]);
-  
-  useEffect(() => {
-    // Initial logs to not be empty
-    const initialLogs = Array.from({ length: 4 }).map((_, i) => createLog(i));
-    setLogs(initialLogs);
+export default function ConnectionLog() {
+  const [lines, setLines] = useState([]);
+  const indexRef = useRef(0);
+  const containerRef = useRef(null);
 
-    let counter = 4;
+  useEffect(() => {
+    // Start with a few lines
+    const initial = CONNECTION_SEQUENCE.slice(0, 3).map((entry, i) => ({
+      id: i,
+      text: entry.text,
+      time: formatTime(i),
+    }));
+    setLines(initial);
+    indexRef.current = 3;
+
     const interval = setInterval(() => {
-      setLogs(prev => {
-        const newLog = createLog(counter++);
-        const newLogs = [newLog, ...prev];
-        // keep only the last 15 logs to prevent memory leak
-        if (newLogs.length > 15) {
-          newLogs.pop();
-        }
-        return newLogs;
+      const idx = indexRef.current % CONNECTION_SEQUENCE.length;
+      const entry = CONNECTION_SEQUENCE[idx];
+
+      setLines(prev => {
+        const newLine = {
+          id: Date.now(),
+          text: entry.text,
+          time: formatTime(indexRef.current),
+        };
+        const updated = [...prev, newLine];
+        return updated.slice(-12); // keep last 12 lines
       });
-    }, 2500);
+
+      indexRef.current += 1;
+    }, 2800);
 
     return () => clearInterval(interval);
   }, []);
 
-  const createLog = (id) => {
-    const template = LOG_TEMPLATES[Math.floor(Math.random() * LOG_TEMPLATES.length)];
-    const now = new Date();
-    const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-    return {
-      id,
-      time: timeString,
-      event_type: template.event,
-      detail: template.detail,
-      severity: template.severity
-    };
-  };
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [lines]);
 
   return (
-    <div className="audit-feed-card">
-      <div className="audit-feed-header">
-        <Activity size={14} className="text-muted" />
-        <span>Activity Audit Log</span>
+    <div className="conn-log">
+      <div className="conn-log-bar">
+        <div className="conn-log-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span className="conn-log-title">baton-connector</span>
       </div>
-      <div className="audit-feed-content">
-        {logs.map(log => (
-          <div key={log.id} className="audit-log-line">
-            <span className="log-time">[{log.time}]</span>
-            <span className={`log-event ${log.severity}`}>{log.event_type}</span>
-            <span className="log-detail">- {log.detail}</span>
+      <div className="conn-log-body" ref={containerRef}>
+        {lines.map(line => (
+          <div key={line.id} className="conn-log-line">
+            <span className="conn-log-time">{line.time}</span>
+            <span className="conn-log-text">{line.text}</span>
           </div>
         ))}
+        <div className="conn-log-cursor">▋</div>
       </div>
     </div>
   );
+}
+
+function formatTime(index) {
+  const base = new Date();
+  base.setSeconds(base.getSeconds() + index * 3);
+  const h = base.getHours().toString().padStart(2, '0');
+  const m = base.getMinutes().toString().padStart(2, '0');
+  const s = base.getSeconds().toString().padStart(2, '0');
+  return `${h}:${m}:${s}`;
 }

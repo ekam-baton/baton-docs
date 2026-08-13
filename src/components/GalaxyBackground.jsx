@@ -7,64 +7,75 @@ export default function GalaxyBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    
+
     let width, height;
-    let stars = [];
-    const numStars = 90;
-    const speed = 0.15;
+    let particles = [];
+    const PARTICLE_COUNT = 120;
 
     const resize = () => {
       width = window.innerWidth;
-      height = window.innerHeight;
+      height = window.innerHeight * 2;
       canvas.width = width;
       canvas.height = height;
     };
 
-    class Star {
+    class Particle {
       constructor() {
-        this.x = Math.random() * width - width / 2;
-        this.y = Math.random() * height - height / 2;
-        this.z = Math.random() * width;
-        this.pz = this.z;
-        this.opacity = Math.random() * 0.35 + 0.1;
+        this.reset();
       }
 
-      update() {
-        this.z = this.z - speed * (width * 0.002);
-        if (this.z < 1) {
-          this.z = width;
-          this.x = Math.random() * width - width / 2;
-          this.y = Math.random() * height - height / 2;
-          this.pz = this.z;
-        }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 1.2 + 0.3;
+        this.opacity = Math.random() * 0.25 + 0.05;
+        this.baseOpacity = this.opacity;
+        // Very slow, random drift — each particle moves independently
+        this.vx = (Math.random() - 0.5) * 0.08;
+        this.vy = (Math.random() - 0.5) * 0.04 - 0.02; // slight upward bias
+        // Gentle brightness pulsing at different rates
+        this.pulseSpeed = Math.random() * 0.002 + 0.001;
+        this.pulseOffset = Math.random() * Math.PI * 2;
       }
 
-      show() {
-        const sx = (this.x / this.z) * width + width / 2;
-        const sy = (this.y / this.z) * height + height / 2;
-        const r = Math.max(0, 1 - this.z / width);
+      update(time) {
+        this.x += this.vx;
+        this.y += this.vy;
 
-        ctx.fillStyle = `rgba(220, 225, 235, ${this.opacity})`;
+        // Wrap around
+        if (this.x < -10) this.x = width + 10;
+        if (this.x > width + 10) this.x = -10;
+        if (this.y < -10) this.y = height + 10;
+        if (this.y > height + 10) this.y = -10;
+
+        // Gentle brightness pulse
+        this.opacity = this.baseOpacity * (0.6 + 0.4 * Math.sin(time * this.pulseSpeed + this.pulseOffset));
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(200, 205, 215, ${this.opacity})`;
         ctx.beginPath();
-        ctx.arc(sx, sy, r, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
-        this.pz = this.z;
       }
     }
 
     const init = () => {
       resize();
-      stars = Array.from({ length: numStars }, () => new Star());
+      particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
     };
 
     let animationFrameId;
+    let startTime = performance.now();
+
     const animate = () => {
+      const elapsed = performance.now() - startTime;
       ctx.clearRect(0, 0, width, height);
 
-      stars.forEach(star => {
-        star.update();
-        star.show();
-      });
+      for (const p of particles) {
+        p.update(elapsed);
+        p.draw();
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -83,15 +94,16 @@ export default function GalaxyBackground() {
     <canvas
       ref={canvasRef}
       style={{
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.7,
+        opacity: 0.5,
       }}
+      aria-hidden="true"
     />
   );
 }

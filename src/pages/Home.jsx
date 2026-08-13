@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import GalaxyBackground from '../components/GalaxyBackground';
+import ConnectionLog from '../components/AuditLogFeed';
 
 export default function Home() {
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in" style={{ position: 'relative' }}>
+      <GalaxyBackground />
 
       {/* ── Hero ── */}
-      <section className="home-hero" aria-label="Hero">
+      <section className="home-hero" aria-label="Hero" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-hero-inner">
           <h1>
             Your AI stays<br />on your machine.
@@ -46,8 +49,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── How it works ── */}
-      <section className="home-section" aria-label="How it works">
+      {/* ── How it works + Connection Log ── */}
+      <section className="home-section" aria-label="How it works" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-narrow">
           <h2>How it works</h2>
           <p className="home-body">
@@ -61,10 +64,15 @@ export default function Home() {
             Your hardware, your models, your conversations.
           </p>
         </div>
+
+        {/* Terminal showing a real connection sequence */}
+        <div style={{ marginTop: '2.5rem' }}>
+          <ConnectionLog />
+        </div>
       </section>
 
       {/* ── The problem ── */}
-      <section className="home-section home-section-alt" aria-label="The problem we solve">
+      <section className="home-section home-section-alt" aria-label="The problem we solve" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-split">
           <div className="home-split-text">
             <h2>The problem with cloud AI</h2>
@@ -104,7 +112,7 @@ export default function Home() {
       </section>
 
       {/* ── Setup ── */}
-      <section className="home-section" aria-label="Setup">
+      <section className="home-section" aria-label="Setup" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-narrow">
           <h2>Setup takes about two minutes</h2>
           <ol className="home-steps">
@@ -128,7 +136,7 @@ export default function Home() {
       </section>
 
       {/* ── For developers ── */}
-      <section className="home-section home-section-alt" aria-label="Developers">
+      <section className="home-section home-section-alt" aria-label="Developers" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-narrow">
           <h2>Build tools that run on your machine</h2>
           <p className="home-body">
@@ -158,7 +166,7 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── Security ── */}
-      <section className="home-section" aria-label="Security">
+      <section className="home-section" aria-label="Security" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-narrow">
           <h2>How the encryption works</h2>
           <p className="home-body">
@@ -180,7 +188,7 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── Enterprise ── */}
-      <section className="home-section home-section-alt" aria-label="Enterprise">
+      <section className="home-section home-section-alt" aria-label="Enterprise" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-narrow">
           <h2>Works for teams too</h2>
           <p className="home-body">
@@ -196,7 +204,7 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── Pricing ── */}
-      <section className="home-section" aria-label="Pricing">
+      <section className="home-section" aria-label="Pricing" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-narrow">
           <h2>Pricing</h2>
           <p className="home-body">
@@ -211,7 +219,7 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── FAQ ── */}
-      <section className="home-section home-section-alt" aria-label="FAQ">
+      <section className="home-section home-section-alt" aria-label="FAQ" style={{ position: 'relative', zIndex: 1 }}>
         <div className="home-narrow">
           <h2>Questions</h2>
           <div className="home-faq">

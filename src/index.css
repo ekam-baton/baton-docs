@@ -1031,4 +1031,91 @@ footer.footer {
     gap: 1rem;
     text-align: center;
   }
+
+  .conn-log { max-width: 100%; }
+}
+
+
+/* ═══════════════════════════════════
+   CONNECTION LOG TERMINAL
+   ═══════════════════════════════════ */
+
+.conn-log {
+  max-width: 560px;
+  margin: 0 auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-canvas);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.conn-log-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.conn-log-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.conn-log-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-highlight);
+}
+
+.conn-log-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.conn-log-body {
+  padding: 1rem 1.25rem;
+  height: 280px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.conn-log-body::-webkit-scrollbar {
+  display: none;
+}
+
+.conn-log-line {
+  display: flex;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.7;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.conn-log-time {
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.conn-log-text {
+  color: var(--text-muted);
+}
+
+.conn-log-cursor {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  animation: blink 1.2s step-end infinite;
+  margin-top: 0.25rem;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
