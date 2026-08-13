@@ -140,9 +140,10 @@ pre code {
 }
 
 .logo-img {
-  height: 26px;
-  width: auto;
-  border-radius: 4px;
+  height: 28px;
+  width: 28px;
+  border-radius: 6px;
+  display: block;
 }
 
 .nav-links {

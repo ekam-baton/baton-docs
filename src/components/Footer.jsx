@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import batonLogo from '../assets/baton-logo.jpg';
+import batonLogo from '../assets/baton-logo.svg';
 
 export default function Footer() {
   return (
