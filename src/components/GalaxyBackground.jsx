@@ -7,71 +7,113 @@ export default function GalaxyBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    
-    let width, height;
-    let stars = [];
-    const numStars = 90;
-    const speed = 0.15;
+
+    let animationFrameId;
+    let width = 0;
+    let height = 0;
+    let cx = 0;
+    let cy = 0;
+
+    const numStars = 320;
+    const speed = 2.2;
+    const fov = 260;
+    let maxDepth = 1200;
 
     const resize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+      cx = width / 2;
+      cy = height / 2;
+      maxDepth = Math.max(width, height, 1000);
     };
 
     class Star {
       constructor() {
-        this.x = Math.random() * width - width / 2;
-        this.y = Math.random() * height - height / 2;
-        this.z = Math.random() * width;
+        this.reset(true);
+      }
+
+      reset(initial = false) {
+        this.x = (Math.random() - 0.5) * width * 2;
+        this.y = (Math.random() - 0.5) * height * 2;
+        this.z = initial ? Math.random() * maxDepth : maxDepth;
         this.pz = this.z;
-        this.opacity = Math.random() * 0.35 + 0.1;
+        this.size = Math.random() * 1.4 + 0.6;
+        this.brightness = Math.random() * 0.4 + 0.6;
       }
 
       update() {
-        this.z = this.z - speed * (width * 0.002);
-        if (this.z < 1) {
-          this.z = width;
-          this.x = Math.random() * width - width / 2;
-          this.y = Math.random() * height - height / 2;
+        this.pz = this.z;
+        this.z -= speed;
+
+        if (this.z <= 1) {
+          this.reset(false);
           this.pz = this.z;
         }
       }
 
-      show() {
-        const sx = (this.x / this.z) * width + width / 2;
-        const sy = (this.y / this.z) * height + height / 2;
-        const r = Math.max(0, 1 - this.z / width);
+      draw() {
+        if (this.z <= 0) return;
 
-        ctx.fillStyle = `rgba(220, 225, 235, ${this.opacity})`;
+        const k = fov / this.z;
+        const sx = this.x * k + cx;
+        const sy = this.y * k + cy;
+
+        // Skip if outside screen bounds
+        if (sx < -20 || sx > width + 20 || sy < -20 || sy > height + 20) {
+          if (this.z < maxDepth * 0.4) {
+            this.reset(false);
+          }
+          return;
+        }
+
+        const pk = fov / Math.min(this.pz, maxDepth);
+        const px = this.x * pk + cx;
+        const py = this.y * pk + cy;
+
+        // Depth-based opacity: brighter as it travels closer
+        const depthRatio = 1 - this.z / maxDepth;
+        const alpha = Math.min(Math.max(depthRatio * this.brightness, 0.08), 0.95);
+        const starSize = Math.max(this.size * (1 + depthRatio * 1.5), 0.5);
+
+        ctx.strokeStyle = `rgba(240, 243, 255, ${alpha})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+        ctx.lineWidth = starSize;
+        ctx.lineCap = 'round';
+
+        // Draw star warp trail
         ctx.beginPath();
-        ctx.arc(sx, sy, r, 0, Math.PI * 2);
+        ctx.moveTo(px, py);
+        ctx.lineTo(sx, sy);
+        ctx.stroke();
+
+        // Draw star head
+        ctx.beginPath();
+        ctx.arc(sx, sy, starSize * 0.8, 0, Math.PI * 2);
         ctx.fill();
-        this.pz = this.z;
       }
     }
 
-    const init = () => {
-      resize();
-      stars = Array.from({ length: numStars }, () => new Star());
-    };
+    resize();
+    const stars = Array.from({ length: numStars }, () => new Star());
 
-    let animationFrameId;
-    const animate = () => {
-      ctx.clearRect(0, 0, width, height);
+    const render = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      ctx.fillRect(0, 0, width, height);
 
-      stars.forEach(star => {
-        star.update();
-        star.show();
-      });
+      for (let i = 0; i < stars.length; i++) {
+        stars[i].update();
+        stars[i].draw();
+      }
 
-      animationFrameId = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(render);
     };
 
     window.addEventListener('resize', resize);
-    init();
-    animate();
+    render();
 
     return () => {
       window.removeEventListener('resize', resize);
@@ -82,15 +124,16 @@ export default function GalaxyBackground() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       style={{
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
+        width: '100vw',
+        height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.7,
+        display: 'block',
       }}
     />
   );
