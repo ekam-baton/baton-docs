@@ -5,12 +5,13 @@ export default function GalaxyBackground() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     
     let width, height;
     let stars = [];
-    const numStars = 400;
-    const speed = 0.5;
+    const numStars = 90;
+    const speed = 0.15;
 
     const resize = () => {
       width = window.innerWidth;
@@ -25,10 +26,11 @@ export default function GalaxyBackground() {
         this.y = Math.random() * height - height / 2;
         this.z = Math.random() * width;
         this.pz = this.z;
+        this.opacity = Math.random() * 0.35 + 0.1;
       }
 
       update() {
-        this.z = this.z - speed * (width * 0.005);
+        this.z = this.z - speed * (width * 0.002);
         if (this.z < 1) {
           this.z = width;
           this.x = Math.random() * width - width / 2;
@@ -38,27 +40,15 @@ export default function GalaxyBackground() {
       }
 
       show() {
-        ctx.fillStyle = '#ffffff';
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-        
         const sx = (this.x / this.z) * width + width / 2;
         const sy = (this.y / this.z) * height + height / 2;
+        const r = Math.max(0, 1 - this.z / width);
 
-        const r = Math.max(0, 1.5 - this.z / width * 1.5);
-
+        ctx.fillStyle = `rgba(220, 225, 235, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(sx, sy, r, 0, Math.PI * 2);
         ctx.fill();
-
-        const px = (this.x / this.pz) * width + width / 2;
-        const py = (this.y / this.pz) * height + height / 2;
-        
         this.pz = this.z;
-
-        ctx.beginPath();
-        ctx.moveTo(px, py);
-        ctx.lineTo(sx, sy);
-        ctx.stroke();
       }
     }
 
@@ -67,6 +57,7 @@ export default function GalaxyBackground() {
       stars = Array.from({ length: numStars }, () => new Star());
     };
 
+    let animationFrameId;
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
 
@@ -75,7 +66,7 @@ export default function GalaxyBackground() {
         star.show();
       });
 
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     window.addEventListener('resize', resize);
@@ -84,6 +75,7 @@ export default function GalaxyBackground() {
 
     return () => {
       window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -98,6 +90,7 @@ export default function GalaxyBackground() {
         height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
+        opacity: 0.7,
       }}
     />
   );

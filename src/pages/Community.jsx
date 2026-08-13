@@ -1,46 +1,53 @@
 import React from 'react';
-import { LifeBuoy } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { FaDiscord, FaGithub } from 'react-icons/fa';
 
 export default function Community() {
   return (
-    <div className="page-wrapper animate-fade-in" style={{ paddingTop: '6rem' }}>
+    <div className="page-wrapper animate-fade-in" style={{ paddingTop: '4rem' }}>
       <div className="section-header">
-        <h1>Community & Support</h1>
+        <h1>Community & Engineering Support</h1>
         <p>
-          Ask questions, share your MCP agents, and follow development on Discord and GitHub.
+          Collaborate with the BATON maintainer community, share custom Model Context Protocol agents, and receive direct architecture guidance.
         </p>
       </div>
 
       <div className="bento-grid">
         <div className="bento-card span-6">
           <FaDiscord className="card-icon" />
-          <h3>Discord Server</h3>
+          <h3>Discord Community</h3>
           <p>
-            Join our official Discord server to chat with the core engineering team, share your custom MCP tools, and get real-time help setting up your local AI environments.
+            Connect with sovereign AI developers, exchange MCP configuration recipes, and troubleshoot your local LLM setup.
           </p>
-          <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-            <button className="btn-primary" style={{ marginTop: '1.5rem', width: 'fit-content' }}>Join Discord</button>
-          </a>
+          <div style={{ marginTop: '1.5rem' }}>
+            <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ width: 'fit-content' }}>
+              Join Discord Server
+            </a>
+          </div>
         </div>
 
         <div className="bento-card span-6">
           <FaGithub className="card-icon" />
-          <h3>GitHub Discussions</h3>
+          <h3>GitHub Discussions & Issues</h3>
           <p>
-            Encountered a bug or want to request a new feature? Head over to our GitHub Discussions to participate in architecture proposals and open-source development.
+            Submit bug reports, review pull requests, and contribute to the open-source client and connector ecosystem.
           </p>
-          <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-            <button className="btn-primary" style={{ marginTop: '1.5rem', width: 'fit-content', background: '#333', boxShadow: 'none' }}>View GitHub</button>
-          </a>
+          <div style={{ marginTop: '1.5rem' }}>
+            <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ width: 'fit-content' }}>
+              Open GitHub Discussions
+            </a>
+          </div>
         </div>
 
         <div className="bento-card span-12">
-          <LifeBuoy className="card-icon" />
-          <h3>Enterprise Support</h3>
-          <p style={{ maxWidth: '800px' }}>
-            Need help deploying the Baton Connector on a VPS or setting up team access? Reach out via GitHub Discussions or Discord — we respond to every message.
+          <Mail className="card-icon" />
+          <h3>Direct Maintainer Contact</h3>
+          <p style={{ maxWidth: '750px', marginBottom: '1rem' }}>
+            For enterprise deployment queries, security vulnerability reports, or bespoke integration inquiries, reach out directly to the core engineering maintainers:
           </p>
+          <a href="mailto:ekam.baton@gmail.com" className="btn-primary" style={{ width: 'fit-content' }}>
+            Email ekam.baton@gmail.com
+          </a>
         </div>
       </div>
     </div>

@@ -1,19 +1,19 @@
 import React from 'react';
-import { GitCommit, Sparkles, Wrench, CheckCircle } from 'lucide-react';
+import { Sparkles, Wrench, CheckCircle2 } from 'lucide-react';
 
-const Entry = ({ version, date, badge, badgeColor, icon: Icon, iconColor, title, items }) => (
-  <div className="bento-card" style={{ borderLeft: `4px solid ${badgeColor}`, marginBottom: '1rem' }}>
+const Entry = ({ version, date, badge, icon: Icon, title, items }) => (
+  <div className="bento-card" style={{ marginBottom: '1.25rem' }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-      <Icon size={22} color={iconColor || badgeColor} style={{ flexShrink: 0 }} />
+      <Icon size={20} color="var(--text-main)" style={{ flexShrink: 0 }} />
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <h2 style={{ fontSize: '1.3rem', fontWeight: 700, margin: 0 }}>{title}</h2>
-          <span style={{ background: `${badgeColor}22`, color: badgeColor, border: `1px solid ${badgeColor}44`, padding: '0.2rem 0.8rem', borderRadius: '99px', fontSize: '0.78rem', fontWeight: 700 }}>{badge}</span>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 600, margin: 0 }}>{title}</h2>
+          <span style={{ background: 'var(--bg-canvas)', color: 'var(--text-secondary)', border: '1px solid var(--border-color)', padding: '0.2rem 0.65rem', borderRadius: 'var(--radius-sm)', fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>{badge}</span>
         </div>
-        <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.2rem' }}>{version} · {date}</div>
+        <div style={{ color: 'var(--text-dim)', fontSize: '0.82rem', marginTop: '0.2rem', fontFamily: 'var(--font-mono)' }}>{version} · {date}</div>
       </div>
     </div>
-    <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.4rem', margin: 0 }}>
+    <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.45rem', margin: 0, fontSize: '0.92rem' }}>
       {items.map(item => <li key={item}>{item}</li>)}
     </ul>
   </div>
@@ -21,68 +21,51 @@ const Entry = ({ version, date, badge, badgeColor, icon: Icon, iconColor, title,
 
 export default function Changelog() {
   return (
-    <div className="page-wrapper animate-fade-in" style={{ paddingTop: '6rem' }}>
-      <div className="section-header" style={{ marginBottom: '3rem' }}>
-        <h1>Changelog & Roadmap</h1>
+    <div className="page-wrapper animate-fade-in" style={{ paddingTop: '4rem' }}>
+      <div className="section-header" style={{ marginBottom: '2.5rem' }}>
+        <h1>Changelog & Product Roadmap</h1>
         <p>
-          What's shipped, what's in progress, and what's next.
+          Continuous improvements, architecture updates, and upcoming features across the BATON ecosystem.
         </p>
       </div>
 
       <Entry
-        version="Upcoming" date="2026 Q3"
-        badge="UPCOMING" badgeColor="#8b5cf6"
-        icon={Sparkles} iconColor="#8b5cf6"
-        title="Pre-built binaries & one-click installer"
+        version="v0.3-preview" date="2026 Q3"
+        badge="UPCOMING"
+        icon={Sparkles}
+        title="Baton Hub v0.3 — Multi-Agent Parallel Routing"
         items={[
-          'Distribute the Baton Connector as a signed binary for Windows (.exe), macOS (.app), and Linux',
-          'No Rust toolchain needed — download and run immediately',
-          'Automatic update checks built into the dashboard',
+          'Simultaneous multi-agent routing: route different conversational threads to distinct local model instances',
+          'Token-by-token streaming through the E2EE WebRTC data channel directly to the smartphone UI',
+          'Automated background health checks and model failover in the Hub daemon',
         ]}
       />
 
       <Entry
-        version="Upcoming" date="2026 Q3"
-        badge="UPCOMING" badgeColor="#3b82f6"
-        icon={GitCommit} iconColor="#3b82f6"
-        title="Baton Connector v0.3 — Multi-agent routing"
+        version="v0.2.0" date="July 2026"
+        badge="STABLE"
+        icon={CheckCircle2}
+        title="Baton Hub v0.2 — Standalone Embedded SQLite & Native Pairing"
         items={[
-          'Route different conversation threads to different local agents',
-          'Agent health monitoring and automatic failover in the admin dashboard',
-          'Stream token-by-token responses through the E2EE tunnel to the phone',
+          'Embedded SQLite storage engine by default — zero external database dependencies required',
+          'Optional PostgreSQL support via standard DATABASE_URL auto-switch',
+          'Local X25519 keypair persistence and cryptographically verified pairing handshake',
+          'Local admin dashboard at localhost:8081 for authorized device pairing approvals',
+          'Sub-millisecond LAN mDNS discovery for automatic mobile-to-desktop detection',
         ]}
       />
 
       <Entry
-        version="v0.2" date="July 2026"
-        badge="CURRENT" badgeColor="#10b981"
-        icon={CheckCircle} iconColor="#10b981"
-        title="Baton Connector — Standalone, SQLite by default"
+        version="v0.1.0" date="June 2026"
+        badge="RELEASED"
+        icon={Wrench}
+        title="Baton Core & Mobile Client — Initial Release"
         items={[
-          'Switched from Postgres-only to embedded SQLite by default — no Docker or external database required',
-          'Postgres still supported: set DATABASE_URL=postgres://... and the same binary auto-switches',
-          'X25519 keypair generated and persisted on first run (baton_x25519_key.bin)',
-          'Admin password auto-generated on first run and saved to baton_admin_password.txt',
-          'Admin dashboard at localhost:8081 shows pending/approved devices with approve/deny buttons',
-          'Rate limiting on all endpoints (configurable via RATE_LIMIT_RPM and PAIR_RATE_LIMIT_PER_MIN)',
-          'mDNS broadcast for automatic LAN discovery from the Android app',
-        ]}
-      />
-
-      <Entry
-        version="v0.1" date="June 2026"
-        badge="RELEASED" badgeColor="#6366f1"
-        icon={Wrench} iconColor="#6366f1"
-        title="Baton Connector — Initial release"
-        items={[
-          'Baton Connector built in Rust with Axum — routes MCP calls from the Android app to local agents',
-          'A2A cloud router (zero-knowledge relay) for routing encrypted messages between phone and Connector',
-          'AES-256-GCM end-to-end encryption over all messages',
-          'QR-code device pairing: phone scans Connector QR, Connector generates matching session keypair',
-          'JWT authentication (HS256) with access + refresh token pair',
-          'Support for Ollama, Anthropic, Gemini, OpenAI-compatible, and Nvidia NIM providers',
-          'MCP stdio adapter: connect any agent that speaks MCP over stdin/stdout',
-          'Android app: E2EE chat, biometric auth, SQLCipher local storage, QR pairing',
+          'High-throughput Axum/Rust connector bridging mobile client to local MCP servers',
+          'Zero-knowledge blind cloud router for encrypted NAT traversal',
+          'End-to-End Encryption (AES-256-GCM + X25519) across all mobile packets',
+          'Biometric hardware keystore integration and on-device SQLCipher 256-bit database encryption',
+          'Out-of-the-box support for Ollama, LM Studio, Mistral, and custom stdio MCP scripts',
         ]}
       />
     </div>

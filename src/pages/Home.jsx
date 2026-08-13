@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, QrCode, FileText } from 'lucide-react';
+import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, QrCode, FileText, CheckCircle2, ShieldCheck } from 'lucide-react';
 import GalaxyBackground from '../components/GalaxyBackground';
 import AuditLogFeed from '../components/AuditLogFeed';
 
@@ -8,206 +8,238 @@ export default function Home() {
     <div className="animate-fade-in" style={{ position: 'relative', minHeight: '100vh', paddingBottom: '4rem' }}>
       <GalaxyBackground />
 
-      {/* ── Hero ── */}
-      <div className="hero-section">
+      {/* ── Hero Section ── */}
+      <section className="hero-section" aria-label="Hero Section">
         <div className="hero-content">
+          <div className="hero-badge">
+            <span className="hero-badge-dot"></span>
+            <span>Zero Cloud Storage · E2EE · Sovereign MCP</span>
+          </div>
+
           <h1 className="hero-title">
-            Own Your Workflow.<br />Deploy Integelence.
+            Own Your Workflow.<br />Chat with Your Local AI.
           </h1>
+
           <p className="hero-subtitle">
-            Baton is a secure chat app and bridge connecting your smartphone to compatible AI agents running locally on your computer or VPS. Your work flow stays yours.
+            BATON is a private, end-to-end encrypted mobile client that connects your smartphone directly to AI models running on your personal computer or private VPS. No third-party data tracking, no open router ports.
           </p>
+
           <div className="hero-platforms-container">
-            {/* Column 1: Windows Desktop Hub + Android Mobile Controller */}
+            {/* Windows + Android */}
             <div className="hero-platform-column">
-              <span className="platform-col-header">Windows Ecosystem</span>
-              <a href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`} download className="btn-boxy btn-primary-boxy" style={{ textDecoration: 'none' }}>
-                <span>Download for Windows</span>
+              <span className="platform-col-header">Windows & Android</span>
+              <a 
+                href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`} 
+                download 
+                className="btn-boxy btn-primary-boxy"
+              >
+                <span>Download Windows Hub (.msi)</span>
               </a>
-              <a href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" target="_blank" rel="noopener noreferrer" className="btn-boxy btn-secondary-boxy" style={{ textDecoration: 'none' }}>
+              <a 
+                href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-boxy btn-secondary-boxy"
+              >
                 <span>Download Android APK</span>
               </a>
             </div>
 
-            {/* Column 2: macOS Desktop Hub + iOS Mobile Controller */}
+            {/* macOS + iOS */}
             <div className="hero-platform-column">
               <span className="platform-col-header">Apple Ecosystem</span>
-              <a href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" target="_blank" rel="noopener noreferrer" className="btn-boxy btn-primary-boxy" style={{ textDecoration: 'none' }}>
-                <span>Download for macOS</span>
+              <a 
+                href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-boxy btn-primary-boxy"
+              >
+                <span>Download macOS Hub</span>
               </a>
-              <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer" className="btn-boxy btn-secondary-boxy" style={{ textDecoration: 'none' }}>
-                <span>Download for iOS</span>
+              <a 
+                href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-boxy btn-secondary-boxy"
+              >
+                <span>Download iOS Framework</span>
               </a>
             </div>
           </div>
         </div>
+
         <div className="hero-mockup-container">
           <AuditLogFeed />
         </div>
-      </div>
+      </section>
 
-      {/* ── Quick Start / Simple Explanation ── */}
-      <div className="page-wrapper" style={{ paddingTop: '4rem' }}>
-        <div className="section-header" style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2.5rem' }}>Get Started in 3 Steps</h2>
-          <p style={{ margin: '0 auto' }}>No accounts, no cloud subscriptions. Just a direct, encrypted connection.</p>
+      {/* ── 3-Step Quick Start ── */}
+      <section className="page-wrapper" style={{ paddingTop: '3rem' }} aria-label="Quick Start">
+        <div className="section-header" style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <h2>Get Started in Three Steps</h2>
+          <p style={{ margin: '0 auto' }}>No central accounts or cloud lock-in. Just direct, cryptographic device pairing.</p>
         </div>
         
         <div className="bento-grid">
           <div className="bento-card span-4" style={{ textAlign: 'center', alignItems: 'center' }}>
-            <Server className="card-icon" style={{ width: 40, height: 40, marginBottom: '1rem', color: '#3b82f6' }} />
-            <h3>1. Run the Hub</h3>
-            <p style={{ fontSize: '0.9rem' }}>Download and run the standalone Baton executable on your Windows PC. It runs silently in the background.</p>
+            <Server className="card-icon" style={{ width: 32, height: 32, marginBottom: '1rem' }} />
+            <h3>1. Start the Desktop Hub</h3>
+            <p>Run the standalone Baton binary on your computer. It connects to your local Ollama, LM Studio, or custom MCP servers.</p>
           </div>
           
           <div className="bento-card span-4" style={{ textAlign: 'center', alignItems: 'center' }}>
-            <Smartphone className="card-icon" style={{ width: 40, height: 40, marginBottom: '1rem', color: '#10b981' }} />
-            <h3>2. Install the App</h3>
-            <p style={{ fontSize: '0.9rem' }}>Install the Baton app on your smartphone via the Google Play Store or direct APK download.</p>
+            <Smartphone className="card-icon" style={{ width: 32, height: 32, marginBottom: '1rem' }} />
+            <h3>2. Install the Mobile App</h3>
+            <p>Open the Baton mobile app on Android or iOS. Biometric hardware keystores generate your sovereign private keys on-device.</p>
           </div>
 
           <div className="bento-card span-4" style={{ textAlign: 'center', alignItems: 'center' }}>
-            <QrCode className="card-icon" style={{ width: 40, height: 40, marginBottom: '1rem', color: '#a855f7' }} />
+            <QrCode className="card-icon" style={{ width: 32, height: 32, marginBottom: '1rem' }} />
             <h3>3. Scan to Pair</h3>
-            <p style={{ fontSize: '0.9rem' }}>Scan the secure QR code shown on your PC with your phone. Your devices are now permanently paired.</p>
+            <p>Scan the encrypted pairing QR code on your desktop. Your phone and computer establish a permanent, authenticated link.</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* ── Capabilities (Moved Up for Client Ed) ── */}
-      <div className="page-wrapper" style={{ paddingTop: '6rem' }}>
+      {/* ── Real Capabilities ── */}
+      <section className="page-wrapper" style={{ paddingTop: '5rem' }} aria-label="Capabilities">
         <div className="section-header">
-          <h2 style={{ fontSize: '2.5rem' }}>What can you do?</h2>
-          <p>By leveraging the Model Context Protocol (MCP), Baton can securely command compatible local systems from your phone.</p>
+          <h2>What You Can Do</h2>
+          <p>Baton turns your smartphone into a sovereign control center for your private infrastructure.</p>
         </div>
 
         <div className="bento-grid">
-          <div className="bento-card span-4" style={{ background: '#0a0a0c' }}>
-            <Zap className="card-icon" color="#eab308" />
-            <h3>Local AI Chat</h3>
-            <p style={{ fontSize: '0.9rem' }}>Chat securely with models running on Ollama, LM Studio, or vLLM hosted on your own computer.</p>
+          <div className="bento-card span-4">
+            <Zap className="card-icon" />
+            <h3>Private Mobile AI Chat</h3>
+            <p>Chat natively from your phone with open-weight models (Llama 3, Mistral, DeepSeek, Qwen) hosted locally on your GPU without cloud rate limits.</p>
           </div>
-          <div className="bento-card span-4" style={{ background: '#0a0c0a' }}>
-            <DatabaseIcon className="card-icon" color="#10b981" />
-            <h3>Database Queries</h3>
-            <p style={{ fontSize: '0.9rem' }}>Securely access your local PostgreSQL or SQLite databases directly from your phone while on the go.</p>
-          </div>
-          <div className="bento-card span-4" style={{ background: '#0c0a0c' }}>
-            <Cpu className="card-icon" color="#a855f7" />
-            <h3>Home Assistant</h3>
-            <p style={{ fontSize: '0.9rem' }}>Command compatible smart home infrastructure through natural language without exposing external network ports.</p>
-          </div>
-        </div>
-      </div>
 
-      {/* ── Technical Deep Dive (Bento Grid) ── */}
-      <div className="page-wrapper" style={{ paddingTop: '6rem' }}>
-        <div className="section-header">
-          <h2 style={{ fontSize: '2.5rem' }}>Zero-Trust Architecture</h2>
-          <p>For the technically inclined: Baton is built from the ground up for absolute data privacy and sovereign computing.</p>
+          <div className="bento-card span-4">
+            <Cpu className="card-icon" />
+            <h3>Model Context Protocol (MCP)</h3>
+            <p>Trigger local Python tools, query private PostgreSQL/SQLite databases, or execute filesystem workflows securely from your mobile device.</p>
+          </div>
+
+          <div className="bento-card span-4">
+            <ShieldCheck className="card-icon" />
+            <h3>Zero-Trust Corporate VPCs</h3>
+            <p>Proxy directly to enterprise Anthropic, Azure OpenAI, or Google Cloud Vertex AI instances over authenticated internal networks.</p>
+          </div>
         </div>
-        <div className="bento-grid">
+      </section>
+
+      {/* ── Architecture Section ── */}
+      <section className="page-wrapper" style={{ paddingTop: '5rem' }} aria-label="Architecture Topology">
+        <div className="section-header">
+          <h2>Hybrid Topology: Direct LAN & Zero-Knowledge Relay</h2>
+          <p>BATON simultaneously races a direct local connection and a blind TURN relay, ensuring sub-millisecond latency when home and uninterrupted access when away.</p>
+        </div>
+        
+        <div className="architecture-grid">
+          <div className="arch-node">
+            <div className="arch-icon-wrap">
+              <Smartphone size={28} color="var(--text-main)" />
+            </div>
+            <h3>Mobile App</h3>
+            <p>Encrypts payloads locally using X25519 & AES-256-GCM before transmission.</p>
+          </div>
           
+          <div className="arch-arrow">
+            <ArrowRight size={20} />
+            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>LAN / TURN</span>
+          </div>
+
+          <div className="arch-node">
+            <div className="arch-icon-wrap">
+              <Server size={28} color="var(--text-main)" />
+            </div>
+            <h3>Blind Relay</h3>
+            <p>Routes encrypted envelopes based on destination ID without access to decryption keys.</p>
+          </div>
+
+          <div className="arch-arrow">
+            <ArrowRight size={20} />
+            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>E2EE</span>
+          </div>
+
+          <div className="arch-node">
+            <div className="arch-icon-wrap">
+              <Cpu size={28} color="var(--text-main)" />
+            </div>
+            <h3>Desktop Hub</h3>
+            <p>Decrypts messages locally and routes requests to local MCP tools and models.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Security & Governance Deep Dive ── */}
+      <section className="page-wrapper" style={{ paddingTop: '5rem' }} aria-label="Security Pillars">
+        <div className="section-header">
+          <h2>Built for Sovereign Privacy & Digital Evidence</h2>
+          <p>Engineered for individuals who care about data ownership and teams that require verifiable audit trails.</p>
+        </div>
+
+        <div className="bento-grid">
           <div className="bento-card span-8">
             <Lock className="card-icon" />
-            <h3>End-to-End Encrypted</h3>
+            <h3>End-to-End Cryptography</h3>
             <p>
-              Every connection is secured with industry-standard end-to-end encryption. Our routing servers only relay unreadable data and have zero knowledge of your information.
+              Every conversation is protected by sovereign X25519 key exchange and AES-256-GCM encryption. The cloud router is a dumb pipe that mathematically cannot read your messages or prompts.
             </p>
           </div>
 
           <div className="bento-card span-4">
             <Shield className="card-icon" />
-            <h3>Biometric Auth</h3>
-            <p>Your authentication keys remain locked safely on your physical device, protected by native biometrics.</p>
-          </div>
-
-          <div className="bento-card span-8">
-            <Cpu className="card-icon" />
-            <h3>Universal MCP Support</h3>
-            <p>
-              The Desktop Hub acts as a bridge to your locally-running tools via the standard Model Context Protocol. Point it at OpenClaw, Hermes, or compatible custom agents.
-            </p>
+            <h3>Hardware Keystore Biometrics</h3>
+            <p>Session tokens and private keys remain enclosed in your phone's secure hardware enclave, locked behind fingerprint or face authentication.</p>
           </div>
 
           <div className="bento-card span-4">
+            <CheckCircle2 className="card-icon" />
+            <h3>On-Device SQLCipher</h3>
+            <p>Chat history and agent configurations are encrypted locally with 256-bit AES database encryption.</p>
+          </div>
+
+          <div className="bento-card span-8">
             <FileText className="card-icon" />
-            <h3>Uncompromising Auditability</h3>
-            <p>Every action is logged. Baton provides the verifiable accountability of enterprise accounting software, ensuring your AI workflows are traceable.</p>
-          </div>
-
-        </div>
-      </div>
-
-      {/* ── Architecture Section ── */}
-      <div className="page-wrapper" style={{ paddingTop: '6rem' }}>
-        <div className="section-header">
-          <h2 style={{ fontSize: '2.5rem' }}>How the Bridge Works</h2>
-          <p>A secure, un-opinionated tunnel between your phone and your private infrastructure.</p>
-        </div>
-        
-        <div className="architecture-grid">
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#111', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid var(--border-highlight)' }}>
-              <Smartphone size={32} color="#D4D4D4" />
-            </div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: '500' }}>Mobile App</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Encrypts data locally and establishes a secure, persistent connection to the Hub.</p>
-          </div>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }} className="arch-arrow">
-             <ArrowRight size={24} color="var(--border-highlight)" />
-             <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(255,255,255,0.02)', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px dashed var(--border-highlight)' }}>
-              <Server size={24} color="#666" />
-            </div>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Dumb Cloud Router</p>
-             <ArrowRight size={24} color="var(--border-highlight)" />
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#111', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid var(--border-highlight)' }}>
-              <Cpu size={32} color="#D4D4D4" />
-            </div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: '500' }}>Desktop Hub</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Decrypts payload locally and dispatches to local MCP tools.</p>
+            <h3>Forensic Audit Ledger (ISO/IEC 27037)</h3>
+            <p>
+              BATON incorporates a Merkle Tree cryptographic hash chain for evidentiary compliance (eIDAS QES, US CISA/STIG, India IT Act Sec 65B). Export verifiable evidence archives directly from your device.
+            </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* ── FAQ Section ── */}
-      <div className="page-wrapper" style={{ paddingTop: '6rem', paddingBottom: '4rem' }}>
+      <section className="page-wrapper" style={{ paddingTop: '5rem', paddingBottom: '2rem' }} aria-label="Frequently Asked Questions">
         <div className="section-header">
-          <h2 style={{ fontSize: '2.5rem' }}>Frequently Asked Questions</h2>
-          <p>Everything you need to know about Baton's security, privacy, and pricing.</p>
+          <h2>Frequently Asked Questions</h2>
+          <p>Clear, direct answers about BATON's architecture, security, and pricing.</p>
         </div>
         
         <div className="faq-container">
           <details className="faq-item">
-            <summary>Why does Baton cost money when other apps are free?</summary>
-            <p>Because if an app is free, you are the product. Free apps monetize by mining your data or serving ads. Baton charges a tiny subscription ($9.99/year globally, ₹199/year in India) so we can keep the routing servers running without ever compromising your privacy. We don't want your data, and our architecture mathematically prevents us from accessing it.</p>
+            <summary>Why does BATON charge a subscription when some chat apps are free?</summary>
+            <p>Free applications monetize by collecting telemetry, analyzing chat logs, or serving ads. BATON charges a minimal subscription ($9.99/year globally, ₹199/year in India) to maintain high-throughput, zero-knowledge TURN relay servers without compromising user privacy. We do not store or sell your data.</p>
           </details>
           
           <details className="faq-item">
-            <summary>Do my messages ever touch the cloud?</summary>
-            <p>Yes, but only as unreadable, encrypted blobs. Our zero-knowledge relay router passes the data between your phone and your desktop, but it cannot decrypt the contents.</p>
+            <summary>Do my messages or AI responses ever touch the cloud unencrypted?</summary>
+            <p>No. Payloads are encrypted on your phone before transmission and decrypted only on your paired desktop or local server. The relay server routes opaque, encrypted JSON envelopes and has zero visibility into plaintext content.</p>
           </details>
           
           <details className="faq-item">
-            <summary>Can I use Baton to talk to my friends?</summary>
-            <p>Baton is primarily designed as a secure bridge between you and your private AI agents, databases, and local tools. While it uses chat interfaces, it is an infrastructure tool, not a social network.</p>
+            <summary>What AI models and backends are supported?</summary>
+            <p>BATON supports any model or tool running via the Model Context Protocol (MCP) or standard HTTP/SSE endpoints. This includes Ollama, LM Studio, vLLM, LocalAI, Anthropic Claude, Azure OpenAI, and custom Python or Node.js agents.</p>
           </details>
 
           <details className="faq-item">
-            <summary>What AI models are supported?</summary>
-            <p>Anything that supports the Model Context Protocol (MCP). You can connect it to local instances of Llama, Mistral, Hermes, or even custom Python scripts.</p>
+            <summary>Do I need to configure port forwarding on my home router?</summary>
+            <p>No. BATON's hybrid networking uses automated NAT traversal and relay routing so you can securely reach your home server from cellular networks without exposing open ports or configuring dynamic DNS.</p>
           </details>
         </div>
-      </div>
-
+      </section>
     </div>
   );
 }
-
-const DatabaseIcon = ({ className, color = "currentColor" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
-);
