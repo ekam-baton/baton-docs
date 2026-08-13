@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -27,6 +27,7 @@ function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/changelog" element={<Changelog />} />
           <Route path="/community" element={<Community />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
       <Footer />

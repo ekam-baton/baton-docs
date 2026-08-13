@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, Play, QrCode, FileText, Monitor, Apple } from 'lucide-react';
+import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, QrCode, FileText } from 'lucide-react';
 import GalaxyBackground from '../components/GalaxyBackground';
 import AuditLogFeed from '../components/AuditLogFeed';
 
