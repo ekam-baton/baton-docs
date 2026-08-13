@@ -1,54 +1,46 @@
 import React from 'react';
-import { Mail } from 'lucide-react';
 import { FaDiscord, FaGithub } from 'react-icons/fa';
+import { Mail } from 'lucide-react';
 
 export default function Community() {
   return (
-    <div className="page-wrapper animate-fade-in" style={{ paddingTop: '4rem' }}>
-      <div className="section-header">
-        <h1>Community & Engineering Support</h1>
-        <p>
-          Collaborate with the BATON maintainer community, share custom Model Context Protocol agents, and receive direct architecture guidance.
-        </p>
-      </div>
+    <div className="animate-fade-in inner-page">
+      <h1>Community</h1>
+      <p className="page-intro">
+        Get help, share what you've built, or contribute to the project.
+      </p>
 
-      <div className="bento-grid">
-        <div className="bento-card span-6">
-          <FaDiscord className="card-icon" />
-          <h3>Discord Community</h3>
-          <p>
-            Connect with sovereign AI developers, exchange MCP configuration recipes, and troubleshoot your local LLM setup.
-          </p>
-          <div style={{ marginTop: '1.5rem' }}>
-            <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ width: 'fit-content' }}>
-              Join Discord Server
-            </a>
+      <div className="community-links">
+        <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" className="community-link">
+          <FaDiscord size={22} className="community-link-icon" />
+          <div>
+            <h3>Discord</h3>
+            <p>
+              Chat with other users, ask setup questions, and share MCP tools you've built.
+            </p>
           </div>
-        </div>
+        </a>
 
-        <div className="bento-card span-6">
-          <FaGithub className="card-icon" />
-          <h3>GitHub Discussions & Issues</h3>
-          <p>
-            Submit bug reports, review pull requests, and contribute to the open-source client and connector ecosystem.
-          </p>
-          <div style={{ marginTop: '1.5rem' }}>
-            <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ width: 'fit-content' }}>
-              Open GitHub Discussions
-            </a>
+        <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" className="community-link">
+          <FaGithub size={22} className="community-link-icon" />
+          <div>
+            <h3>GitHub</h3>
+            <p>
+              Browse the source code, file bug reports, and open pull requests.
+              The connector and relay are Apache 2.0 licensed.
+            </p>
           </div>
-        </div>
+        </a>
 
-        <div className="bento-card span-12">
-          <Mail className="card-icon" />
-          <h3>Direct Maintainer Contact</h3>
-          <p style={{ maxWidth: '750px', marginBottom: '1rem' }}>
-            For enterprise deployment queries, security vulnerability reports, or bespoke integration inquiries, reach out directly to the core engineering maintainers:
-          </p>
-          <a href="mailto:ekam.baton@gmail.com" className="btn-primary" style={{ width: 'fit-content' }}>
-            Email ekam.baton@gmail.com
-          </a>
-        </div>
+        <a href="mailto:ekam.baton@gmail.com" className="community-link">
+          <Mail size={22} className="community-link-icon" />
+          <div>
+            <h3>Email</h3>
+            <p>
+              For enterprise inquiries, security reports, or anything that doesn't fit in a GitHub issue.
+            </p>
+          </div>
+        </a>
       </div>
     </div>
   );

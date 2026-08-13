@@ -1,88 +1,69 @@
 import React from 'react';
-import { Building2, Server, Shield, Cpu } from 'lucide-react';
 
 export default function Enterprise() {
   return (
-    <div className="animate-fade-in page-wrapper" style={{ paddingTop: '4rem' }}>
-      <div className="section-header">
-        <h1>Enterprise Architecture & Private VPC Deployment</h1>
-        <p>
-          Equip workforce teams with secure mobile access to proprietary AI models and internal databases without data leaving your corporate security boundary.
-        </p>
-      </div>
+    <div className="animate-fade-in inner-page">
+      <h1>Enterprise</h1>
+      <p className="page-intro">
+        Deploy BATON inside your own infrastructure so employee prompts never leave your network.
+      </p>
 
-      <div className="bento-grid">
-        {/* Core Enterprise Value */}
-        <div className="bento-card span-12">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Building2 className="card-icon" style={{ margin: 0 }} />
-            <h2 style={{ margin: 0 }}>Zero Data Egress into Third-Party Clouds</h2>
-          </div>
-          <p style={{ fontSize: '1rem', marginBottom: '1.5rem' }}>
-            Standard AI chat applications require sending corporate prompts to centralized vendor servers. BATON routes encrypted traffic directly to your own private cloud or on-premise infrastructure. No prompts, model weights, or telemetry are ever harvested.
-          </p>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-            <div style={{ background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>Self-Hosted Connector</h4>
-              <p style={{ fontSize: '0.88rem' }}>Deploy the compiled Rust connector binary as a lightweight Docker container inside your VPC or Kubernetes cluster.</p>
-            </div>
+      <h2>The problem for IT teams</h2>
+      <p>
+        When employees use cloud AI services, every prompt — including proprietary code, client
+        data, and internal strategy — travels to a third-party server. IT has no visibility,
+        no control, and no guarantee about data retention. BATON gives you a different option:
+        route all AI traffic through infrastructure you own.
+      </p>
 
-            <div style={{ background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>MDM Configuration</h4>
-              <p style={{ fontSize: '0.88rem' }}>Distribute pre-authenticated connection profiles to employee phones using standard MDM deep links and AppConfig.</p>
-            </div>
+      <h2>How it works</h2>
+      <p>
+        You deploy the BATON connector as a Docker container inside your VPC. Employees install
+        the mobile app and pair with the corporate connector using MDM-distributed configuration
+        profiles. All traffic between phones and the connector is end-to-end encrypted. The
+        connector proxies requests to your chosen AI backends — whether that's a self-hosted
+        vLLM cluster, Azure OpenAI, Anthropic via AWS, or Google Vertex AI.
+      </p>
+      <p>
+        Employees get a fast, native mobile AI chat experience. IT keeps full control over
+        which models are available, which tools can be executed, and who has access.
+      </p>
 
-            <div style={{ background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>Internal Audit Ledger</h4>
-              <p style={{ fontSize: '0.88rem' }}>Decrypted audit logs remain strictly within your corporate SIEM/data warehouse for compliance reviews.</p>
-            </div>
-          </div>
+      <h2>Supported backends</h2>
+      <ul>
+        <li><strong>Self-hosted models:</strong> vLLM, TensorRT-LLM, Ollama, or any OpenAI-compatible HTTP endpoint running on your GPU servers.</li>
+        <li><strong>Azure OpenAI Service:</strong> Connect to dedicated <code>*.openai.azure.com</code> deployments over private VNets.</li>
+        <li><strong>Anthropic (Claude):</strong> Proxy through AWS API Gateway and private VPC endpoints.</li>
+        <li><strong>Google Vertex AI:</strong> Authenticated routing to Cloud Run endpoints via service account credentials.</li>
+      </ul>
+
+      <h2>Device provisioning</h2>
+      <p>
+        Distribute pre-authenticated connection profiles to employee devices using standard MDM
+        deep links and AppConfig. No manual QR scanning required for managed deployments.
+        Device certificates can be rotated through your existing certificate management infrastructure.
+      </p>
+
+      <h2>Compliance and audit</h2>
+      <p>
+        Every conversation generates a cryptographic audit trail stored within your corporate
+        infrastructure. The Merkle tree hash chain satisfies ISO/IEC 27037 evidence handling
+        requirements. Export audit packages to your SIEM or data warehouse for compliance reviews.
+      </p>
+      <p>
+        MCP tool permissions can be scoped by user role, ensuring that sensitive tools
+        (database queries, file system access) are only available to authorized personnel.
+      </p>
+
+      <h2>Deployment</h2>
+      <p>
+        The connector runs as a single Docker container. Here's a minimal configuration:
+      </p>
+      <div className="z-code">
+        <div className="code-header">
+          <span>docker-compose.yml</span>
         </div>
-
-        {/* Enterprise Model Proxies */}
-        <div className="bento-card span-6">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Cpu className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Supported Enterprise AI Endpoints</h3>
-          </div>
-          <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem' }}>
-            <li><strong>Claude for Enterprise:</strong> Proxy securely to Anthropic endpoints via AWS API Gateway and private VPC endpoints.</li>
-            <li><strong>Azure OpenAI Service:</strong> Connect to dedicated <code>*.openai.azure.com</code> deployments over private VNets or Tailscale.</li>
-            <li><strong>Google Vertex AI:</strong> Direct authenticated routing to Google Cloud Run endpoints via Service Account credentials.</li>
-            <li><strong>Self-Hosted vLLM / TensorRT-LLM:</strong> Point BATON directly to GPU clusters running inside your own data center.</li>
-          </ul>
-        </div>
-
-        {/* Corporate Security & Compliance */}
-        <div className="bento-card span-6">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Shield className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Compliance & Governance</h3>
-          </div>
-          <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem' }}>
-            <li><strong>eIDAS QES Compliance:</strong> Enterprise certificate manager supports injecting Qualified Trust Service Provider (QTSP) certificates.</li>
-            <li><strong>ISO/IEC 27037:</strong> Cryptographic evidence ledger produces legally verifiable forensic archives.</li>
-            <li><strong>Hardware Key Isolation:</strong> Android Keymaster / Apple Secure Enclave guarantees that keys cannot be cloned from devices.</li>
-            <li><strong>Strict DLP & Role Control:</strong> Model Context Protocol permissions restrict tool execution by user role.</li>
-          </ul>
-        </div>
-
-        {/* Deployment Snippet */}
-        <div className="bento-card span-12">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Server className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Deploying the Enterprise Hub</h3>
-          </div>
-          <p style={{ marginBottom: '1rem' }}>
-            Deploy the standalone BATON connector via Docker Compose in minutes:
-          </p>
-          <div className="z-code">
-            <div className="code-header">
-              <span>docker-compose.yml</span>
-              <span>Linux x86_64 / ARM64</span>
-            </div>
-            <pre><code>{`version: '3.8'
+        <pre><code>{`version: '3.8'
 
 services:
   baton-hub:
@@ -98,9 +79,12 @@ services:
       - ./data:/data
     ports:
       - "127.0.0.1:3000:3000"`}</code></pre>
-          </div>
-        </div>
       </div>
+
+      <p>
+        For questions about enterprise licensing, custom deployments, or security assessments,
+        reach out at <a href="mailto:ekam.baton@gmail.com">ekam.baton@gmail.com</a>.
+      </p>
     </div>
   );
 }

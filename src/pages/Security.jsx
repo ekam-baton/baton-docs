@@ -1,104 +1,103 @@
 import React from 'react';
-import { Lock, Shield, Server, Key, Database, FileCheck } from 'lucide-react';
 
 export default function Security() {
   return (
-    <div className="animate-fade-in page-wrapper" style={{ paddingTop: '4rem' }}>
-      <div className="section-header">
-        <h1>Security & Cryptographic Architecture</h1>
-        <p>
-          BATON is engineered under zero-trust principles: we mathematically cannot inspect, store, or monetize your private chats, prompts, or model parameters.
-        </p>
-      </div>
+    <div className="animate-fade-in inner-page">
+      <h1>Security</h1>
+      <p className="page-intro">
+        How BATON encrypts your conversations and why the relay server can't read them.
+      </p>
 
-      <div className="bento-grid">
-        {/* Core Architecture */}
-        <div className="bento-card span-12">
-          <h2>Three-Tier Zero-Knowledge Topology</h2>
-          <p style={{ fontSize: '1rem', marginBottom: '1.5rem' }}>
-            BATON separates message routing from message decryption. The mobile application and desktop hub hold exclusive possession of the asymmetric keypairs needed to read your conversations.
-          </p>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-            <div style={{ background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                <Key size={18} color="var(--text-main)" />
-                <h4 style={{ color: 'var(--text-main)', margin: 0 }}>1. On-Device Encryption</h4>
-              </div>
-              <p style={{ fontSize: '0.88rem' }}>Messages, file attachments, and tool arguments are encrypted locally using AES-256-GCM before leaving memory.</p>
-            </div>
+      <h2>The short version</h2>
+      <p>
+        Your phone and your computer exchange cryptographic keys when they pair. After that, every
+        message is encrypted on the sending device and decrypted on the receiving device. The relay
+        server in between handles routing — it sees encrypted packets go from point A to point B,
+        but it cannot decrypt them. We don't have the keys. We don't want the keys.
+      </p>
 
-            <div style={{ background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                <Server size={18} color="var(--text-main)" />
-                <h4 style={{ color: 'var(--text-main)', margin: 0 }}>2. Blind Cloud Relay</h4>
-              </div>
-              <p style={{ fontSize: '0.88rem' }}>The relay server only inspects the <code>destination_id</code> header to route ciphertext envelopes. It holds no cryptographic keys.</p>
-            </div>
+      <h2>Key exchange and encryption</h2>
+      <p>
+        BATON uses the same fundamental primitives as Signal and WireGuard. During pairing,
+        both devices perform an X25519 Diffie-Hellman key agreement to establish a shared secret.
+        All subsequent messages are encrypted with AES-256-GCM using unique initialization
+        vectors per frame.
+      </p>
 
-            <div style={{ background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                <Lock size={18} color="var(--text-main)" />
-                <h4 style={{ color: 'var(--text-main)', margin: 0 }}>3. Local Hub Decryption</h4>
-              </div>
-              <p style={{ fontSize: '0.88rem' }}>Your personal desktop hub decrypts payloads using the paired private key and dispatches tasks to local MCP models.</p>
-            </div>
-          </div>
-        </div>
+      <table className="specs-table">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Implementation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Key agreement</td>
+            <td>Elliptic-curve Diffie-Hellman over Curve25519 (X25519)</td>
+          </tr>
+          <tr>
+            <td>Symmetric cipher</td>
+            <td>AES-256-GCM with unique non-repeating IVs</td>
+          </tr>
+          <tr>
+            <td>Signatures</td>
+            <td>Ed25519 / ECDSA (secp256r1), hardware-backed</td>
+          </tr>
+          <tr>
+            <td>Message authentication</td>
+            <td>HMAC-SHA256</td>
+          </tr>
+          <tr>
+            <td>Local database</td>
+            <td>SQLCipher with 256-bit AES page encryption</td>
+          </tr>
+        </tbody>
+      </table>
 
-        {/* Cryptographic Specifications */}
-        <div className="bento-card span-6">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Shield className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Cryptographic Primitives</h3>
-          </div>
-          <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem' }}>
-            <li><strong>Key Agreement:</strong> Elliptic-curve Diffie-Hellman over Curve25519 (X25519).</li>
-            <li><strong>Symmetric Cipher:</strong> AES-256-GCM with unique, non-repeating initialization vectors (IVs) per frame.</li>
-            <li><strong>Identity & Signatures:</strong> Ed25519 / ECDSA (secp256r1) hardware-backed keys.</li>
-            <li><strong>Integrity Verification:</strong> HMAC-SHA256 message authentication.</li>
-          </ul>
-        </div>
+      <h2>Hardware keystore</h2>
+      <p>
+        Private keys are generated inside your phone's hardware security module — Android Keystore
+        (TEE or StrongBox) on Android, Secure Enclave on iOS. The key material never leaves the
+        chip. Accessing it requires biometric authentication (fingerprint or face).
+      </p>
+      <p>
+        On the desktop side, keys are stored in the OS credential manager (Windows DPAPI / macOS Keychain).
+        The BATON connector binary runs under your user account and never requests elevated permissions.
+      </p>
 
-        {/* Device Storage Security */}
-        <div className="bento-card span-6">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Database className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Hardware Keystore & SQLCipher</h3>
-          </div>
-          <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem' }}>
-            <li><strong>Android Keystore:</strong> Private keys are generated within the Trusted Execution Environment (TEE) or StrongBox keymaster.</li>
-            <li><strong>Biometric Gating:</strong> Master keys require user fingerprint or facial authentication before decrypting session caches.</li>
-            <li><strong>Encrypted SQLite:</strong> Local chat archives are stored on-device inside SQLCipher databases with 256-bit AES page encryption.</li>
-            <li><strong>Zero Backup Leakage:</strong> <code>allowBackup="false"</code> is enforced in Android manifest.</li>
-          </ul>
-        </div>
+      <h2>What the relay server sees</h2>
+      <p>
+        The relay server is a Rust WebSocket process that inspects exactly one field in each
+        incoming packet: the <code>destination_id</code> header. It uses this to route the
+        encrypted envelope to the correct recipient. It does not — and structurally cannot —
+        decrypt the payload.
+      </p>
+      <p>
+        We designed it this way on purpose. The simplest way to protect data is to never have it.
+        Even if the relay server were compromised, the attacker would get encrypted blobs and
+        no keys.
+      </p>
 
-        {/* Forensic Auditability */}
-        <div className="bento-card span-12">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <FileCheck className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Tamper-Evident Evidence Ledger (ISO/IEC 27037)</h3>
-          </div>
-          <p style={{ marginBottom: '1rem' }}>
-            For enterprise compliance and legal forensic verification, BATON optionally maintains a cryptographic Merkle Tree hash chain of system actions and tool executions:
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
-            <div style={{ background: 'var(--bg-canvas)', padding: '1rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <strong style={{ color: 'var(--text-main)', fontSize: '0.9rem' }}>Merkle Hash Chaining</strong>
-              <p style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>Every log entry incorporates the cryptographic hash of the prior entry, ensuring any database tampering is immediately detectable.</p>
-            </div>
-            <div style={{ background: 'var(--bg-canvas)', padding: '1rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <strong style={{ color: 'var(--text-main)', fontSize: '0.9rem' }}>eIDAS QES Compliance</strong>
-              <p style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>Compatible with MDM-injected Qualified Trust Service Provider (QTSP) certificates for qualified digital signatures.</p>
-            </div>
-            <div style={{ background: 'var(--bg-canvas)', padding: '1rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <strong style={{ color: 'var(--text-main)', fontSize: '0.9rem' }}>Standardized Export</strong>
-              <p style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>Export audit records directly to standardized ISO/IEC 27037 compliant <code>.zip</code> packages with detached <code>.sig</code> signatures.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2>Local storage</h2>
+      <p>
+        Chat history is stored on-device in a SQLCipher-encrypted database. The encryption key
+        is derived from your biometric-gated hardware keystore credential. On Android,
+        <code>allowBackup="false"</code> prevents the encrypted database from leaking
+        through cloud backup services.
+      </p>
+
+      <h2>Audit trail (optional)</h2>
+      <p>
+        For teams that need verifiable records, BATON can maintain a Merkle tree hash chain
+        of system actions. Each log entry includes the cryptographic hash of the previous entry,
+        making any tampering immediately detectable. The resulting archive is compatible with
+        ISO/IEC 27037 evidence handling and can be exported as a signed <code>.zip</code> package.
+      </p>
+      <p>
+        This feature is off by default for personal use and can be enabled through the enterprise
+        configuration.
+      </p>
     </div>
   );
 }

@@ -1,191 +1,165 @@
 import React, { useState } from 'react';
-import { Terminal, Code2, Cpu, Wrench } from 'lucide-react';
 
 export default function Developers() {
   const [activeLang, setActiveLang] = useState('python');
 
   return (
-    <div className="animate-fade-in page-wrapper" style={{ paddingTop: '4rem' }}>
-      <div className="section-header">
-        <h1>Developer Guide & MCP Integration</h1>
-        <p>
-          Connect any Model Context Protocol (MCP) tool, local LLM orchestrator, or custom Python/TypeScript service to your phone through BATON's encrypted bridge.
-        </p>
+    <div className="animate-fade-in inner-page">
+      <h1>Developers</h1>
+      <p className="page-intro">
+        Write custom tools that run on your machine and trigger them from your phone.
+      </p>
+
+      <h2>How BATON connects to your tools</h2>
+      <p>
+        BATON uses the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">Model Context Protocol</a> (MCP)
+        — an open standard for connecting AI models to local tools. The mobile app acts as an MCP client.
+        The desktop connector acts as the host, spawning your tool processes and routing JSON-RPC
+        messages between your phone and your local code over <code>stdio</code>.
+      </p>
+      <p>
+        Your tools run as normal processes under your user account. BATON never requires root
+        or admin privileges. All tool requests and responses are encrypted end-to-end before
+        they leave either device.
+      </p>
+
+      <h2>Write a tool server</h2>
+      <p>Pick your language:</p>
+      <div className="lang-tabs">
+        <button
+          onClick={() => setActiveLang('python')}
+          className={`lang-tab ${activeLang === 'python' ? 'active' : ''}`}
+        >
+          Python
+        </button>
+        <button
+          onClick={() => setActiveLang('typescript')}
+          className={`lang-tab ${activeLang === 'typescript' ? 'active' : ''}`}
+        >
+          TypeScript
+        </button>
       </div>
 
-      <div className="bento-grid">
-        {/* Architecture Overview */}
-        <div className="bento-card span-12">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Cpu className="card-icon" style={{ margin: 0 }} />
-            <h2 style={{ margin: 0 }}>How BATON MCP Works</h2>
+      {activeLang === 'python' ? (
+        <div className="z-code">
+          <div className="code-header">
+            <span>server.py</span>
+            <span>Python 3.10+ · pip install mcp</span>
           </div>
-          <p style={{ marginBottom: '1.25rem', fontSize: '1rem' }}>
-            The BATON mobile app acts as an <strong>MCP Client</strong>. The BATON Desktop Hub runs on your machine as an <strong>MCP Host & Bridge</strong>. When you send a prompt from your phone, the Desktop Hub routes JSON-RPC messages to your registered local tool processes via standard input/output (<code>stdio</code>) or SSE endpoints.
-          </p>
-          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
-            <div style={{ flex: '1 1 280px', background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>1. Local Process Isolation</h4>
-              <p style={{ fontSize: '0.88rem' }}>Tools run as sub-processes under your user permissions. BATON never requires root/admin escalation.</p>
-            </div>
-            <div style={{ flex: '1 1 280px', background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>2. Strict Standard I/O</h4>
-              <p style={{ fontSize: '0.88rem' }}>Full adherence to the official Model Context Protocol JSON-RPC specification (v2024-11-05).</p>
-            </div>
-            <div style={{ flex: '1 1 280px', background: 'var(--bg-canvas)', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-              <h4 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>3. E2EE Transit</h4>
-              <p style={{ fontSize: '0.88rem' }}>All tool requests and outputs are encrypted on-device before traversing the network.</p>
-            </div>
-          </div>
-        </div>
+          <pre><code>{`from mcp.server.fastmcp import FastMCP
+import sqlite3
 
-        {/* Code Example Section */}
-        <div className="bento-card span-12">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <Code2 className="card-icon" style={{ margin: 0 }} />
-              <h3 style={{ margin: 0 }}>Write a Custom MCP Tool Server</h3>
-            </div>
-            
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button 
-                onClick={() => setActiveLang('python')}
-                className={activeLang === 'python' ? 'btn-primary' : 'btn-secondary'}
-                style={{ padding: '0.35rem 0.85rem', fontSize: '0.82rem' }}
-              >
-                Python
-              </button>
-              <button 
-                onClick={() => setActiveLang('typescript')}
-                className={activeLang === 'typescript' ? 'btn-primary' : 'btn-secondary'}
-                style={{ padding: '0.35rem 0.85rem', fontSize: '0.82rem' }}
-              >
-                TypeScript / Node.js
-              </button>
-            </div>
-          </div>
-
-          {activeLang === 'python' ? (
-            <div className="z-code">
-              <div className="code-header">
-                <span>server.py (Python FastMCP)</span>
-                <span>Python 3.10+</span>
-              </div>
-              <pre><code>{`# Install: pip install mcp
-from mcp.server.fastmcp import FastMCP
-import subprocess
-
-# Initialize the FastMCP Server
-mcp = FastMCP("LocalTools")
+mcp = FastMCP("my-tools")
 
 @mcp.tool()
-def query_local_database(sql_query: str) -> str:
-    """Executes a read-only query against the local SQLite database."""
-    import sqlite3
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-    cursor.execute(sql_query)
-    results = cursor.fetchall()
+def query_notes(search: str) -> str:
+    """Search your local notes database."""
+    conn = sqlite3.connect("notes.db")
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT title, body FROM notes WHERE body LIKE ?",
+        (f"%{search}%",)
+    )
+    results = cur.fetchall()
     conn.close()
-    return str(results)
+    if not results:
+        return "No matches found."
+    return "\\n".join(f"• {title}: {body[:120]}" for title, body in results)
 
 @mcp.tool()
-def read_system_status() -> str:
-    """Returns current system memory and CPU utilization."""
+def system_status() -> str:
+    """Check CPU and memory usage."""
     import psutil
     cpu = psutil.cpu_percent(interval=1)
-    mem = psutil.virtual_memory().percent
-    return f"CPU: {cpu}%, RAM: {mem}%"
+    mem = psutil.virtual_memory()
+    return f"CPU: {cpu}% | RAM: {mem.used // (1024**3)}GB / {mem.total // (1024**3)}GB"
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")`}</code></pre>
-            </div>
-          ) : (
-            <div className="z-code">
-              <div className="code-header">
-                <span>server.ts (TypeScript / Node.js SDK)</span>
-                <span>Node.js 18+</span>
-              </div>
-              <pre><code>{`// Install: npm install @modelcontextprotocol/sdk
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+        </div>
+      ) : (
+        <div className="z-code">
+          <div className="code-header">
+            <span>server.ts</span>
+            <span>Node 18+ · npm install @modelcontextprotocol/sdk</span>
+          </div>
+          <pre><code>{`import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+import {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+} from "@modelcontextprotocol/sdk/types.js";
+import { execSync } from "child_process";
 
 const server = new Server(
-  { name: "custom-node-agent", version: "1.0.0" },
+  { name: "dev-tools", version: "1.0.0" },
   { capabilities: { tools: {} } }
 );
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
   tools: [
     {
-      name: "get_weather",
-      description: "Get local temperature for a given city",
+      name: "git_status",
+      description: "Show the current git status of a repository",
       inputSchema: {
         type: "object",
-        properties: { city: { type: "string" } },
-        required: ["city"]
-      }
-    }
-  ]
+        properties: { path: { type: "string" } },
+        required: ["path"],
+      },
+    },
+  ],
 }));
 
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  if (request.params.name === "get_weather") {
-    const city = String(request.params.arguments?.city);
-    return { content: [{ type: "text", text: \`Weather in \${city}: 22°C, Sunny\` }] };
+server.setRequestHandler(CallToolRequestSchema, async (req) => {
+  if (req.params.name === "git_status") {
+    const path = String(req.params.arguments?.path);
+    const output = execSync("git status --short", { cwd: path }).toString();
+    return { content: [{ type: "text", text: output || "Clean working tree" }] };
   }
-  throw new Error("Tool not found");
+  throw new Error("Unknown tool");
 });
 
 const transport = new StdioServerTransport();
 await server.connect(transport);`}</code></pre>
-            </div>
-          )}
         </div>
+      )}
 
-        {/* Configuration Guide */}
-        <div className="bento-card span-6">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Wrench className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Registering with Desktop Hub</h3>
-          </div>
-          <p style={{ marginBottom: '1rem' }}>
-            To register your tool server with the BATON Desktop Hub, add it to your <code>baton.json</code> configuration file or pass environment variables:
-          </p>
-          <div className="z-code">
-            <div className="code-header">
-              <span>baton.json</span>
-            </div>
-            <pre><code>{`{
+      <h2>Register your tool</h2>
+      <p>
+        Add your tool server to the <code>baton.json</code> configuration file in the connector's
+        working directory:
+      </p>
+      <div className="z-code">
+        <div className="code-header">
+          <span>baton.json</span>
+        </div>
+        <pre><code>{`{
   "mcpServers": {
-    "local-tools": {
+    "my-tools": {
       "command": "python",
       "args": ["C:/agents/server.py"],
       "env": {}
     }
   }
 }`}</code></pre>
-          </div>
-        </div>
-
-        {/* Local LLM Integration */}
-        <div className="bento-card span-6">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <Terminal className="card-icon" style={{ margin: 0 }} />
-            <h3 style={{ margin: 0 }}>Local Model Backends</h3>
-          </div>
-          <p style={{ marginBottom: '1rem' }}>
-            BATON connects out-of-the-box to local inference engines running on your machine:
-          </p>
-          <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
-            <li><strong>Ollama:</strong> Connects to <code>http://127.0.0.1:11434</code> automatically.</li>
-            <li><strong>LM Studio:</strong> Connects to <code>http://127.0.0.1:1234/v1</code> OpenAI-compatible server.</li>
-            <li><strong>vLLM & LocalAI:</strong> Point BATON to any custom HTTP/SSE host.</li>
-            <li><strong>HuggingFace TGI:</strong> Standard OpenAI-format streaming supported.</li>
-          </ul>
-        </div>
       </div>
+      <p>
+        Restart the desktop connector. Your tools will appear in the mobile app automatically.
+      </p>
+
+      <h2>Supported model backends</h2>
+      <p>
+        BATON connects to any local inference engine that exposes an HTTP endpoint:
+      </p>
+      <ul>
+        <li><strong>Ollama</strong> — auto-detected at <code>http://127.0.0.1:11434</code></li>
+        <li><strong>LM Studio</strong> — OpenAI-compatible at <code>http://127.0.0.1:1234/v1</code></li>
+        <li><strong>vLLM / LocalAI / TGI</strong> — any custom endpoint with OpenAI-format streaming</li>
+      </ul>
+      <p>
+        You can also proxy to cloud APIs (Anthropic, Azure OpenAI, Vertex AI) if you prefer.
+        The connector handles authentication and routing.
+      </p>
     </div>
   );
 }

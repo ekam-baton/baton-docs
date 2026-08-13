@@ -1,243 +1,252 @@
 import React from 'react';
-import { Smartphone, Server, Shield, Lock, Cpu, ArrowRight, Zap, QrCode, FileText, CheckCircle2, ShieldCheck } from 'lucide-react';
-import GalaxyBackground from '../components/GalaxyBackground';
-import AuditLogFeed from '../components/AuditLogFeed';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
-    <div className="animate-fade-in" style={{ position: 'relative', minHeight: '100vh', paddingBottom: '4rem' }}>
-      <GalaxyBackground />
+    <div className="animate-fade-in">
 
-      {/* ── Hero Section ── */}
-      <section className="hero-section" aria-label="Hero Section">
-        <div className="hero-content">
-          <div className="hero-badge">
-            <span className="hero-badge-dot"></span>
-            <span>Zero Cloud Storage · E2EE · Sovereign MCP</span>
-          </div>
-
-          <h1 className="hero-title">
-            Own Your Workflow.<br />Chat with Your Local AI.
+      {/* ── Hero ── */}
+      <section className="home-hero" aria-label="Hero">
+        <div className="home-hero-inner">
+          <h1>
+            Your AI stays<br />on your machine.
           </h1>
-
-          <p className="hero-subtitle">
-            BATON is a private, end-to-end encrypted mobile client that connects your smartphone directly to AI models running on your personal computer or private VPS. No third-party data tracking, no open router ports.
+          <p className="home-hero-lead">
+            BATON is a mobile app that talks to AI models running on your own computer.
+            Your prompts never leave your network. No accounts, no cloud storage, no data harvesting.
           </p>
-
-          <div className="hero-platforms-container">
-            {/* Windows + Android */}
-            <div className="hero-platform-column">
-              <span className="platform-col-header">Windows & Android</span>
-              <a 
-                href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`} 
-                download 
-                className="btn-boxy btn-primary-boxy"
-              >
-                <span>Download Windows Hub (.msi)</span>
-              </a>
-              <a 
-                href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn-boxy btn-secondary-boxy"
-              >
-                <span>Download Android APK</span>
-              </a>
-            </div>
-
-            {/* macOS + iOS */}
-            <div className="hero-platform-column">
-              <span className="platform-col-header">Apple Ecosystem</span>
-              <a 
-                href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn-boxy btn-primary-boxy"
-              >
-                <span>Download macOS Hub</span>
-              </a>
-              <a 
-                href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn-boxy btn-secondary-boxy"
-              >
-                <span>Download iOS Framework</span>
-              </a>
-            </div>
+          <div className="home-hero-cta">
+            <a
+              href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`}
+              download
+              className="btn-solid"
+            >
+              Download for Windows
+            </a>
+            <a
+              href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
+            >
+              Android APK
+            </a>
+            <a
+              href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
+            >
+              macOS
+            </a>
           </div>
-        </div>
-
-        <div className="hero-mockup-container">
-          <AuditLogFeed />
+          <p className="home-hero-note">
+            Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> · Free to try, $9.99/year after
+          </p>
         </div>
       </section>
 
-      {/* ── 3-Step Quick Start ── */}
-      <section className="page-wrapper" style={{ paddingTop: '3rem' }} aria-label="Quick Start">
-        <div className="section-header" style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h2>Get Started in Three Steps</h2>
-          <p style={{ margin: '0 auto' }}>No central accounts or cloud lock-in. Just direct, cryptographic device pairing.</p>
-        </div>
-        
-        <div className="bento-grid">
-          <div className="bento-card span-4" style={{ textAlign: 'center', alignItems: 'center' }}>
-            <Server className="card-icon" style={{ width: 32, height: 32, marginBottom: '1rem' }} />
-            <h3>1. Start the Desktop Hub</h3>
-            <p>Run the standalone Baton binary on your computer. It connects to your local Ollama, LM Studio, or custom MCP servers.</p>
-          </div>
-          
-          <div className="bento-card span-4" style={{ textAlign: 'center', alignItems: 'center' }}>
-            <Smartphone className="card-icon" style={{ width: 32, height: 32, marginBottom: '1rem' }} />
-            <h3>2. Install the Mobile App</h3>
-            <p>Open the Baton mobile app on Android or iOS. Biometric hardware keystores generate your sovereign private keys on-device.</p>
-          </div>
-
-          <div className="bento-card span-4" style={{ textAlign: 'center', alignItems: 'center' }}>
-            <QrCode className="card-icon" style={{ width: 32, height: 32, marginBottom: '1rem' }} />
-            <h3>3. Scan to Pair</h3>
-            <p>Scan the encrypted pairing QR code on your desktop. Your phone and computer establish a permanent, authenticated link.</p>
-          </div>
+      {/* ── How it works ── */}
+      <section className="home-section" aria-label="How it works">
+        <div className="home-narrow">
+          <h2>How it works</h2>
+          <p className="home-body">
+            You run an AI model on your computer — Ollama, LM Studio, vLLM, whatever you prefer.
+            BATON connects your phone to that model over an encrypted channel.
+            When you're on the same Wi-Fi, the connection is direct and instant. When you're out,
+            it routes through a relay that can't read your messages.
+          </p>
+          <p className="home-body">
+            That's it. No sign-ups, no API keys to manage, no tokens metered by a cloud provider.
+            Your hardware, your models, your conversations.
+          </p>
         </div>
       </section>
 
-      {/* ── Real Capabilities ── */}
-      <section className="page-wrapper" style={{ paddingTop: '5rem' }} aria-label="Capabilities">
-        <div className="section-header">
-          <h2>What You Can Do</h2>
-          <p>Baton turns your smartphone into a sovereign control center for your private infrastructure.</p>
-        </div>
-
-        <div className="bento-grid">
-          <div className="bento-card span-4">
-            <Zap className="card-icon" />
-            <h3>Private Mobile AI Chat</h3>
-            <p>Chat natively from your phone with open-weight models (Llama 3, Mistral, DeepSeek, Qwen) hosted locally on your GPU without cloud rate limits.</p>
-          </div>
-
-          <div className="bento-card span-4">
-            <Cpu className="card-icon" />
-            <h3>Model Context Protocol (MCP)</h3>
-            <p>Trigger local Python tools, query private PostgreSQL/SQLite databases, or execute filesystem workflows securely from your mobile device.</p>
-          </div>
-
-          <div className="bento-card span-4">
-            <ShieldCheck className="card-icon" />
-            <h3>Zero-Trust Corporate VPCs</h3>
-            <p>Proxy directly to enterprise Anthropic, Azure OpenAI, or Google Cloud Vertex AI instances over authenticated internal networks.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Architecture Section ── */}
-      <section className="page-wrapper" style={{ paddingTop: '5rem' }} aria-label="Architecture Topology">
-        <div className="section-header">
-          <h2>Hybrid Topology: Direct LAN & Zero-Knowledge Relay</h2>
-          <p>BATON simultaneously races a direct local connection and a blind TURN relay, ensuring sub-millisecond latency when home and uninterrupted access when away.</p>
-        </div>
-        
-        <div className="architecture-grid">
-          <div className="arch-node">
-            <div className="arch-icon-wrap">
-              <Smartphone size={28} color="var(--text-main)" />
-            </div>
-            <h3>Mobile App</h3>
-            <p>Encrypts payloads locally using X25519 & AES-256-GCM before transmission.</p>
-          </div>
-          
-          <div className="arch-arrow">
-            <ArrowRight size={20} />
-            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>LAN / TURN</span>
-          </div>
-
-          <div className="arch-node">
-            <div className="arch-icon-wrap">
-              <Server size={28} color="var(--text-main)" />
-            </div>
-            <h3>Blind Relay</h3>
-            <p>Routes encrypted envelopes based on destination ID without access to decryption keys.</p>
-          </div>
-
-          <div className="arch-arrow">
-            <ArrowRight size={20} />
-            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>E2EE</span>
-          </div>
-
-          <div className="arch-node">
-            <div className="arch-icon-wrap">
-              <Cpu size={28} color="var(--text-main)" />
-            </div>
-            <h3>Desktop Hub</h3>
-            <p>Decrypts messages locally and routes requests to local MCP tools and models.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Security & Governance Deep Dive ── */}
-      <section className="page-wrapper" style={{ paddingTop: '5rem' }} aria-label="Security Pillars">
-        <div className="section-header">
-          <h2>Built for Sovereign Privacy & Digital Evidence</h2>
-          <p>Engineered for individuals who care about data ownership and teams that require verifiable audit trails.</p>
-        </div>
-
-        <div className="bento-grid">
-          <div className="bento-card span-8">
-            <Lock className="card-icon" />
-            <h3>End-to-End Cryptography</h3>
-            <p>
-              Every conversation is protected by sovereign X25519 key exchange and AES-256-GCM encryption. The cloud router is a dumb pipe that mathematically cannot read your messages or prompts.
+      {/* ── The problem ── */}
+      <section className="home-section home-section-alt" aria-label="The problem we solve">
+        <div className="home-split">
+          <div className="home-split-text">
+            <h2>The problem with cloud AI</h2>
+            <p className="home-body">
+              Every time you send a prompt to ChatGPT, Claude, or Gemini, your words travel to
+              someone else's server. They get logged. They get used for training. They get stored
+              in a jurisdiction you didn't choose.
+            </p>
+            <p className="home-body">
+              For personal use, that might be fine. For medical questions, legal drafts,
+              proprietary code, client data, or anything you'd rather keep private — it's not.
             </p>
           </div>
-
-          <div className="bento-card span-4">
-            <Shield className="card-icon" />
-            <h3>Hardware Keystore Biometrics</h3>
-            <p>Session tokens and private keys remain enclosed in your phone's secure hardware enclave, locked behind fingerprint or face authentication.</p>
-          </div>
-
-          <div className="bento-card span-4">
-            <CheckCircle2 className="card-icon" />
-            <h3>On-Device SQLCipher</h3>
-            <p>Chat history and agent configurations are encrypted locally with 256-bit AES database encryption.</p>
-          </div>
-
-          <div className="bento-card span-8">
-            <FileText className="card-icon" />
-            <h3>Forensic Audit Ledger (ISO/IEC 27037)</h3>
-            <p>
-              BATON incorporates a Merkle Tree cryptographic hash chain for evidentiary compliance (eIDAS QES, US CISA/STIG, India IT Act Sec 65B). Export verifiable evidence archives directly from your device.
-            </p>
+          <div className="home-split-aside">
+            <div className="home-comparison">
+              <div className="comparison-col">
+                <h4>Cloud AI</h4>
+                <ul>
+                  <li>Prompts stored on third-party servers</li>
+                  <li>Data used for model training</li>
+                  <li>Rate limits and usage caps</li>
+                  <li>Monthly subscription fees</li>
+                </ul>
+              </div>
+              <div className="comparison-col comparison-col-alt">
+                <h4>BATON + Local AI</h4>
+                <ul>
+                  <li>Prompts stay on your hardware</li>
+                  <li>Nothing leaves your network</li>
+                  <li>No rate limits — your GPU, your rules</li>
+                  <li>$9.99/year for the relay service</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── FAQ Section ── */}
-      <section className="page-wrapper" style={{ paddingTop: '5rem', paddingBottom: '2rem' }} aria-label="Frequently Asked Questions">
-        <div className="section-header">
-          <h2>Frequently Asked Questions</h2>
-          <p>Clear, direct answers about BATON's architecture, security, and pricing.</p>
+      {/* ── Setup ── */}
+      <section className="home-section" aria-label="Setup">
+        <div className="home-narrow">
+          <h2>Setup takes about two minutes</h2>
+          <ol className="home-steps">
+            <li>
+              <strong>Install the desktop connector</strong> on your Windows or Mac.
+              It finds your local AI models automatically.
+            </li>
+            <li>
+              <strong>Install the mobile app</strong> on your Android or iPhone.
+            </li>
+            <li>
+              <strong>Scan the QR code</strong> on your desktop screen.
+              Your devices pair with a cryptographic handshake — no passwords, no accounts.
+            </li>
+          </ol>
+          <p className="home-body">
+            Once paired, your phone remembers the connection.
+            Open the app and start chatting. It reconnects automatically.
+          </p>
         </div>
-        
-        <div className="faq-container">
-          <details className="faq-item">
-            <summary>Why does BATON charge a subscription when some chat apps are free?</summary>
-            <p>Free applications monetize by collecting telemetry, analyzing chat logs, or serving ads. BATON charges a minimal subscription ($9.99/year globally, ₹199/year in India) to maintain high-throughput, zero-knowledge TURN relay servers without compromising user privacy. We do not store or sell your data.</p>
-          </details>
-          
-          <details className="faq-item">
-            <summary>Do my messages or AI responses ever touch the cloud unencrypted?</summary>
-            <p>No. Payloads are encrypted on your phone before transmission and decrypted only on your paired desktop or local server. The relay server routes opaque, encrypted JSON envelopes and has zero visibility into plaintext content.</p>
-          </details>
-          
-          <details className="faq-item">
-            <summary>What AI models and backends are supported?</summary>
-            <p>BATON supports any model or tool running via the Model Context Protocol (MCP) or standard HTTP/SSE endpoints. This includes Ollama, LM Studio, vLLM, LocalAI, Anthropic Claude, Azure OpenAI, and custom Python or Node.js agents.</p>
-          </details>
+      </section>
 
-          <details className="faq-item">
-            <summary>Do I need to configure port forwarding on my home router?</summary>
-            <p>No. BATON's hybrid networking uses automated NAT traversal and relay routing so you can securely reach your home server from cellular networks without exposing open ports or configuring dynamic DNS.</p>
-          </details>
+      {/* ── For developers ── */}
+      <section className="home-section home-section-alt" aria-label="Developers">
+        <div className="home-narrow">
+          <h2>Build tools that run on your machine</h2>
+          <p className="home-body">
+            BATON supports the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">Model Context Protocol</a> (MCP),
+            the open standard for connecting AI models to local tools. Write a Python script that
+            queries your database, reads files, controls your smart home, or calls internal APIs —
+            then trigger it from your phone.
+          </p>
+          <div className="home-code-block">
+            <div className="home-code-header">example_tool.py</div>
+            <pre><code>{`from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("my-tools")
+
+@mcp.tool()
+def search_notes(query: str) -> str:
+    """Search your local notes database."""
+    # Your logic here — runs on YOUR computer
+    results = db.search(query)
+    return f"Found {len(results)} matches"`}</code></pre>
+          </div>
+          <p className="home-body" style={{ marginTop: '1.5rem' }}>
+            Register it in <code>baton.json</code>, restart the connector, and it's available from your phone.
+            <Link to="/developers" className="home-inline-link"> Read the developer guide →</Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ── Security ── */}
+      <section className="home-section" aria-label="Security">
+        <div className="home-narrow">
+          <h2>How the encryption works</h2>
+          <p className="home-body">
+            When your phone and computer pair, they perform an X25519 key exchange — the same
+            algorithm used by Signal and WireGuard. Every message is then encrypted with AES-256-GCM
+            before it leaves either device.
+          </p>
+          <p className="home-body">
+            The relay server, when needed, forwards encrypted packets it cannot decrypt. It knows
+            a device ID is talking to another device ID. It cannot see what's being said. We designed
+            it this way because the simplest way to protect data is to never have it.
+          </p>
+          <p className="home-body">
+            Private keys live in your phone's hardware security module (Android Keystore / iOS Secure Enclave)
+            and never leave the chip. Chat history is stored locally in a SQLCipher-encrypted database.
+            <Link to="/security" className="home-inline-link"> Full security architecture →</Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ── Enterprise ── */}
+      <section className="home-section home-section-alt" aria-label="Enterprise">
+        <div className="home-narrow">
+          <h2>Works for teams too</h2>
+          <p className="home-body">
+            If you're an IT admin, you can deploy the BATON relay inside your own VPC.
+            Proxy requests to your Anthropic, Azure OpenAI, or Vertex AI instances
+            without exposing API keys to end users. Provision devices through MDM.
+            Every conversation gets a cryptographic audit trail that satisfies ISO 27037.
+          </p>
+          <p className="home-body">
+            <Link to="/enterprise" className="home-inline-link">Enterprise deployment guide →</Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ── Pricing ── */}
+      <section className="home-section" aria-label="Pricing">
+        <div className="home-narrow">
+          <h2>Pricing</h2>
+          <p className="home-body">
+            The mobile app and desktop connector are free to download. The relay service that lets
+            you reach your computer from outside your home network costs <strong>$9.99 per year</strong> (₹199/year in India).
+          </p>
+          <p className="home-body">
+            There are no tiers, no feature gates, no "contact sales" pages. One price, everything included.
+            We charge for the relay infrastructure so we don't have to monetize your data.
+          </p>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="home-section home-section-alt" aria-label="FAQ">
+        <div className="home-narrow">
+          <h2>Questions</h2>
+          <div className="home-faq">
+            <details>
+              <summary>Do I need to open ports on my router?</summary>
+              <p>
+                No. BATON uses NAT traversal and relay routing. You don't need to configure
+                your router, set up dynamic DNS, or expose any services to the internet.
+              </p>
+            </details>
+            <details>
+              <summary>What models can I use?</summary>
+              <p>
+                Anything that speaks HTTP or the Model Context Protocol. Ollama, LM Studio,
+                vLLM, LocalAI, text-generation-webui — if it runs on your machine and has an
+                API endpoint, BATON can talk to it. You can also proxy to cloud APIs like
+                Anthropic or Azure OpenAI if you prefer.
+              </p>
+            </details>
+            <details>
+              <summary>Is this open source?</summary>
+              <p>
+                The desktop connector and relay server are open source under the Apache 2.0 license.
+                The mobile apps are currently source-available. All code is on <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer">GitHub</a>.
+              </p>
+            </details>
+            <details>
+              <summary>Why not just use a VPN?</summary>
+              <p>
+                You could, but a VPN exposes your entire network. BATON only exposes the specific
+                model endpoints you configure, with per-message encryption on top. It's a narrower,
+                more secure surface.
+              </p>
+            </details>
+          </div>
         </div>
       </section>
     </div>
