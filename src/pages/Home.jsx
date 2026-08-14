@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Starfield from '../components/Starfield';
 
 export default function Home() {
   return (
     <div className="animate-fade-in">
 
       {/* ── Hero ── */}
-      <section className="home-hero" aria-label="Hero">
-        <div className="home-hero-inner">
-          <h1>
+      <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
+        <Starfield />
+        <section className="home-hero" aria-label="Hero" style={{ position: 'relative', zIndex: 1 }}>
+          <div className="home-hero-inner">
+            <h1>
             Own Your Workflow.<br />Deploy Intelligence.
           </h1>
           <p className="home-hero-lead">
@@ -44,7 +47,8 @@ export default function Home() {
             Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> · Free to try, $9.99/year after
           </p>
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* ── How it works ── */}
       <section className="home-section" aria-label="How it works">
