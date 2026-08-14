@@ -38,6 +38,8 @@ export default function Footer() {
           <ul>
             <li><a href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`} download>Windows</a></li>
             <li><a href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk" target="_blank" rel="noopener noreferrer">Android</a></li>
+            <li><a href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" target="_blank" rel="noopener noreferrer">macOS Hub</a></li>
+            <li><a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS Framework</a></li>
             <li><Link to="/changelog">Changelog</Link></li>
           </ul>
         </div>

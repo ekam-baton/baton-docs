@@ -26,6 +26,7 @@ export default function TopNav() {
           <NavLink to="/security" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Security</NavLink>
           <NavLink to="/enterprise" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Enterprise</NavLink>
           <NavLink to="/changelog" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Changelog</NavLink>
+          <NavLink to="/community" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={() => setMobileOpen(false)}>Community</NavLink>
         </nav>
 
         <div className="nav-actions">

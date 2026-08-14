@@ -1,16 +1,27 @@
-# React + Vite
+# BATON Documentation Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Official website for [BATON](https://github.com/ekam-baton/baton) — a private, encrypted mobile AI chat app and MCP router.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+## Production Build
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build
+```
 
-## Expanding the Oxlint configuration
+## Deployment
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Automatically deployed to GitHub Pages via GitHub Actions on push to `main`.
+
+## Tech Stack
+
+- React 19 + Vite
+- React Router (client-side routing)
+- Vanilla CSS design system
+- GitHub Pages hosting
