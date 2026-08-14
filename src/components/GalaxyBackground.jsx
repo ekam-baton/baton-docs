@@ -10,8 +10,8 @@ export default function GalaxyBackground() {
     
     let width, height;
     let stars = [];
-    const numStars = 400; // Small stars everywhere
-    const speed = 2.5; // Traveling speed
+    const numStars = 90;
+    const speed = 0.15;
 
     const resize = () => {
       width = window.innerWidth;
@@ -26,10 +26,11 @@ export default function GalaxyBackground() {
         this.y = Math.random() * height - height / 2;
         this.z = Math.random() * width;
         this.pz = this.z;
+        this.opacity = Math.random() * 0.35 + 0.1;
       }
 
       update() {
-        this.z = this.z - speed;
+        this.z = this.z - speed * (width * 0.002);
         if (this.z < 1) {
           this.z = width;
           this.x = Math.random() * width - width / 2;
@@ -41,19 +42,13 @@ export default function GalaxyBackground() {
       show() {
         const sx = (this.x / this.z) * width + width / 2;
         const sy = (this.y / this.z) * height + height / 2;
-        
-        const px = (this.x / this.pz) * width + width / 2;
-        const py = (this.y / this.pz) * height + height / 2;
+        const r = Math.max(0, 1 - this.z / width);
 
-        this.pz = this.z;
-
-        // Draw small line to show movement
-        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - this.z / width})`;
+        ctx.fillStyle = `rgba(220, 225, 235, ${this.opacity})`;
         ctx.beginPath();
-        ctx.moveTo(px, py);
-        ctx.lineTo(sx, sy);
-        ctx.lineWidth = 1;
-        ctx.stroke();
+        ctx.arc(sx, sy, r, 0, Math.PI * 2);
+        ctx.fill();
+        this.pz = this.z;
       }
     }
 
@@ -64,9 +59,7 @@ export default function GalaxyBackground() {
 
     let animationFrameId;
     const animate = () => {
-      // Clear with slight opacity for trail effect
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-      ctx.fillRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, height);
 
       stars.forEach(star => {
         star.update();
@@ -90,14 +83,14 @@ export default function GalaxyBackground() {
     <canvas
       ref={canvasRef}
       style={{
-        position: 'fixed',
+        position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.8,
+        opacity: 0.7,
       }}
     />
   );
