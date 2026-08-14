@@ -45,7 +45,7 @@ export default function Home() {
             </a>
           </div>
           <p className="home-hero-note">
-            Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> · Free to try, $9.99/year after
+            Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> · Built for uncompromising privacy
           </p>
         </div>
       </section>
@@ -94,7 +94,7 @@ export default function Home() {
                 <li>Prompts remain strictly on your computer</li>
                 <li>Zero telemetry or model training</li>
                 <li>Unlimited generation powered by your own GPU</li>
-                <li>$9.99/year transparent infrastructure fee</li>
+                <li>Independent infrastructure funded by users, not data</li>
               </ul>
             </div>
           </div>
@@ -187,16 +187,15 @@ def search_notes(query: str) -> str:
         </div>
       </section>
 
-      {/* ── Pricing ── */}
-      <section className="home-section" aria-label="Pricing">
+      {/* ── Why We Charge ── */}
+      <section className="home-section" aria-label="Why We Charge">
         <div className="home-narrow text-center">
-          <h2>Transparent Pricing</h2>
+          <h2>Why We Charge</h2>
           <p className="home-body">
-            The desktop connector and mobile application are completely free.
-            Connecting remotely outside your local network is <strong>$9.99/year</strong> globally (₹199/year in India).
+            BATON relies on independent, secure relay infrastructure to function remotely. Instead of taking VC funding or monetizing your private workflows, we charge a simple subscription to sustain the service. You pay for the infrastructure, so your data remains exclusively yours.
           </p>
           <p className="home-body" style={{ color: 'var(--text-dim)', fontSize: '0.9rem' }}>
-            No hidden tiers, no usage caps, and no monetization of your personal data.
+            No hidden tiers, no usage caps, and absolute privacy for your professional workflows.
           </p>
         </div>
       </section>
