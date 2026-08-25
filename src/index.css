@@ -454,7 +454,7 @@ pre code {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin: 3rem auto 0;
+  margin: 6rem auto 0;
   max-width: 580px;
   padding: 1.5rem 2rem;
   border: 1px solid var(--border-color);
