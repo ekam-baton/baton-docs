@@ -50,19 +50,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Works with ── */}
-      <section className="works-with" aria-label="Compatible platforms">
-        <p className="works-with-label">Works with</p>
-        <div className="works-with-logos">
-          <span className="works-with-item">Ollama</span>
-          <span className="works-with-item">LM Studio</span>
-          <span className="works-with-item">vLLM</span>
-          <span className="works-with-item">LocalAI</span>
-          <span className="works-with-item">Claude API</span>
-          <span className="works-with-item">Azure OpenAI</span>
-        </div>
-      </section>
-
       {/* ── How it works ── */}
       <section className="home-section" aria-label="How it works">
         <div className="home-narrow text-center">
