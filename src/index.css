@@ -323,10 +323,15 @@ pre code {
 
 .home-hero-cta {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 1.25rem;
+}
+
+.home-hero-cta > a {
+  min-width: 200px;
+  justify-content: center;
 }
 
 .home-hero-note {
@@ -492,6 +497,22 @@ pre code {
 }
 
 .hero-diagram-lock {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.hero-diagram-lock .diagram-line {
+  height: 1px;
+  background: var(--border-color);
+  flex: 1;
+  margin: 0 10px;
+}
+
+.hero-diagram-lock .lock-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1268,8 +1289,14 @@ footer.footer {
     gap: 0.75rem;
     padding: 1.25rem;
   }
-  .hero-diagram-arrow {
-    transform: rotate(90deg);
+  .hero-diagram-lock {
+    flex-direction: column;
+    min-height: 80px;
+  }
+  .hero-diagram-lock .diagram-line {
+    width: 1px;
+    height: auto;
+    margin: 10px 0;
   }
   .works-with-logos {
     gap: 1.5rem;

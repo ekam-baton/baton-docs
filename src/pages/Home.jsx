@@ -53,19 +53,19 @@ export default function Home() {
               <div className="node-icon"><Smartphone size={18} /></div>
               <span className="node-label">Your Phone</span>
             </div>
+            
             <div className="hero-diagram-lock">
-              <Lock size={14} style={{ color: 'var(--accent)' }} />
-              <span className="lock-label">AES-256</span>
+              <div className="diagram-line"></div>
+              <div className="lock-content">
+                <Lock size={14} style={{ color: 'var(--accent)' }} />
+                <span className="lock-label">AES-256</span>
+              </div>
+              <div className="diagram-line"></div>
             </div>
-            <div className="hero-diagram-arrow">→</div>
+
             <div className="hero-diagram-node">
               <div className="node-icon"><Monitor size={18} /></div>
               <span className="node-label">Your Computer</span>
-            </div>
-            <div className="hero-diagram-arrow">→</div>
-            <div className="hero-diagram-node">
-              <div className="node-icon"><Cable size={18} /></div>
-              <span className="node-label">Ollama / LLM</span>
             </div>
           </div>
         </div>
