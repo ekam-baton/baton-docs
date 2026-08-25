@@ -53,7 +53,6 @@ export default function Home() {
       {/* ── How it works ── */}
       <section className="home-section" aria-label="How it works">
         <div className="home-narrow text-center">
-          <span className="section-label">Overview</span>
           <h2>How it works</h2>
           <p className="home-body">
             You run an AI model on your computer &mdash; Ollama, LM Studio, vLLM, whatever you prefer.
@@ -72,7 +71,6 @@ export default function Home() {
       <section className="home-section home-section-alt" aria-label="The problem we solve">
         <div className="home-symmetric-wrapper">
           <div className="text-center" style={{ marginBottom: '3rem' }}>
-            <span className="section-label">Why It Matters</span>
             <h2>The problem with cloud AI</h2>
             <p className="home-body" style={{ maxWidth: '640px', margin: '0 auto' }}>
               Standard cloud assistants route your private conversations through third-party data centers,
@@ -107,7 +105,6 @@ export default function Home() {
       <section className="home-section" aria-label="Setup">
         <div className="home-symmetric-wrapper">
           <div className="text-center" style={{ marginBottom: '3rem' }}>
-            <span className="section-label">Getting Started</span>
             <h2>Quick 3-Step Setup</h2>
             <p className="home-body" style={{ maxWidth: '580px', margin: '0 auto' }}>
               Get started in under two minutes with automated cryptographic pairing.
@@ -137,7 +134,6 @@ export default function Home() {
       {/* ── For developers ── */}
       <section className="home-section home-section-alt" aria-label="Developers">
         <div className="home-narrow text-center">
-          <span className="section-label">For Developers</span>
           <h2>Extend with Model Context Protocol</h2>
           <p className="home-body">
             BATON implements the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">Model Context Protocol</a> (MCP)
@@ -164,7 +160,6 @@ def search_notes(query: str) -> str:
       {/* ── Security ── */}
       <section className="home-section" aria-label="Security">
         <div className="home-narrow text-center">
-          <span className="section-label">Security</span>
           <h2>Cryptographic Security</h2>
           <p className="home-body">
             Every session begins with an authenticated X25519 key exchange. Messages are encrypted
@@ -180,7 +175,6 @@ def search_notes(query: str) -> str:
       {/* ── Enterprise ── */}
       <section className="home-section home-section-alt" aria-label="Enterprise">
         <div className="home-narrow text-center">
-          <span className="section-label">Enterprise</span>
           <h2>Enterprise & Private VPC</h2>
           <p className="home-body">
             Deploy the BATON connector within your corporate VPC via Docker. Provide employees with
@@ -233,4 +227,5 @@ def search_notes(query: str) -> str:
     </div>
   );
 }
+
 
