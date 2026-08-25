@@ -22,8 +22,7 @@ export default function Home() {
           </p>
           <div className="home-hero-cta">
             <a
-              href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`}
-              download
+              href="https://github.com/ekam-baton/baton/releases/latest/download/Baton_x64.msi"
               className="btn-solid"
             >
               Download for Windows

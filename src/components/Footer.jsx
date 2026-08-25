@@ -36,7 +36,7 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Product</h4>
           <ul>
-            <li><a href={`${import.meta.env.BASE_URL}Baton_0.1.0_x64_en-US.msi`} download>Windows</a></li>
+            <li><a href="https://github.com/ekam-baton/baton/releases/latest/download/Baton_x64.msi" target="_blank" rel="noopener noreferrer">Windows</a></li>
             <li><a href="https://github.com/ekam-baton/baton/releases/latest/download/baton-v1.0.apk" target="_blank" rel="noopener noreferrer">Android</a></li>
             <li><a href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos" target="_blank" rel="noopener noreferrer">macOS Hub</a></li>
             <li><a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS Framework</a></li>
