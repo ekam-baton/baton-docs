@@ -4,6 +4,8 @@ export default function Starfield() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    if (window.innerWidth <= 768) return; // Disable on mobile for performance
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     let animationFrameId;

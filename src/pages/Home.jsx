@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Smartphone, Monitor, Lock, ArrowRight, ScanLine, Download, Cable } from 'lucide-react';
 import Starfield from '../components/Starfield';
 
 export default function Home() {
@@ -28,7 +29,7 @@ export default function Home() {
               Download for Windows
             </a>
             <a
-              href="https://github.com/ekam-baton/baton/releases/latest/download/app-debug.apk"
+              href="https://github.com/ekam-baton/baton/releases/latest/download/baton-v1.0.apk"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline"
@@ -47,12 +48,47 @@ export default function Home() {
           <p className="home-hero-note">
             Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> · Built for uncompromising privacy
           </p>
+
+          <div className="hero-diagram">
+            <div className="hero-diagram-node">
+              <div className="node-icon"><Smartphone size={18} /></div>
+              <span className="node-label">Your Phone</span>
+            </div>
+            <div className="hero-diagram-lock">
+              <Lock size={14} style={{ color: 'var(--accent)' }} />
+              <span className="lock-label">AES-256</span>
+            </div>
+            <div className="hero-diagram-arrow">→</div>
+            <div className="hero-diagram-node">
+              <div className="node-icon"><Monitor size={18} /></div>
+              <span className="node-label">Your Computer</span>
+            </div>
+            <div className="hero-diagram-arrow">→</div>
+            <div className="hero-diagram-node">
+              <div className="node-icon"><Cable size={18} /></div>
+              <span className="node-label">Ollama / LLM</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Works with ── */}
+      <section className="works-with" aria-label="Compatible platforms">
+        <p className="works-with-label">Works with</p>
+        <div className="works-with-logos">
+          <span className="works-with-item">Ollama</span>
+          <span className="works-with-item">LM Studio</span>
+          <span className="works-with-item">vLLM</span>
+          <span className="works-with-item">LocalAI</span>
+          <span className="works-with-item">Claude API</span>
+          <span className="works-with-item">Azure OpenAI</span>
         </div>
       </section>
 
       {/* ── How it works ── */}
       <section className="home-section" aria-label="How it works">
         <div className="home-narrow text-center">
+          <span className="section-label">Overview</span>
           <h2>How it works</h2>
           <p className="home-body">
             You run an AI model on your computer — Ollama, LM Studio, vLLM, whatever you prefer.
@@ -71,6 +107,7 @@ export default function Home() {
       <section className="home-section home-section-alt" aria-label="The problem we solve">
         <div className="home-symmetric-wrapper">
           <div className="text-center" style={{ marginBottom: '3rem' }}>
+            <span className="section-label">Why It Matters</span>
             <h2>The problem with cloud AI</h2>
             <p className="home-body" style={{ maxWidth: '640px', margin: '0 auto' }}>
               Standard cloud assistants route your private conversations through third-party data centers,
@@ -105,6 +142,7 @@ export default function Home() {
       <section className="home-section" aria-label="Setup">
         <div className="home-symmetric-wrapper">
           <div className="text-center" style={{ marginBottom: '3rem' }}>
+            <span className="section-label">Getting Started</span>
             <h2>Quick 3-Step Setup</h2>
             <p className="home-body" style={{ maxWidth: '580px', margin: '0 auto' }}>
               Get started in under two minutes with automated cryptographic pairing.
@@ -113,17 +151,17 @@ export default function Home() {
 
           <div className="home-steps-grid">
             <div className="home-step-card">
-              <div className="step-number">1</div>
+              <div className="step-number"><Download size={16} /></div>
               <h3>Start the Connector</h3>
               <p>Install the standalone BATON binary on your Windows or Mac machine. It detects your local models automatically.</p>
             </div>
             <div className="home-step-card">
-              <div className="step-number">2</div>
+              <div className="step-number"><Smartphone size={16} /></div>
               <h3>Install Mobile App</h3>
               <p>Open BATON on your Android or iOS device. Your phone generates secure private keys inside its hardware keystore.</p>
             </div>
             <div className="home-step-card">
-              <div className="step-number">3</div>
+              <div className="step-number"><ScanLine size={16} /></div>
               <h3>Scan to Connect</h3>
               <p>Scan the desktop pairing QR code. Your devices establish an authenticated link and reconnect automatically.</p>
             </div>
@@ -134,6 +172,7 @@ export default function Home() {
       {/* ── For developers ── */}
       <section className="home-section home-section-alt" aria-label="Developers">
         <div className="home-narrow text-center">
+          <span className="section-label">For Developers</span>
           <h2>Extend with Model Context Protocol</h2>
           <p className="home-body">
             BATON implements the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">Model Context Protocol</a> (MCP)
@@ -160,6 +199,7 @@ def search_notes(query: str) -> str:
       {/* ── Security ── */}
       <section className="home-section" aria-label="Security">
         <div className="home-narrow text-center">
+          <span className="section-label">Security</span>
           <h2>Cryptographic Security</h2>
           <p className="home-body">
             Every session begins with an authenticated X25519 key exchange. Messages are encrypted
@@ -175,6 +215,7 @@ def search_notes(query: str) -> str:
       {/* ── Enterprise ── */}
       <section className="home-section home-section-alt" aria-label="Enterprise">
         <div className="home-narrow text-center">
+          <span className="section-label">Enterprise</span>
           <h2>Enterprise & Private VPC</h2>
           <p className="home-body">
             Deploy the BATON connector within your corporate VPC via Docker. Provide employees with
@@ -187,16 +228,52 @@ def search_notes(query: str) -> str:
         </div>
       </section>
 
-      {/* ── Why We Charge ── */}
-      <section className="home-section" aria-label="Why We Charge">
-        <div className="home-narrow text-center">
-          <h2>Why We Charge</h2>
-          <p className="home-body">
-            BATON relies on independent, secure relay infrastructure to function remotely. Instead of taking VC funding or monetizing your private workflows, we charge a simple subscription to sustain the service. You pay for the infrastructure, so your data remains exclusively yours.
-          </p>
-          <p className="home-body" style={{ color: 'var(--text-dim)', fontSize: '0.9rem' }}>
-            No hidden tiers, no usage caps, and absolute privacy for your professional workflows.
-          </p>
+      {/* ── Pricing ── */}
+      <section className="home-section" aria-label="Pricing">
+        <div className="home-symmetric-wrapper">
+          <div className="text-center" style={{ marginBottom: '3rem' }}>
+            <span className="section-label">Pricing</span>
+            <h2>Simple, Honest Pricing</h2>
+            <p className="home-body" style={{ maxWidth: '580px', margin: '0 auto' }}>
+              We charge for infrastructure so your data stays yours. No VC funding, no data monetization.
+            </p>
+          </div>
+
+          <div className="pricing-grid">
+            <div className="pricing-card">
+              <div className="pricing-tier">Free</div>
+              <div className="pricing-price">$0</div>
+              <p className="pricing-desc">Same Wi-Fi only</p>
+              <ul className="pricing-features">
+                <li>Unlimited local AI chat</li>
+                <li>E2EE on all messages</li>
+                <li>MCP tool support</li>
+                <li>On-device SQLCipher storage</li>
+              </ul>
+            </div>
+            <div className="pricing-card featured">
+              <div className="pricing-tier">Premium</div>
+              <div className="pricing-price">Coming Soon</div>
+              <p className="pricing-desc">Access from anywhere</p>
+              <ul className="pricing-features">
+                <li>Everything in Free</li>
+                <li>Encrypted relay for remote access</li>
+                <li>NAT traversal — no port forwarding</li>
+                <li>Priority relay infrastructure</li>
+              </ul>
+            </div>
+            <div className="pricing-card">
+              <div className="pricing-tier">Enterprise</div>
+              <div className="pricing-price">Custom</div>
+              <p className="pricing-desc">Self-hosted VPC deployment</p>
+              <ul className="pricing-features">
+                <li>Everything in Premium</li>
+                <li>Private relay in your VPC</li>
+                <li>MDM provisioning</li>
+                <li>Cryptographic audit trails</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
