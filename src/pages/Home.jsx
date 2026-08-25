@@ -47,26 +47,6 @@ export default function Home() {
             Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> &middot; Built for uncompromising privacy
           </p>
 
-          <div className="hero-diagram">
-            <div className="hero-diagram-node">
-              <div className="node-icon"><Smartphone size={18} /></div>
-              <span className="node-label">Your Phone</span>
-            </div>
-            
-            <div className="hero-diagram-lock">
-              <div className="diagram-line"></div>
-              <div className="lock-content">
-                <Lock size={14} style={{ color: 'var(--accent)' }} />
-                <span className="lock-label">AES-256</span>
-              </div>
-              <div className="diagram-line"></div>
-            </div>
-
-            <div className="hero-diagram-node">
-              <div className="node-icon"><Monitor size={18} /></div>
-              <span className="node-label">Your Computer</span>
-            </div>
-          </div>
         </div>
       </section>
 
