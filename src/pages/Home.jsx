@@ -193,55 +193,6 @@ def search_notes(query: str) -> str:
         </div>
       </section>
 
-      {/* ── Pricing ── */}
-      <section className="home-section" aria-label="Pricing">
-        <div className="home-symmetric-wrapper">
-          <div className="text-center" style={{ marginBottom: '3rem' }}>
-            <span className="section-label">Pricing</span>
-            <h2>Simple, Honest Pricing</h2>
-            <p className="home-body" style={{ maxWidth: '580px', margin: '0 auto' }}>
-              We charge for infrastructure so your data stays yours. No VC funding, no data monetization.
-            </p>
-          </div>
-
-          <div className="pricing-grid">
-            <div className="pricing-card">
-              <div className="pricing-tier">Free</div>
-              <div className="pricing-price">$0</div>
-              <p className="pricing-desc">Same Wi-Fi only</p>
-              <ul className="pricing-features">
-                <li>Unlimited local AI chat</li>
-                <li>E2EE on all messages</li>
-                <li>MCP tool support</li>
-                <li>On-device SQLCipher storage</li>
-              </ul>
-            </div>
-            <div className="pricing-card featured">
-              <div className="pricing-tier">Premium</div>
-              <div className="pricing-price">Coming Soon</div>
-              <p className="pricing-desc">Access from anywhere</p>
-              <ul className="pricing-features">
-                <li>Everything in Free</li>
-                <li>Encrypted relay for remote access</li>
-                <li>NAT traversal &mdash; no port forwarding</li>
-                <li>Priority relay infrastructure</li>
-              </ul>
-            </div>
-            <div className="pricing-card">
-              <div className="pricing-tier">Enterprise</div>
-              <div className="pricing-price">Custom</div>
-              <p className="pricing-desc">Self-hosted VPC deployment</p>
-              <ul className="pricing-features">
-                <li>Everything in Premium</li>
-                <li>Private relay in your VPC</li>
-                <li>MDM provisioning</li>
-                <li>Cryptographic audit trails</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── FAQ ── */}
       <section className="home-section home-section-alt" aria-label="FAQ">
         <div className="home-narrow">
@@ -282,3 +233,4 @@ def search_notes(query: str) -> str:
     </div>
   );
 }
+
