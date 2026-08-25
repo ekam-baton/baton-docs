@@ -17,8 +17,7 @@ export default function Home() {
             Own Your Workflow.<br />Deploy Intelligence.
           </h1>
           <p className="home-hero-lead">
-            BATON is a mobile app that connects your phone directly to AI models running on your computer.
-            Your prompts stay on your hardware. No accounts, no telemetry, no third-party cloud.
+            Chat with your private AI from anywhere. Whether connecting to a local machine or an enterprise VPC, BATON delivers end-to-end encrypted routing with zero telemetry.
           </p>
           <div className="home-hero-cta">
             <a
