@@ -1,21 +1,21 @@
 :root {
   --bg-dark: #000000;
-  --bg-canvas: #07080a;
-  --bg-card: #0d0f12;
-  --bg-card-hover: #13161a;
-  --bg-elevated: #181b20;
+  --bg-canvas: #050505;
+  --bg-card: #0a0a0a;
+  --bg-card-hover: #141414;
+  --bg-elevated: #1a1a1a;
 
   --text-main: #ffffff;
-  --text-secondary: #e4e4e7;
-  --text-muted: #a1a1aa;
-  --text-dim: #71717a;
+  --text-secondary: #e5e5e5;
+  --text-muted: #a3a3a3;
+  --text-dim: #737373;
 
-  --accent: #3b82f6;
-  --accent-dim: rgba(59, 130, 246, 0.15);
+  --accent: #ffffff;
+  --accent-dim: rgba(255, 255, 255, 0.15);
 
-  --border-color: #1e2229;
-  --border-highlight: #2f3540;
-  --border-subtle: #14171d;
+  --border-color: #262626;
+  --border-highlight: #404040;
+  --border-subtle: #171717;
 
   --radius-sm: 4px;
   --radius-md: 8px;

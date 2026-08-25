@@ -61,7 +61,7 @@ export default function Starfield() {
       mouseX += (targetX - mouseX) * 0.05;
       mouseY += (targetY - mouseY) * 0.05;
 
-      ctx.fillStyle = 'rgba(5, 5, 8, 0.4)'; // Trail effect with dark galaxy blue/black
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; // Trail effect with pure black
       ctx.fillRect(0, 0, width, height);
 
       for (let i = 0; i < numStars; i++) {
