@@ -45,7 +45,7 @@ export default function Home() {
             </a>
           </div>
           <p className="home-hero-note">
-            Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> · Built for uncompromising privacy
+            Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> &middot; Built for uncompromising privacy
           </p>
 
           <div className="hero-diagram">
@@ -90,7 +90,7 @@ export default function Home() {
           <span className="section-label">Overview</span>
           <h2>How it works</h2>
           <p className="home-body">
-            You run an AI model on your computer — Ollama, LM Studio, vLLM, whatever you prefer.
+            You run an AI model on your computer &mdash; Ollama, LM Studio, vLLM, whatever you prefer.
             BATON connects your phone to that model over an encrypted channel.
             When you're on the same Wi-Fi, the connection is direct and instant. When you're away,
             it securely forwards encrypted envelopes without inspecting your prompts.
@@ -190,7 +190,7 @@ def search_notes(query: str) -> str:
     return f"Found {len(results)} matches"`}</code></pre>
           </div>
           <p className="home-body">
-            <Link to="/developers" className="home-inline-link">Read the full developer guide →</Link>
+            <Link to="/developers" className="home-inline-link">Read the full developer guide &rarr;</Link>
           </p>
         </div>
       </section>
@@ -206,7 +206,7 @@ def search_notes(query: str) -> str:
             device's hardware enclave, and chat history is saved in an on-device SQLCipher database.
           </p>
           <p className="home-body">
-            <Link to="/security" className="home-inline-link">View complete security architecture →</Link>
+            <Link to="/security" className="home-inline-link">View complete security architecture &rarr;</Link>
           </p>
         </div>
       </section>
@@ -222,7 +222,7 @@ def search_notes(query: str) -> str:
             and cryptographic audit trails.
           </p>
           <p className="home-body">
-            <Link to="/enterprise" className="home-inline-link">Enterprise deployment documentation →</Link>
+            <Link to="/enterprise" className="home-inline-link">Enterprise deployment documentation &rarr;</Link>
           </p>
         </div>
       </section>
@@ -257,7 +257,7 @@ def search_notes(query: str) -> str:
               <ul className="pricing-features">
                 <li>Everything in Free</li>
                 <li>Encrypted relay for remote access</li>
-                <li>NAT traversal — no port forwarding</li>
+                <li>NAT traversal &mdash; no port forwarding</li>
                 <li>Priority relay infrastructure</li>
               </ul>
             </div>

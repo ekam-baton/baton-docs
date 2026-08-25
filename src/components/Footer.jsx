@@ -66,7 +66,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>© 2026 BATON</p>
+        <p>&copy; {new Date().getFullYear()} BATON Technologies. All rights reserved.</p>
       </div>
     </footer>
   );
