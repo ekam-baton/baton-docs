@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Privacy = () => {
   return (
-    <div className="inner-page">
+    <div className="inner-page animate-fade-in">
       <h1>Privacy Policy</h1>
       <p className="page-intro">
         <strong>Effective Date:</strong> August 2026 <br />

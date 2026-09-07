@@ -4,6 +4,9 @@ export default function Starfield() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     if (window.innerWidth <= 768) return; // Disable on mobile for performance
 
     const canvas = canvasRef.current;
@@ -12,8 +15,10 @@ export default function Starfield() {
 
     let width = window.innerWidth;
     let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
 
     const stars = [];
     const numStars = 800;
@@ -41,8 +46,10 @@ export default function Starfield() {
     const handleResize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
       targetX = width / 2;
       targetY = height / 2;
     };
@@ -56,7 +63,13 @@ export default function Starfield() {
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
 
+    let lastTime = performance.now();
+
     const draw = () => {
+      const now = performance.now();
+      const dt = (now - lastTime) / 16.67;
+      lastTime = now;
+
       // Smoothly interpolate mouse position
       mouseX += (targetX - mouseX) * 0.05;
       mouseY += (targetY - mouseY) * 0.05;
@@ -66,7 +79,7 @@ export default function Starfield() {
 
       for (let i = 0; i < numStars; i++) {
         const star = stars[i];
-        star.z -= 1.5; // Speed of travel
+        star.z -= 1.5 * dt; // Speed of travel
 
         if (star.z <= 0) {
           star.x = Math.random() * width * 2 - width;
@@ -93,6 +106,9 @@ export default function Starfield() {
 
       animationFrameId = requestAnimationFrame(draw);
     };
+
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, width, height);
 
     draw();
 

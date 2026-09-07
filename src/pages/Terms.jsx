@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Terms = () => {
   return (
-    <div className="inner-page">
+    <div className="inner-page animate-fade-in">
       <h1>Terms of Service</h1>
       <p className="page-intro">
         Last Updated: August 14, 2026

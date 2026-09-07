@@ -17,7 +17,7 @@ export default function TopNav() {
     <header className={`top-nav ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
         <NavLink to="/" className="nav-logo">
-          <img src={batonLogo} alt="BATON Logo" className="logo-img" style={{ borderRadius: '15%' }} />
+          <img src={batonLogo} alt="BATON Logo" className="logo-img" />
           <span className="logo-text">BATON</span>
         </NavLink>
 
@@ -33,7 +33,7 @@ export default function TopNav() {
           <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: '0.4rem 0.9rem', fontSize: '0.82rem' }}>
             GitHub
           </a>
-          <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
+          <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle navigation menu" aria-expanded={mobileOpen}>
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>

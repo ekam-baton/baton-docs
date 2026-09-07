@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Smartphone, Monitor, Lock, ArrowRight, ScanLine, Download, Cable } from 'lucide-react';
+import { Smartphone, ScanLine, Download } from 'lucide-react';
 import Starfield from '../components/Starfield';
 
 export default function Home() {
@@ -22,6 +22,8 @@ export default function Home() {
           <div className="home-hero-cta">
             <a
               href="https://github.com/ekam-baton/baton/releases/latest/download/Baton_x64.msi"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-solid"
             >
               Download for Windows
@@ -139,7 +141,7 @@ export default function Home() {
             BATON implements the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">Model Context Protocol</a> (MCP)
             standard. Write Python or TypeScript tools to query local databases, inspect files, or control local services from your phone.
           </p>
-          <div className="home-code-block" style={{ textAlign: 'left', margin: '2rem auto' }}>
+          <div className="home-code-block">
             <div className="home-code-header">example_tool.py</div>
             <pre><code>{`from mcp.server.fastmcp import FastMCP
 
@@ -188,7 +190,7 @@ def search_notes(query: str) -> str:
       </section>
 
       {/* ── FAQ ── */}
-      <section className="home-section home-section-alt" aria-label="FAQ">
+      <section className="home-section" aria-label="FAQ">
         <div className="home-narrow">
           <h2 className="text-center" style={{ marginBottom: '2.5rem' }}>Frequently Asked Questions</h2>
           <div className="home-faq">
