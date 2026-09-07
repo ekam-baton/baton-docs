@@ -10,10 +10,13 @@ export default function Footer() {
       <div className="footer-grid">
 
         <div className="footer-col">
-          <div className="nav-logo" style={{ marginBottom: '1rem' }}>
+          <div className="nav-logo" style={{ marginBottom: '0.5rem' }}>
             <img src={batonLogo} alt="BATON Logo" className="logo-img" />
             <span className="logo-text">BATON</span>
           </div>
+          <p style={{ fontSize: '0.78rem', color: 'var(--text-dim)', letterSpacing: '0.08em', marginBottom: '1rem', fontStyle: 'italic' }}>
+            Finding Peace in the Chaos
+          </p>
           <p className="footer-brand-desc">
             Private mobile AI chat. Your models, your machine, your data.
           </p>
