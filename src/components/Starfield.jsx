@@ -22,7 +22,7 @@ export default function Starfield() {
 
     const stars = [];
     const numStars = 800;
-    const maxDepth = width * 2; // Much deeper field to extend cycle time
+    const maxDepth = width; // Visual depth matches screen width
     
     // Mouse tracking for parallax shift
     let mouseX = width / 2;
@@ -31,17 +31,17 @@ export default function Starfield() {
     let targetY = height / 2;
 
     const makeStar = (randomZ) => ({
-      x: Math.random() * width * 3 - width * 1.5,
-      y: Math.random() * height * 3 - height * 1.5,
-      z: randomZ ? Math.random() * maxDepth : maxDepth * (0.75 + Math.random() * 0.5),
+      x: Math.random() * width * 2 - width,
+      y: Math.random() * height * 2 - height,
+      z: randomZ ? Math.random() * maxDepth : maxDepth * (0.85 + Math.random() * 0.3),
       o: 0.3 + Math.random() * 0.7,
       size: Math.random() * 1.5 + 0.5,
-      speed: 0.6 + Math.random() * 1.8 // Per-star speed: 0.6 to 2.4
+      speed: 0.8 + Math.random() * 1.7 // Per-star speed: 0.8 to 2.5
     });
 
     const initStars = () => {
       for (let i = 0; i < numStars; i++) {
-        stars[i] = makeStar(true); // Scatter across full depth on init
+        stars[i] = makeStar(true);
       }
     };
 
@@ -59,7 +59,6 @@ export default function Starfield() {
     };
 
     const handleMouseMove = (e) => {
-      // Create a subtle shift based on mouse position
       targetX = width / 2 + (e.clientX - width / 2) * 0.05;
       targetY = height / 2 + (e.clientY - height / 2) * 0.05;
     };
@@ -74,19 +73,18 @@ export default function Starfield() {
       const dt = (now - lastTime) / 16.67;
       lastTime = now;
 
-      // Smoothly interpolate mouse position
       mouseX += (targetX - mouseX) * 0.05;
       mouseY += (targetY - mouseY) * 0.05;
 
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; // Trail effect with pure black
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
       ctx.fillRect(0, 0, width, height);
 
       for (let i = 0; i < numStars; i++) {
         const star = stars[i];
-        star.z -= star.speed * dt; // Each star has its own speed
+        star.z -= star.speed * dt;
 
         if (star.z <= 0) {
-          const fresh = makeStar(false); // Reset far back with new random properties
+          const fresh = makeStar(false);
           star.x = fresh.x;
           star.y = fresh.y;
           star.z = fresh.z;
@@ -95,7 +93,6 @@ export default function Starfield() {
           star.speed = fresh.speed;
         }
 
-        // Project 3D coordinates to 2D screen space
         const k = 128.0 / star.z;
         const px = star.x * k + mouseX;
         const py = star.y * k + mouseY;
