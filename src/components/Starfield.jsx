@@ -22,6 +22,7 @@ export default function Starfield() {
 
     const stars = [];
     const numStars = 800;
+    const maxDepth = width * 2; // Much deeper field to extend cycle time
     
     // Mouse tracking for parallax shift
     let mouseX = width / 2;
@@ -29,15 +30,18 @@ export default function Starfield() {
     let targetX = width / 2;
     let targetY = height / 2;
 
+    const makeStar = (randomZ) => ({
+      x: Math.random() * width * 3 - width * 1.5,
+      y: Math.random() * height * 3 - height * 1.5,
+      z: randomZ ? Math.random() * maxDepth : maxDepth * (0.75 + Math.random() * 0.5),
+      o: 0.3 + Math.random() * 0.7,
+      size: Math.random() * 1.5 + 0.5,
+      speed: 0.6 + Math.random() * 1.8 // Per-star speed: 0.6 to 2.4
+    });
+
     const initStars = () => {
       for (let i = 0; i < numStars; i++) {
-        stars[i] = {
-          x: Math.random() * width * 2 - width,
-          y: Math.random() * height * 2 - height,
-          z: Math.random() * width,
-          o: Math.random(),
-          size: Math.random() * 1.5 + 0.5
-        };
+        stars[i] = makeStar(true); // Scatter across full depth on init
       }
     };
 
@@ -79,13 +83,16 @@ export default function Starfield() {
 
       for (let i = 0; i < numStars; i++) {
         const star = stars[i];
-        star.z -= 1.5 * dt; // Speed of travel
+        star.z -= star.speed * dt; // Each star has its own speed
 
         if (star.z <= 0) {
-          star.x = Math.random() * width * 2 - width;
-          star.y = Math.random() * height * 2 - height;
-          star.z = width;
-          star.o = Math.random();
+          const fresh = makeStar(false); // Reset far back with new random properties
+          star.x = fresh.x;
+          star.y = fresh.y;
+          star.z = fresh.z;
+          star.o = fresh.o;
+          star.size = fresh.size;
+          star.speed = fresh.speed;
         }
 
         // Project 3D coordinates to 2D screen space
@@ -94,8 +101,8 @@ export default function Starfield() {
         const py = star.y * k + mouseY;
 
         if (px >= 0 && px <= width && py >= 0 && py <= height) {
-          const size = (1 - star.z / width) * star.size;
-          const opacity = (1 - star.z / width) * star.o;
+          const size = (1 - star.z / maxDepth) * star.size;
+          const opacity = (1 - star.z / maxDepth) * star.o;
           
           ctx.beginPath();
           ctx.arc(px, py, size, 0, Math.PI * 2);
