@@ -33,10 +33,10 @@ export default function Starfield() {
     const makeStar = (randomZ) => ({
       x: Math.random() * width * 2 - width,
       y: Math.random() * height * 2 - height,
-      z: randomZ ? Math.random() * maxDepth : maxDepth * (0.85 + Math.random() * 0.3),
+      z: randomZ ? Math.random() * maxDepth : maxDepth * (0.75 + Math.random() * 0.25),
       o: 0.3 + Math.random() * 0.7,
       size: Math.random() * 1.5 + 0.5,
-      speed: 0.8 + Math.random() * 1.7 // Per-star speed: 0.8 to 2.5
+      speed: 0.8 + Math.random() * 1.7
     });
 
     const initStars = () => {
@@ -98,8 +98,8 @@ export default function Starfield() {
         const py = star.y * k + mouseY;
 
         if (px >= 0 && px <= width && py >= 0 && py <= height) {
-          const size = (1 - star.z / maxDepth) * star.size;
-          const opacity = (1 - star.z / maxDepth) * star.o;
+          const size = Math.max(0, (1 - star.z / maxDepth)) * star.size;
+          const opacity = Math.max(0, (1 - star.z / maxDepth)) * star.o;
           
           ctx.beginPath();
           ctx.arc(px, py, size, 0, Math.PI * 2);
