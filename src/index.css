@@ -475,10 +475,11 @@ pre code {
 
 /* ─── Home code block ─── */
 .home-code-block {
+  text-align: left;
+  margin: 2rem auto;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   overflow: hidden;
-  margin-top: 1.5rem;
 }
 
 .home-code-header {
@@ -982,6 +983,8 @@ footer.footer {
     top: 72px;
     left: 0;
     width: 100%;
+    max-height: calc(100vh - 72px);
+    overflow-y: auto;
     background: rgba(0, 0, 0, 0.96);
     flex-direction: column;
     padding: 2rem 1.5rem;
