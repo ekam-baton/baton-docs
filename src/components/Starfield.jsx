@@ -7,8 +7,7 @@ export default function Starfield() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    if (window.innerWidth <= 768) return; // Disable on mobile for performance
-
+    const isMobile = window.innerWidth <= 768;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
@@ -21,7 +20,7 @@ export default function Starfield() {
     ctx.scale(dpr, dpr);
 
     const stars = [];
-    const numStars = 800;
+    const numStars = isMobile ? 250 : 800;
     const maxDepth = width; // Visual depth matches screen width
     
     // Mouse tracking for parallax shift
@@ -63,8 +62,16 @@ export default function Starfield() {
       targetY = height / 2 + (e.clientY - height / 2) * 0.05;
     };
 
+    const handleTouchMove = (e) => {
+      if (e.touches.length > 0) {
+        targetX = width / 2 + (e.touches[0].clientX - width / 2) * 0.05;
+        targetY = height / 2 + (e.touches[0].clientY - height / 2) * 0.05;
+      }
+    };
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     let lastTime = performance.now();
 
@@ -119,6 +126,7 @@ export default function Starfield() {
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
