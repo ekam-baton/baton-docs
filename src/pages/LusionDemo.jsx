@@ -125,64 +125,67 @@ export default function LusionDemo() {
       </button>
 
       {/* ─── ACT 1: Deep Space Solitude (Scroll 0% - 25%) ─── */}
-      <section className="scrolly-chapter" aria-label="Act 1: Deep Space Solitude">
-        <div className="scrolly-hud-badge">
-          <span>COORDINATE: ORBITER-VII // DISTANCE: 3.84 AU // DEEP SPACE</span>
-        </div>
+      <section className="scrolly-chapter align-left" aria-label="Act 1: Deep Space Solitude">
+        <div className="scrolly-hero-content">
+          <div className="scrolly-hud-badge">
+            <span className="lusion-pulse-dot" style={{ width: '6px', height: '6px' }} />
+            <span>ACT 01 // ORBITER-VII &middot; 3.84 AU DEEP SPACE</span>
+          </div>
 
-        <p className="lusion-hero-tagline">Finding Peace in the Chaos</p>
-        <h1 className="lusion-hero-headline">
-          Own Your Workflow.<br />Deploy Intelligence.
-        </h1>
-        <p className="lusion-hero-lead">
-          Chat with your private AI from anywhere. Whether connecting to a local machine or an enterprise VPC, BATON delivers end-to-end encrypted routing with zero telemetry.
-        </p>
+          <p className="lusion-hero-tagline">Finding Peace in the Chaos</p>
+          <h1 className="lusion-hero-headline">
+            Own Your Workflow.<br />Deploy Intelligence.
+          </h1>
+          <p className="lusion-hero-lead">
+            Chat with your private AI from anywhere. Whether connecting to a local machine or an enterprise VPC, BATON delivers end-to-end encrypted routing with zero telemetry.
+          </p>
 
-        <div className="lusion-hero-cta">
-          <a
-            href="https://github.com/ekam-baton/baton/releases/latest/download/Baton_x64.msi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="lusion-btn-solid"
-          >
-            Download for Windows
-          </a>
-          <a
-            href="https://github.com/ekam-baton/baton/releases/latest/download/baton-v1.0.apk"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="lusion-btn-outline"
-          >
-            Android APK
-          </a>
-          <a
-            href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="lusion-btn-outline"
-          >
-            macOS Hub
-          </a>
-        </div>
+          <div className="lusion-hero-cta">
+            <a
+              href="https://github.com/ekam-baton/baton/releases/latest/download/Baton_x64.msi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lusion-btn-solid"
+            >
+              Download for Windows
+            </a>
+            <a
+              href="https://github.com/ekam-baton/baton/releases/latest/download/baton-v1.0.apk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lusion-btn-outline"
+            >
+              Android APK
+            </a>
+            <a
+              href="https://github.com/ekam-baton/baton/releases/latest/download/baton-gateway-engine-macos"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lusion-btn-outline"
+            >
+              macOS Hub
+            </a>
+          </div>
 
-        <p className="lusion-hero-note">
-          Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> &middot; Built for uncompromising privacy
-        </p>
+          <p className="lusion-hero-note">
+            Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> &middot; Built for uncompromising privacy
+          </p>
 
-        <div className="scrolly-scroll-cue">
-          <span>SCROLL DOWN TO TRANSMIT ACROSS THE VOID</span>
-          <span>&darr;</span>
+          <div className="scrolly-scroll-cue">
+            <span>SCROLL TO TRANSMIT ACROSS THE VOID</span>
+            <span>&darr;</span>
+          </div>
         </div>
       </section>
 
       {/* ─── ACT 2: The Encrypted Conduit (Scroll 25% - 50%) ─── */}
-      <section className="scrolly-chapter" aria-label="Act 2: The Encrypted Conduit">
-        <div className="scrolly-glass-card">
+      <section className="scrolly-chapter align-right" aria-label="Act 2: The Encrypted Conduit">
+        <div className="scrolly-panel">
           <div className="scrolly-hud-badge" style={{ color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.3)' }}>
-            <span>CONDUIT: E2EE TUNNEL // X25519 + AES-256-GCM // 0 CLOUD BYTES</span>
+            <span>ACT 02 // E2EE TUNNEL &middot; X25519 + AES-256-GCM</span>
           </div>
-          <h2 className="lusion-title-h2">How it works</h2>
-          <p className="scrolly-quote">
+          <h2 className="lusion-title-h2" style={{ textAlign: 'left' }}>How it works</h2>
+          <p className="scrolly-quote" style={{ textAlign: 'left' }}>
             &ldquo;One private transmission sent from the edge of space. No cloud corporation listens in.&rdquo;
           </p>
           <p className="lusion-body">
@@ -199,25 +202,24 @@ export default function LusionDemo() {
       </section>
 
       {/* ─── ACT 3: The Sanctuary in the Void: Earth (Scroll 50% - 75%) ─── */}
-      <section className="scrolly-chapter" aria-label="Act 3: Approaching Earth">
-        <div className="scrolly-glass-card" style={{ maxWidth: '880px' }}>
+      <section className="scrolly-chapter align-left" aria-label="Act 3: Approaching Earth">
+        <div className="scrolly-panel" style={{ maxWidth: '640px' }}>
           <div className="scrolly-hud-badge" style={{ color: '#34d399', borderColor: 'rgba(52, 211, 153, 0.3)' }}>
-            <span>DESTINATION: EARTH // TARGET LOCKED: HOME WORKSTATION</span>
+            <span>ACT 03 // EARTH APPROACH &middot; TARGET LOCKED</span>
           </div>
-          <h2 className="lusion-title-h2">The problem with cloud AI</h2>
-          <p className="scrolly-caption" style={{ marginBottom: '2rem' }}>
+          <h2 className="lusion-title-h2" style={{ textAlign: 'left' }}>The problem with cloud AI</h2>
+          <p className="scrolly-caption" style={{ marginBottom: '1.5rem', textAlign: 'left' }}>
             Standard cloud assistants route your private conversations through third-party data centers,
             where prompts are logged, analyzed, and retained.
           </p>
 
-          <div className="lusion-compare-grid" style={{ marginTop: '0' }}>
+          <div className="lusion-compare-grid" style={{ marginTop: '0', gridTemplateColumns: '1fr' }}>
             <div className="lusion-compare-card">
               <h4>Cloud AI Vendors</h4>
               <ul>
                 <li>Prompts stored on centralized servers</li>
                 <li>Data retained for model training</li>
-                <li>Strict rate limits and monthly recurring fees</li>
-                <li>Dependent on third-party uptime</li>
+                <li>Strict rate limits and monthly fees</li>
               </ul>
             </div>
             <div className="lusion-compare-card highlight">
@@ -225,8 +227,7 @@ export default function LusionDemo() {
               <ul>
                 <li>Prompts remain strictly on your computer</li>
                 <li>Zero telemetry or model training</li>
-                <li>Unlimited generation powered by your own GPU</li>
-                <li>Independent infrastructure funded by users, not data</li>
+                <li>Unlimited generation via your own GPU</li>
               </ul>
             </div>
           </div>
@@ -234,15 +235,15 @@ export default function LusionDemo() {
       </section>
 
       {/* ─── ACT 4: The Warm Home Sanctuary (Scroll 75% - 100%) ─── */}
-      <section className="scrolly-chapter" aria-label="Act 4: The Home Sanctuary">
-        <div className="scrolly-glass-card" style={{ maxWidth: '820px', borderColor: 'rgba(251, 191, 36, 0.45)', background: 'rgba(22, 14, 8, 0.62)' }}>
+      <section className="scrolly-chapter align-right" aria-label="Act 4: The Home Sanctuary">
+        <div className="scrolly-panel" style={{ borderColor: 'rgba(251, 191, 36, 0.35)', background: 'rgba(16, 12, 8, 0.55)' }}>
           <div className="scrolly-hud-badge" style={{ color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.4)' }}>
-            <span>EARTH HOME SANCTUARY // DOMESTIC AGENT EXECUTING</span>
+            <span>ACT 04 // DOMESTIC SANCTUARY &middot; RTX 4090</span>
           </div>
-          <p className="scrolly-quote" style={{ color: '#fef3c7' }}>
+          <p className="scrolly-quote" style={{ color: '#fef3c7', textAlign: 'left' }}>
             &ldquo;Preheat the oven, roast the vegetables, and set the dining table. Sarah and the kids will be home from school in 30 minutes.&rdquo;
           </p>
-          <p className="scrolly-caption" style={{ color: '#d4d4d8' }}>
+          <p className="scrolly-caption" style={{ color: '#d4d4d8', textAlign: 'left' }}>
             Executed locally via Model Context Protocol on your RTX 4090. Zero bytes retained.
             The table is set for four. Dinner is underway. Peace in the chaos.
           </p>
