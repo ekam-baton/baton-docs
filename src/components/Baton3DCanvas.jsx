@@ -45,7 +45,7 @@ export default function Baton3DCanvas({ variation = 1 }) {
       reflectivity: 0.95,
     });
 
-    const shaftHeight = variation === 2 ? 4.8 : 4.2;
+    const shaftHeight = variation === 2 ? 4.8 : (variation === 3 ? 4.4 : 4.2);
     const shaftGeo = new THREE.CylinderGeometry(0.24, 0.28, shaftHeight, 48);
     const shaft = new THREE.Mesh(shaftGeo, batonMaterial);
     batonGroup.add(shaft);
@@ -132,6 +132,56 @@ export default function Baton3DCanvas({ variation = 1 }) {
       rootGroup.add(waterPlane);
     }
 
+    // ─── VARIATION 3: Holographic Warp & Spacetime Curvature Grid (Pinterest Trend) ───
+    let holoRing1, holoRing2, warpGrid, warpGeo, origWarpPos;
+    if (variation === 3) {
+      batonGroup.position.set(0, 0.4, 0.6);
+      batonGroup.rotation.set(0.18, 0.1, -0.72); // Tilted floating diagonal baton
+
+      const holoGroup = new THREE.Group();
+      rootGroup.add(holoGroup);
+
+      // Outer laser circle
+      const holoMat1 = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.6,
+      });
+      const ringGeo1 = new THREE.RingGeometry(2.7, 2.725, 96);
+      holoRing1 = new THREE.Mesh(ringGeo1, holoMat1);
+      holoGroup.add(holoRing1);
+
+      // Inner tilted elliptical laser gimbal
+      const holoMat2 = new THREE.MeshBasicMaterial({
+        color: 0xa1a1aa,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.45,
+      });
+      const ringGeo2 = new THREE.RingGeometry(2.1, 2.12, 96);
+      holoRing2 = new THREE.Mesh(ringGeo2, holoMat2);
+      holoRing2.rotation.x = Math.PI / 3.5;
+      holoRing2.rotation.y = 0.35;
+      holoGroup.add(holoRing2);
+
+      // 3D Perspective Wireframe Horizon Grid
+      warpGeo = new THREE.PlaneGeometry(28, 22, 64, 52);
+      origWarpPos = warpGeo.attributes.position.clone();
+
+      const warpMat = new THREE.MeshBasicMaterial({
+        color: 0x666677,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.38,
+      });
+
+      warpGrid = new THREE.Mesh(warpGeo, warpMat);
+      warpGrid.rotation.x = -Math.PI / 2 + 0.3;
+      warpGrid.position.set(0, -2.1, -0.8);
+      rootGroup.add(warpGrid);
+    }
+
     // ─── Cosmic Dust & Constellation Particles ───
     const particleCount = 550;
     const particleGeo = new THREE.BufferGeometry();
@@ -177,7 +227,6 @@ export default function Baton3DCanvas({ variation = 1 }) {
     scene.add(batonGlowLight);
 
     if (variation === 2) {
-      // Top down pool caustic spotlight
       const poolSpot = new THREE.PointLight(0xddeeff, 4.0, 16);
       poolSpot.position.set(0, 4, 1);
       scene.add(poolSpot);
@@ -245,7 +294,6 @@ export default function Baton3DCanvas({ variation = 1 }) {
             const distFromCenter = Math.sqrt(u * u + v * v);
             const distFromMouse = Math.sqrt((u - mouseDisturbX) ** 2 + (v - mouseDisturbY) ** 2);
 
-            // Concentric ripple from baton + perturbation from mouse
             const ripple = Math.sin(distFromCenter * 2.8 - time * 3.0) * Math.exp(-distFromCenter * 0.28) * 0.24;
             const mouseWave = Math.sin(distFromMouse * 3.2 - time * 4.0) * Math.exp(-distFromMouse * 0.5) * 0.16;
 
@@ -253,6 +301,32 @@ export default function Baton3DCanvas({ variation = 1 }) {
           }
           posAttr.needsUpdate = true;
           waterGeo.computeVertexNormals();
+        } else if (variation === 3 && warpGrid) {
+          // Pinterest 3D Trend: Holographic laser rotation & spacetime gravitational warp
+          batonGroup.rotation.y = time * 0.35;
+          batonGroup.position.y = 0.4 + Math.sin(time * 1.3) * 0.12;
+
+          if (holoRing1) holoRing1.rotation.z = time * 0.18;
+          if (holoRing2) holoRing2.rotation.z = -time * 0.28;
+
+          const posAttr = warpGeo.attributes.position;
+          const orig = origWarpPos.array;
+          const count = posAttr.count;
+
+          const mouseOffsetX = mouseRef.current.x * 2.5;
+
+          for (let i = 0; i < count; i++) {
+            const u = orig[i * 3];
+            const v = orig[i * 3 + 1];
+            const dist = Math.sqrt((u - mouseOffsetX) ** 2 + v ** 2);
+
+            // Gravitational funnel dip beneath the baton + live perspective wave
+            const gravityDip = -Math.exp(-dist * 0.32) * 1.5;
+            const liveWave = Math.sin(dist * 1.8 - time * 2.6) * 0.14 * Math.exp(-dist * 0.18);
+
+            posAttr.setZ(i, gravityDip + liveWave);
+          }
+          posAttr.needsUpdate = true;
         }
 
         particles.rotation.y = time * 0.06;
@@ -280,6 +354,7 @@ export default function Baton3DCanvas({ variation = 1 }) {
       topCapGeo.dispose();
       bottomCapGeo.dispose();
       if (waterGeo) waterGeo.dispose();
+      if (warpGeo) warpGeo.dispose();
       particleGeo.dispose();
       batonMaterial.dispose();
       gripMaterial.dispose();

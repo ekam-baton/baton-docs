@@ -53,7 +53,7 @@ export default function LusionDemo() {
     }
   };
 
-  const [variation, setVariation] = useState(2); // Default to Variation 2: Liquid Caustics Monolith
+  const [variation, setVariation] = useState(3); // Default to Variation 3: Holographic Warp & Spacetime Grid
 
   useEffect(() => {
     return () => {
@@ -69,7 +69,7 @@ export default function LusionDemo() {
       <div className="lusion-preview-bar">
         <div className="lusion-preview-tag">
           <span className="lusion-pulse-dot" />
-          <span>LUSION 3D EXPERIMENT</span>
+          <span>3D ARCHITECTURE EXPERIMENT</span>
         </div>
 
         {/* ─── Variation Mode Switcher ─── */}
@@ -87,6 +87,13 @@ export default function LusionDemo() {
             onClick={() => setVariation(2)}
           >
             02 / LIQUID CAUSTICS
+          </button>
+          <button
+            type="button"
+            className={`lusion-mode-btn ${variation === 3 ? 'active' : ''}`}
+            onClick={() => setVariation(3)}
+          >
+            03 / HOLOGRAPHIC WARP
           </button>
         </div>
 
