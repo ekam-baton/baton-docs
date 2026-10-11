@@ -7,6 +7,36 @@ export default function Home() {
   return (
     <div className="animate-fade-in">
 
+      {/* ─── 3D Story Journey Announcement Banner ─── */}
+      <div style={{
+        background: 'linear-gradient(90deg, #1e3a8a, #0b1329, #1e3a8a)',
+        borderBottom: '1px solid rgba(96, 165, 250, 0.35)',
+        padding: '0.7rem 1rem',
+        textAlign: 'center',
+        fontSize: '0.82rem',
+        fontFamily: "'JetBrains Mono', monospace",
+        color: '#e2e8f0',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '0.75rem',
+        position: 'relative',
+        zIndex: 50
+      }}>
+        <span>✦ EXPERIENCE THE 3D INTERSTELLAR SCROLL JOURNEY</span>
+        <Link to="/demo" style={{
+          background: '#ffffff',
+          color: '#000000',
+          padding: '0.3rem 0.85rem',
+          borderRadius: '9999px',
+          fontWeight: '700',
+          textDecoration: 'none',
+          fontSize: '0.78rem'
+        }}>
+          ENTER 3D DEMO &rarr;
+        </Link>
+      </div>
+
       {/* Interactive Universe Background */}
       <Starfield />
 

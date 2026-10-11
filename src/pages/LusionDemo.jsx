@@ -25,6 +25,14 @@ export default function LusionDemo() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToStage = (stagePercent) => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({
+      top: totalHeight * stagePercent,
+      behavior: 'smooth'
+    });
+  };
+
   // Web Audio API: Meditative Interstellar cosmic drone (A1 + E2 gentle ambient chord)
   const toggleAudio = () => {
     if (!isPlayingAudio) {
@@ -377,6 +385,38 @@ def search_notes(query: str) -> str:
           </div>
         </div>
       </section>
+
+      {/* ─── Persistent 3D Camera Stage Controller ─── */}
+      <div className="scrolly-stage-controller" role="toolbar" aria-label="3D Flight Controls">
+        <button
+          type="button"
+          className={`scrolly-stage-btn ${scrollProgress < 0.25 ? 'active' : ''}`}
+          onClick={() => scrollToStage(0.0)}
+        >
+          01 &middot; COCKPIT
+        </button>
+        <button
+          type="button"
+          className={`scrolly-stage-btn ${scrollProgress >= 0.25 && scrollProgress < 0.55 ? 'active' : ''}`}
+          onClick={() => scrollToStage(0.35)}
+        >
+          02 &middot; DATA BEAM
+        </button>
+        <button
+          type="button"
+          className={`scrolly-stage-btn ${scrollProgress >= 0.55 && scrollProgress < 0.80 ? 'active' : ''}`}
+          onClick={() => scrollToStage(0.65)}
+        >
+          03 &middot; EARTH ORBIT
+        </button>
+        <button
+          type="button"
+          className={`scrolly-stage-btn ${scrollProgress >= 0.80 ? 'active' : ''}`}
+          onClick={() => scrollToStage(0.92)}
+        >
+          04 &middot; HOME KITCHEN
+        </button>
+      </div>
     </div>
   );
 }
