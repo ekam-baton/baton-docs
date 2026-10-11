@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -15,11 +15,25 @@ import ScrollToTop from './components/ScrollToTop';
 const LusionDemo = React.lazy(() => import('./pages/LusionDemo'));
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If user accesses via #demo, #/demo, or ?demo in URL, navigate to /demo
+    if (window.location.hash.toLowerCase().includes('demo') || window.location.search.toLowerCase().includes('demo')) {
+      if (location.pathname !== '/demo') {
+        navigate('/demo', { replace: true });
+      }
+    }
+  }, [location, navigate]);
+
+  const isDemo = location.pathname === '/demo';
+
   return (
     <div className="app-container">
       <ScrollToTop />
-      <TopNav />
-      <main className="main-content">
+      {!isDemo && <TopNav />}
+      <main className={isDemo ? "demo-content" : "main-content"}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/enterprise" element={<Enterprise />} />
@@ -37,7 +51,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      <Footer />
+      {!isDemo && <Footer />}
     </div>
   );
 }

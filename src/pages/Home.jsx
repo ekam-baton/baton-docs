@@ -226,6 +226,31 @@ def search_notes(query: str) -> str:
           </div>
         </div>
       </section>
+
+      {/* Floating 3D Demo Preview Pill */}
+      <Link
+        to="/demo"
+        style={{
+          position: 'fixed',
+          bottom: '1.75rem',
+          left: '1.75rem',
+          zIndex: 999,
+          background: '#ffffff',
+          color: '#000000',
+          padding: '0.65rem 1.25rem',
+          borderRadius: '9999px',
+          fontWeight: '600',
+          fontSize: '0.85rem',
+          textDecoration: 'none',
+          boxShadow: '0 8px 32px rgba(255, 255, 255, 0.25)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          letterSpacing: '-0.01em',
+        }}
+      >
+        <span>✦</span> Preview 3D Lusion Experience &rarr;
+      </Link>
     </div>
   );
 }

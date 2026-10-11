@@ -144,20 +144,20 @@ export default function Baton3DCanvas({ scrollYProgress = 0 }) {
     rootGroup.add(particles);
 
     // ─── 3. Lighting (Dramatic High-Key / Rim Speculars) ───
-    const ambientLight = new THREE.AmbientLight(0x0a0a0f, 2.0);
+    const ambientLight = new THREE.AmbientLight(0x22222a, 3.0);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 3.5);
-    keyLight.position.set(5, 8, 7);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 4.5);
+    keyLight.position.set(6, 8, 8);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0xddeeff, 4.0);
-    rimLight.position.set(-6, -4, -5);
+    const rimLight = new THREE.DirectionalLight(0xddeeff, 5.0);
+    rimLight.position.set(-8, -4, -6);
     scene.add(rimLight);
 
-    const softFillLight = new THREE.PointLight(0xffffff, 2.0, 15);
-    softFillLight.position.set(0, 0, 4);
-    scene.add(softFillLight);
+    const batonGlowLight = new THREE.PointLight(0xffffff, 5.0, 12);
+    batonGlowLight.position.set(0, 0, 4);
+    scene.add(batonGlowLight);
 
     // ─── 4. Mouse & Touch Interaction ───
     const onPointerMove = (e) => {

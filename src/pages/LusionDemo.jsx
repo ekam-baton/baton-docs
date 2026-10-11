@@ -103,6 +103,9 @@ export default function LusionDemo() {
           Chat with your private AI from anywhere. Whether connecting to a local machine or an enterprise VPC, BATON delivers end-to-end encrypted routing with zero telemetry.
         </p>
 
+        {/* Dedicated 3D Spatial Window for the White Baton Core */}
+        <div className="lusion-3d-stage-spacer" style={{ height: '340px', width: '100%', pointerEvents: 'none' }} />
+
         <div className="lusion-hero-cta">
           <a
             href="https://github.com/ekam-baton/baton/releases/latest/download/Baton_x64.msi"
