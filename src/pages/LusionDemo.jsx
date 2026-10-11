@@ -235,7 +235,7 @@ export default function LusionDemo() {
 
       {/* ─── ACT 4: The Warm Home Sanctuary (Scroll 75% - 100%) ─── */}
       <section className="scrolly-chapter" aria-label="Act 4: The Home Sanctuary">
-        <div className="scrolly-glass-card" style={{ maxWidth: '820px', borderColor: 'rgba(251, 191, 36, 0.35)', background: 'rgba(20, 16, 12, 0.88)' }}>
+        <div className="scrolly-glass-card" style={{ maxWidth: '820px', borderColor: 'rgba(251, 191, 36, 0.45)', background: 'rgba(22, 14, 8, 0.62)' }}>
           <div className="scrolly-hud-badge" style={{ color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.4)' }}>
             <span>EARTH HOME SANCTUARY // DOMESTIC AGENT EXECUTING</span>
           </div>

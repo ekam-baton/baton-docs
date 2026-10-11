@@ -11,8 +11,8 @@ import Privacy from './pages/Privacy';
 import Changelog from './pages/Changelog';
 import Community from './pages/Community';
 import ScrollToTop from './components/ScrollToTop';
-
-const LusionDemo = React.lazy(() => import('./pages/LusionDemo'));
+import ErrorBoundary from './components/ErrorBoundary';
+import LusionDemo from './pages/LusionDemo';
 
 function App() {
   const location = useLocation();
@@ -44,9 +44,9 @@ function App() {
           <Route path="/changelog" element={<Changelog />} />
           <Route path="/community" element={<Community />} />
           <Route path="/demo" element={
-            <React.Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
+            <ErrorBoundary>
               <LusionDemo />
-            </React.Suspense>
+            </ErrorBoundary>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
