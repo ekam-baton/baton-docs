@@ -48,6 +48,33 @@
   50% { opacity: 1; transform: scale(1.2); }
 }
 
+.lusion-mode-toggles {
+  display: flex;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lusion-mode-btn {
+  background: transparent;
+  border: none;
+  color: #71717a;
+  padding: 0.3rem 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lusion-mode-btn.active {
+  background: #ffffff;
+  color: #000000;
+  font-weight: 600;
+}
+
 .lusion-back-btn {
   color: #ededed;
   text-decoration: none;

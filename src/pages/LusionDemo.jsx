@@ -53,6 +53,8 @@ export default function LusionDemo() {
     }
   };
 
+  const [variation, setVariation] = useState(2); // Default to Variation 2: Liquid Caustics Monolith
+
   useEffect(() => {
     return () => {
       if (audioCtxRef.current) {
@@ -67,15 +69,34 @@ export default function LusionDemo() {
       <div className="lusion-preview-bar">
         <div className="lusion-preview-tag">
           <span className="lusion-pulse-dot" />
-          <span>EXPERIMENTAL DUPLICATE &middot; LUSION 3D ARCHITECTURE</span>
+          <span>LUSION 3D EXPERIMENT</span>
         </div>
+
+        {/* ─── Variation Mode Switcher ─── */}
+        <div className="lusion-mode-toggles">
+          <button
+            type="button"
+            className={`lusion-mode-btn ${variation === 1 ? 'active' : ''}`}
+            onClick={() => setVariation(1)}
+          >
+            01 / ORBITAL CHROME
+          </button>
+          <button
+            type="button"
+            className={`lusion-mode-btn ${variation === 2 ? 'active' : ''}`}
+            onClick={() => setVariation(2)}
+          >
+            02 / LIQUID CAUSTICS
+          </button>
+        </div>
+
         <Link to="/" className="lusion-back-btn">
           &larr; Return to Original Site
         </Link>
       </div>
 
-      {/* ─── Interactive 3D White Baton & Liquid Chrome Engine ─── */}
-      <Baton3DCanvas />
+      {/* ─── Interactive 3D White Baton Engine ─── */}
+      <Baton3DCanvas variation={variation} />
 
       {/* ─── Floating Lusion Ambient Audio Toggle ─── */}
       <button 
