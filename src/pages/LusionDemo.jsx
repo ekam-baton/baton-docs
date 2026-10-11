@@ -1,9 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Baton3DCanvas from '../components/Baton3DCanvas';
 import './LusionDemo.css';
 
 export default function LusionDemo() {
+  const location = useLocation();
+  const getInitialVariation = () => {
+    const params = new URLSearchParams(location.search);
+    const v = parseInt(params.get('v'), 10);
+    if (v === 1 || v === 2 || v === 3) return v;
+    return 3; // Default to Variation 3 (Pinterest Holographic Warp)
+  };
+
+  const [variation, setVariation] = useState(getInitialVariation);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const audioCtxRef = useRef(null);
   const gainNodeRef = useRef(null);
@@ -52,9 +61,6 @@ export default function LusionDemo() {
       setIsPlayingAudio(false);
     }
   };
-
-  const [variation, setVariation] = useState(3); // Default to Variation 3: Holographic Warp & Spacetime Grid
-
   useEffect(() => {
     return () => {
       if (audioCtxRef.current) {
@@ -131,8 +137,36 @@ export default function LusionDemo() {
           Chat with your private AI from anywhere. Whether connecting to a local machine or an enterprise VPC, BATON delivers end-to-end encrypted routing with zero telemetry.
         </p>
 
+        {/* In-Page 3D Style Switcher Box */}
+        <div className="lusion-hero-switcher-box">
+          <span className="lusion-hero-switcher-title">✦ SELECT 3D AESTHETIC:</span>
+          <div className="lusion-hero-switcher-pills">
+            <button
+              type="button"
+              className={`lusion-mode-btn ${variation === 1 ? 'active' : ''}`}
+              onClick={() => setVariation(1)}
+            >
+              01 &middot; ORBITAL CHROME
+            </button>
+            <button
+              type="button"
+              className={`lusion-mode-btn ${variation === 2 ? 'active' : ''}`}
+              onClick={() => setVariation(2)}
+            >
+              02 &middot; LIQUID CAUSTICS
+            </button>
+            <button
+              type="button"
+              className={`lusion-mode-btn ${variation === 3 ? 'active' : ''}`}
+              onClick={() => setVariation(3)}
+            >
+              03 &middot; HOLOGRAPHIC WARP
+            </button>
+          </div>
+        </div>
+
         {/* Dedicated 3D Spatial Window for the White Baton Core */}
-        <div className="lusion-3d-stage-spacer" style={{ height: '340px', width: '100%', pointerEvents: 'none' }} />
+        <div className="lusion-3d-stage-spacer" style={{ height: '320px', width: '100%', pointerEvents: 'none' }} />
 
         <div className="lusion-hero-cta">
           <a
@@ -353,6 +387,31 @@ def search_notes(query: str) -> str:
           </div>
         </div>
       </section>
+
+      {/* ─── Persistent Floating Bottom Dock (Always Accessible on Screen) ─── */}
+      <div className="lusion-floating-switcher" role="toolbar" aria-label="3D Variation Controls">
+        <button
+          type="button"
+          className={`lusion-mode-btn ${variation === 1 ? 'active' : ''}`}
+          onClick={() => setVariation(1)}
+        >
+          01 &middot; CHROME
+        </button>
+        <button
+          type="button"
+          className={`lusion-mode-btn ${variation === 2 ? 'active' : ''}`}
+          onClick={() => setVariation(2)}
+        >
+          02 &middot; CAUSTICS
+        </button>
+        <button
+          type="button"
+          className={`lusion-mode-btn ${variation === 3 ? 'active' : ''}`}
+          onClick={() => setVariation(3)}
+        >
+          03 &middot; WARP
+        </button>
+      </div>
     </div>
   );
 }
