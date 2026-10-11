@@ -1,16 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import InterstellarCanvas from '../components/InterstellarCanvas';
+import StoryScrollyCanvas from '../components/StoryScrollyCanvas';
 import './LusionDemo.css';
 
 export default function LusionDemo() {
-  const [activeScenario, setActiveScenario] = useState('home');
-  const [customInput, setCustomInput] = useState('');
-  const [customMessages, setCustomMessages] = useState([]);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
   const audioCtxRef = useRef(null);
   const gainNodeRef = useRef(null);
+
+  // Track scroll position seamlessly across the page
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = Math.min(1, Math.max(0, window.scrollY / totalHeight));
+        setScrollProgress(progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Web Audio API: Meditative Interstellar cosmic drone (A1 + E2 gentle ambient chord)
   const toggleAudio = () => {
@@ -22,17 +35,14 @@ export default function LusionDemo() {
         if (!audioCtxRef.current) {
           const ctx = new AudioCtx();
           
-          // Deep A1 fundamental
           const osc1 = ctx.createOscillator();
           osc1.type = 'sine';
           osc1.frequency.setValueAtTime(55, ctx.currentTime);
 
-          // E2 fifth harmony
           const osc2 = ctx.createOscillator();
           osc2.type = 'sine';
           osc2.frequency.setValueAtTime(82.4, ctx.currentTime);
 
-          // Subtle upper harmonic
           const osc3 = ctx.createOscillator();
           osc3.type = 'triangle';
           osc3.frequency.setValueAtTime(164.8, ctx.currentTime);
@@ -74,36 +84,23 @@ export default function LusionDemo() {
     };
   }, []);
 
-  const handleSendCustom = (e) => {
-    e.preventDefault();
-    if (!customInput.trim()) return;
-
-    const userMsg = customInput.trim();
-    setCustomInput('');
-    setCustomMessages((prev) => [
-      ...prev,
-      { sender: 'space', text: userMsg, time: 'NOW' },
-      { sender: 'home', text: `[LOCAL GPU]: Executing "${userMsg}" via MCP tools. Zero bytes retained. Mission complete.`, time: 'ROUND-TRIP: 0.12s' },
-    ]);
-  };
-
   return (
     <div className="lusion-experience">
-      {/* ─── Top Preview Banner ─── */}
+      {/* ─── Top Telemetry Banner ─── */}
       <div className="lusion-preview-bar">
         <div className="lusion-preview-tag">
           <span className="lusion-pulse-dot" />
-          <span>INTERSTELLAR TRANSMISSION DEMO &middot; PRIVATE LOCAL-FIRST ROUTING</span>
+          <span>3D SCROLLYTELLING JOURNEY &middot; INTERSTELLAR TO EARTH</span>
         </div>
         <Link to="/" className="lusion-back-btn">
           &larr; Return to Original Site
         </Link>
       </div>
 
-      {/* ─── Deep Cosmic Space Background (Zero 3D Baton Property) ─── */}
-      <InterstellarCanvas />
+      {/* ─── Real-Time 3D Scroll Journey Engine ─── */}
+      <StoryScrollyCanvas scrollProgress={scrollProgress} />
 
-      {/* ─── Ambient Cosmic Audio Toggle ─── */}
+      {/* ─── Ambient Audio Toggle ─── */}
       <button 
         type="button" 
         className="lusion-audio-pill" 
@@ -119,8 +116,12 @@ export default function LusionDemo() {
         <span>{isPlayingAudio ? 'SOUND: ON' : 'SOUND: OFF'}</span>
       </button>
 
-      {/* ─── Hero Section with Cinematic Story Terminal ─── */}
-      <section className="lusion-hero" aria-label="Hero">
+      {/* ─── ACT 1: Deep Space Solitude (Scroll 0% - 25%) ─── */}
+      <section className="scrolly-chapter" aria-label="Act 1: Deep Space Solitude">
+        <div className="scrolly-hud-badge">
+          <span>COORDINATE: ORBITER-VII // DISTANCE: 3.84 AU // DEEP SPACE</span>
+        </div>
+
         <p className="lusion-hero-tagline">Finding Peace in the Chaos</p>
         <h1 className="lusion-hero-headline">
           Own Your Workflow.<br />Deploy Intelligence.
@@ -129,153 +130,6 @@ export default function LusionDemo() {
           Chat with your private AI from anywhere. Whether connecting to a local machine or an enterprise VPC, BATON delivers end-to-end encrypted routing with zero telemetry.
         </p>
 
-        {/* ─── The Cinematic Interstellar Transmission Terminal ─── */}
-        <div className="lusion-story-terminal">
-          <div className="lusion-story-header">
-            <div className="lusion-story-status">
-              <span className="lusion-story-dot" />
-              <span>ORBITER-VII // DISTANCE: 3.84 AU &rarr; EARTH LOCAL HOST</span>
-            </div>
-            <span>E2EE CONDUIT: ACTIVE [X25519 &middot; AES-256-GCM]</span>
-          </div>
-
-          <div className="lusion-story-tabs">
-            <button
-              type="button"
-              className={`lusion-story-tab ${activeScenario === 'home' ? 'active' : ''}`}
-              onClick={() => setActiveScenario('home')}
-            >
-              01 &middot; HOME SANCTUARY (DINNER & CHORES)
-            </button>
-            <button
-              type="button"
-              className={`lusion-story-tab ${activeScenario === 'confidential' ? 'active' : ''}`}
-              onClick={() => setActiveScenario('confidential')}
-            >
-              02 &middot; SENSITIVE WORKSTATION COMPUTE
-            </button>
-            <button
-              type="button"
-              className={`lusion-story-tab ${activeScenario === 'custom' ? 'active' : ''}`}
-              onClick={() => setActiveScenario('custom')}
-            >
-              03 &middot; TRANSMIT YOUR OWN INSTRUCTION
-            </button>
-          </div>
-
-          <div className="lusion-story-body">
-            {activeScenario === 'home' && (
-              <>
-                <div className="lusion-bubble lusion-bubble-space">
-                  <div className="lusion-bubble-meta">
-                    <span>ASTRONAUT [DEEP SPACE FLIGHT DECK]</span>
-                    <span>T-MINUS 30 MIN TO DOCK</span>
-                  </div>
-                  <div className="lusion-bubble-text">
-                    &ldquo;Preheat the oven, roast the vegetables, and set the dining table. Sarah and the kids will be home from school in 30 minutes.&rdquo;
-                  </div>
-                </div>
-
-                <div className="lusion-conduit-bridge">
-                  <span className="lusion-conduit-line" />
-                  <span>🔒 ZERO-KNOWLEDGE RELAY &middot; 0 BYTES LOGGED TO CLOUD &middot; HARDWARE ENCLAVE VERIFIED</span>
-                  <span className="lusion-conduit-line" />
-                </div>
-
-                <div className="lusion-bubble lusion-bubble-home">
-                  <div className="lusion-bubble-meta">
-                    <span>DOMESTIC ROBOT AGENT [EARTH HOME &middot; LOCAL MCP]</span>
-                    <span>RTX 4090 LOCAL INFERENCE</span>
-                  </div>
-                  <div className="lusion-bubble-text">
-                    &ldquo;Oven preheating to 200&deg;C. Domestic kitchen routine initiated. Living room temperature set to 21&deg;C. Dining table set for four. Everything is quiet.&rdquo;
-                  </div>
-                </div>
-              </>
-            )}
-
-            {activeScenario === 'confidential' && (
-              <>
-                <div className="lusion-bubble lusion-bubble-space">
-                  <div className="lusion-bubble-meta">
-                    <span>REMOTE WORKER [TRAVEL ENCLAVE]</span>
-                    <span>AIRPORT WI-FI &middot; UNTRUSTED NETWORK</span>
-                  </div>
-                  <div className="lusion-bubble-text">
-                    &ldquo;Pull the proprietary trade secrets and run the automated risk analysis on our private model cluster. Do not touch external APIs.&rdquo;
-                  </div>
-                </div>
-
-                <div className="lusion-conduit-bridge">
-                  <span className="lusion-conduit-line" />
-                  <span>🔒 ISOLATED MCP TUNNEL &middot; ZERO TELEMETRY &middot; NO TRAINING ON YOUR DATA</span>
-                  <span className="lusion-conduit-line" />
-                </div>
-
-                <div className="lusion-bubble lusion-bubble-home">
-                  <div className="lusion-bubble-meta">
-                    <span>OFFICE DESKTOP [ISOLATED VPC &middot; OLLAMA]</span>
-                    <span>0.00ms CLOUD LEAK</span>
-                  </div>
-                  <div className="lusion-bubble-text">
-                    &ldquo;Analysis complete. All 4,800 records parsed locally in memory. SQLCipher database locked. Zero packets sent to third-party data centers.&rdquo;
-                  </div>
-                </div>
-              </>
-            )}
-
-            {activeScenario === 'custom' && (
-              <>
-                <div className="lusion-bubble lusion-bubble-space">
-                  <div className="lusion-bubble-meta">
-                    <span>YOU [ANYWHERE IN THE UNIVERSE]</span>
-                    <span>TRANSMITTING VIA BATON</span>
-                  </div>
-                  <div className="lusion-bubble-text">
-                    {customMessages.length === 0 
-                      ? 'Type any command below to test your private transmission to your local machine...'
-                      : customMessages[0].text
-                    }
-                  </div>
-                </div>
-
-                {customMessages.length > 1 && (
-                  <>
-                    <div className="lusion-conduit-bridge">
-                      <span className="lusion-conduit-line" />
-                      <span>🔒 SECURE ENCRYPTED RETURN PATH &middot; HARDWARE ISOLATED</span>
-                      <span className="lusion-conduit-line" />
-                    </div>
-                    <div className="lusion-bubble lusion-bubble-home">
-                      <div className="lusion-bubble-meta">
-                        <span>YOUR MACHINE AT HOME [MCP TOOL EXECUTION]</span>
-                        <span>{customMessages[1].time}</span>
-                      </div>
-                      <div className="lusion-bubble-text">
-                        {customMessages[1].text}
-                      </div>
-                    </div>
-                  </>
-                )}
-
-                <form className="lusion-live-input-bar" onSubmit={handleSendCustom}>
-                  <input
-                    type="text"
-                    className="lusion-live-input"
-                    placeholder="e.g. Turn on the porch lights and check the server health..."
-                    value={customInput}
-                    onChange={(e) => setCustomInput(e.target.value)}
-                  />
-                  <button type="submit" className="lusion-live-send">
-                    Transmit &rarr;
-                  </button>
-                </form>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* ─── CTA Buttons (Exact Originals) ─── */}
         <div className="lusion-hero-cta">
           <a
             href="https://github.com/ekam-baton/baton/releases/latest/download/Baton_x64.msi"
@@ -306,13 +160,23 @@ export default function LusionDemo() {
         <p className="lusion-hero-note">
           Also available for <a href="https://github.com/ekam-baton/baton/releases/latest/download/BatonNetwork.xcframework.zip" target="_blank" rel="noopener noreferrer">iOS (Framework)</a> &middot; Built for uncompromising privacy
         </p>
+
+        <div className="scrolly-scroll-cue">
+          <span>SCROLL DOWN TO TRANSMIT ACROSS THE VOID</span>
+          <span>&darr;</span>
+        </div>
       </section>
 
-      {/* ─── How it works (Exact Copy) ─── */}
-      <div className="lusion-section-divider" />
-      <section className="lusion-section" aria-label="How it works">
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto' }}>
+      {/* ─── ACT 2: The Encrypted Conduit (Scroll 25% - 50%) ─── */}
+      <section className="scrolly-chapter" aria-label="Act 2: The Encrypted Conduit">
+        <div className="scrolly-glass-card">
+          <div className="scrolly-hud-badge" style={{ color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.3)' }}>
+            <span>CONDUIT: E2EE TUNNEL // X25519 + AES-256-GCM // 0 CLOUD BYTES</span>
+          </div>
           <h2 className="lusion-title-h2">How it works</h2>
+          <p className="scrolly-quote">
+            &ldquo;One private transmission sent from the edge of space. No cloud corporation listens in.&rdquo;
+          </p>
           <p className="lusion-body">
             You run an AI model on your computer &mdash; Ollama, LM Studio, vLLM, whatever you prefer.
             BATON connects your phone to that model over an encrypted channel.
@@ -326,36 +190,54 @@ export default function LusionDemo() {
         </div>
       </section>
 
-      {/* ─── The problem with cloud AI (Exact Copy) ─── */}
-      <div className="lusion-section-divider" />
-      <section className="lusion-section" aria-label="The problem we solve">
-        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto' }}>
+      {/* ─── ACT 3: The Sanctuary in the Void: Earth (Scroll 50% - 75%) ─── */}
+      <section className="scrolly-chapter" aria-label="Act 3: Approaching Earth">
+        <div className="scrolly-glass-card" style={{ maxWidth: '880px' }}>
+          <div className="scrolly-hud-badge" style={{ color: '#34d399', borderColor: 'rgba(52, 211, 153, 0.3)' }}>
+            <span>DESTINATION: EARTH // TARGET LOCKED: HOME WORKSTATION</span>
+          </div>
           <h2 className="lusion-title-h2">The problem with cloud AI</h2>
-          <p className="lusion-body">
+          <p className="scrolly-caption" style={{ marginBottom: '2rem' }}>
             Standard cloud assistants route your private conversations through third-party data centers,
             where prompts are logged, analyzed, and retained.
           </p>
-        </div>
 
-        <div className="lusion-compare-grid">
-          <div className="lusion-compare-card">
-            <h4>Cloud AI Vendors</h4>
-            <ul>
-              <li>Prompts stored on centralized servers</li>
-              <li>Data retained for model training</li>
-              <li>Strict rate limits and monthly recurring fees</li>
-              <li>Dependent on third-party uptime</li>
-            </ul>
+          <div className="lusion-compare-grid" style={{ marginTop: '0' }}>
+            <div className="lusion-compare-card">
+              <h4>Cloud AI Vendors</h4>
+              <ul>
+                <li>Prompts stored on centralized servers</li>
+                <li>Data retained for model training</li>
+                <li>Strict rate limits and monthly recurring fees</li>
+                <li>Dependent on third-party uptime</li>
+              </ul>
+            </div>
+            <div className="lusion-compare-card highlight">
+              <h4>BATON + Local AI</h4>
+              <ul>
+                <li>Prompts remain strictly on your computer</li>
+                <li>Zero telemetry or model training</li>
+                <li>Unlimited generation powered by your own GPU</li>
+                <li>Independent infrastructure funded by users, not data</li>
+              </ul>
+            </div>
           </div>
-          <div className="lusion-compare-card highlight">
-            <h4>BATON + Local AI</h4>
-            <ul>
-              <li>Prompts remain strictly on your computer</li>
-              <li>Zero telemetry or model training</li>
-              <li>Unlimited generation powered by your own GPU</li>
-              <li>Independent infrastructure funded by users, not data</li>
-            </ul>
+        </div>
+      </section>
+
+      {/* ─── ACT 4: The Warm Home Sanctuary (Scroll 75% - 100%) ─── */}
+      <section className="scrolly-chapter" aria-label="Act 4: The Home Sanctuary">
+        <div className="scrolly-glass-card" style={{ maxWidth: '820px', borderColor: 'rgba(251, 191, 36, 0.35)', background: 'rgba(20, 16, 12, 0.88)' }}>
+          <div className="scrolly-hud-badge" style={{ color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.4)' }}>
+            <span>EARTH HOME SANCTUARY // DOMESTIC AGENT EXECUTING</span>
           </div>
+          <p className="scrolly-quote" style={{ color: '#fef3c7' }}>
+            &ldquo;Preheat the oven, roast the vegetables, and set the dining table. Sarah and the kids will be home from school in 30 minutes.&rdquo;
+          </p>
+          <p className="scrolly-caption" style={{ color: '#d4d4d8' }}>
+            Executed locally via Model Context Protocol on your RTX 4090. Zero bytes retained.
+            The table is set for four. Dinner is underway. Peace in the chaos.
+          </p>
         </div>
       </section>
 

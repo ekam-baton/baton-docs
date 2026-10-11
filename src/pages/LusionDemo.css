@@ -1,4 +1,4 @@
-/* ─── Lusion 3D Experience Demo Stylesheet ─── */
+/* ─── Lusion 3D Scrollytelling Experience ─── */
 .lusion-experience {
   position: relative;
   background-color: #000000;
@@ -9,7 +9,7 @@
   letter-spacing: -0.01em;
 }
 
-/* ─── Demo Switcher Banner ─── */
+/* ─── Top Telemetry Banner ─── */
 .lusion-preview-bar {
   position: sticky;
   top: 0;
@@ -36,8 +36,8 @@
 }
 
 .lusion-pulse-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   background: #34d399;
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(52, 211, 153, 0.8);
@@ -119,19 +119,91 @@
   50% { height: 14px; }
 }
 
-/* ─── Hero Section ─── */
-.lusion-hero {
+/* ─── Scrollytelling Journey Chapters ─── */
+.scrolly-chapter {
   position: relative;
   z-index: 10;
-  min-height: 92vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 6rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.scrolly-hud-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  margin-bottom: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scrolly-scroll-cue {
+  margin-top: 3rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.15em;
+  color: #71717a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: floatBounce 2.5s infinite ease-in-out;
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+.scrolly-glass-card {
+  max-width: 780px;
+  background: rgba(10, 12, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   text-align: center;
-  padding: 5rem 1.5rem 3.5rem;
-  max-width: 1200px;
   margin: 0 auto;
+}
+
+.scrolly-quote {
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  line-height: 1.6;
+  color: #ffffff;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.scrolly-caption {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  line-height: 1.65;
+}
+
+/* ─── Act 1: Hero Typography ─── */
+.lusion-hero-headline {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(2.8rem, 7.5vw, 6.2rem);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0 0 1.25rem 0;
+  text-transform: uppercase;
+  max-width: 1000px;
+  text-align: center;
 }
 
 .lusion-hero-tagline {
@@ -140,18 +212,7 @@
   color: #a1a1aa;
   letter-spacing: 0.05em;
   margin: 0 0 1.5rem 0;
-}
-
-.lusion-hero-headline {
-  font-family: 'Outfit', 'Inter', sans-serif;
-  font-size: clamp(2.6rem, 7vw, 5.8rem);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.04em;
-  color: #ffffff;
-  margin: 0 0 1.25rem 0;
-  text-transform: uppercase;
-  max-width: 1000px;
+  text-align: center;
 }
 
 .lusion-hero-lead {
@@ -159,195 +220,11 @@
   line-height: 1.65;
   color: #d4d4d8;
   max-width: 720px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
   text-wrap: balance;
 }
 
-/* ─── Cinematic Story Terminal ─── */
-.lusion-story-terminal {
-  width: 100%;
-  max-width: 820px;
-  margin: 1.5rem auto 2.5rem;
-  background: rgba(8, 10, 16, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(96, 165, 250, 0.08);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  text-align: left;
-}
-
-.lusion-story-header {
-  padding: 0.85rem 1.4rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-  color: #71717a;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.lusion-story-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #ededed;
-}
-
-.lusion-story-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #34d399;
-  box-shadow: 0 0 10px rgba(52, 211, 153, 0.8);
-  animation: lusionPulse 2s infinite ease-in-out;
-}
-
-.lusion-story-tabs {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.65rem 1.4rem;
-  background: rgba(0, 0, 0, 0.45);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  overflow-x: auto;
-}
-
-.lusion-story-tab {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #71717a;
-  padding: 0.35rem 0.85rem;
-  border-radius: 9999px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-
-.lusion-story-tab:hover {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.lusion-story-tab.active {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.4);
-  font-weight: 600;
-}
-
-.lusion-story-body {
-  padding: 1.8rem 1.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.lusion-bubble {
-  border-radius: 12px;
-  padding: 1.2rem 1.4rem;
-  line-height: 1.6;
-}
-
-.lusion-bubble-space {
-  background: rgba(18, 22, 34, 0.75);
-  border: 1px solid rgba(96, 165, 250, 0.2);
-  border-left: 3px solid #60a5fa;
-}
-
-.lusion-bubble-home {
-  background: rgba(26, 23, 18, 0.75);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  border-left: 3px solid #fbbf24;
-}
-
-.lusion-bubble-meta {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.lusion-bubble-space .lusion-bubble-meta {
-  color: #93c5fd;
-}
-
-.lusion-bubble-home .lusion-bubble-meta {
-  color: #fde68a;
-}
-
-.lusion-bubble-text {
-  font-size: 0.98rem;
-  color: #ffffff;
-}
-
-.lusion-conduit-bridge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  color: #71717a;
-  padding: 0.4rem 0;
-}
-
-.lusion-conduit-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-}
-
-.lusion-live-input-bar {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.lusion-live-input {
-  flex: 1;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
-  padding: 0.65rem 1.25rem;
-  color: #ffffff;
-  font-size: 0.88rem;
-  outline: none;
-}
-
-.lusion-live-input:focus {
-  border-color: rgba(255, 255, 255, 0.45);
-}
-
-.lusion-live-send {
-  background: #ffffff;
-  color: #000000;
-  border: none;
-  border-radius: 9999px;
-  padding: 0.65rem 1.4rem;
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.lusion-live-send:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-}
-
-/* ─── Hero Buttons ─── */
 .lusion-hero-cta {
   display: flex;
   gap: 1rem;
@@ -401,6 +278,7 @@
 .lusion-hero-note {
   font-size: 0.85rem;
   color: #71717a;
+  text-align: center;
 }
 
 .lusion-hero-note a {
@@ -432,6 +310,7 @@
   letter-spacing: -0.03em;
   color: #ffffff;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .lusion-body {
@@ -450,17 +329,17 @@
 }
 
 .lusion-compare-card {
-  background: rgba(14, 14, 18, 0.65);
+  background: rgba(14, 14, 18, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 2.5rem 2rem;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
   position: relative;
 }
 
 .lusion-compare-card.highlight {
   border-color: rgba(255, 255, 255, 0.22);
-  background: rgba(20, 20, 26, 0.75);
+  background: rgba(20, 20, 28, 0.85);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
@@ -509,11 +388,11 @@
 }
 
 .lusion-step-box {
-  background: rgba(14, 14, 18, 0.55);
+  background: rgba(14, 14, 18, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 2rem;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
@@ -546,12 +425,12 @@
 .lusion-code-frame {
   margin: 2.5rem auto;
   max-width: 680px;
-  background: rgba(8, 8, 10, 0.85);
+  background: rgba(8, 8, 10, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   overflow: hidden;
   text-align: left;
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px);
 }
 
 .lusion-code-bar {
@@ -575,7 +454,7 @@
 
 /* ─── FAQ ─── */
 .lusion-faq details {
-  background: rgba(14, 14, 18, 0.45);
+  background: rgba(14, 14, 18, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -585,7 +464,7 @@
 
 .lusion-faq details[open] {
   border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(18, 18, 24, 0.7);
+  background: rgba(18, 18, 24, 0.85);
 }
 
 .lusion-faq summary {
@@ -631,12 +510,7 @@
   .lusion-steps-grid {
     grid-template-columns: 1fr;
   }
-  .lusion-story-body {
-    padding: 1.2rem 1rem;
-  }
-  .lusion-audio-pill {
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.5rem 0.85rem;
+  .scrolly-glass-card {
+    padding: 2rem 1.5rem;
   }
 }
