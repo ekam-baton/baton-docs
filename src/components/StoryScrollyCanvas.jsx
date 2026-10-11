@@ -279,7 +279,7 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
     const strutRight = new THREE.Mesh(new THREE.BoxGeometry(0.35, 18, 0.45), frameMat);
     strutRight.position.set(6.5, 0, 18);
     strutRight.rotation.z = 0.35;
-    cockpitGroup.add(strRight);
+    cockpitGroup.add(strutRight);
 
     // Canopy Overhead Arch
     const canopyTop = new THREE.Mesh(new THREE.BoxGeometry(16, 0.4, 0.5), frameMat);
