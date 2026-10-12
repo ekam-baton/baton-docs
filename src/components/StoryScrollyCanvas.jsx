@@ -1,29 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-// ─── Soft Circular Particle Sprite (Canvas-generated, additive bloom) ───
-function createParticleTexture() {
-  const canvas = document.createElement('canvas');
-  canvas.width = 64;
-  canvas.height = 64;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return null;
-
-  const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-  gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-  gradient.addColorStop(0.2, 'rgba(224, 242, 254, 0.85)');
-  gradient.addColorStop(0.55, 'rgba(56, 189, 248, 0.25)');
-  gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, 64, 64);
-
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.needsUpdate = true;
-  return tex;
-}
-
-// ─── Act 1: Holographic HUD Communicator Texture ───
+// ─── Procedural Canvas Texture: Deep Space Cockpit HUD ───
 function createCockpitHudTexture() {
   const canvas = document.createElement('canvas');
   canvas.width = 512;
@@ -32,57 +10,49 @@ function createCockpitHudTexture() {
   if (!ctx) return null;
 
   const bg = ctx.createLinearGradient(0, 0, 512, 256);
-  bg.addColorStop(0, 'rgba(6, 14, 26, 0.92)');
-  bg.addColorStop(1, 'rgba(3, 8, 16, 0.92)');
+  bg.addColorStop(0, 'rgba(6, 14, 28, 0.94)');
+  bg.addColorStop(1, 'rgba(2, 6, 14, 0.94)');
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, 512, 256);
 
   ctx.strokeStyle = '#38bdf8';
   ctx.lineWidth = 2;
-  ctx.strokeRect(12, 12, 488, 232);
-
-  // Micro bracket accents
-  ctx.strokeStyle = '#60a5fa';
-  ctx.lineWidth = 3;
-  ctx.beginPath(); ctx.moveTo(8, 28); ctx.lineTo(8, 8); ctx.lineTo(28, 8); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(484, 8); ctx.lineTo(504, 8); ctx.lineTo(504, 28); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(8, 228); ctx.lineTo(8, 248); ctx.lineTo(28, 248); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(484, 248); ctx.lineTo(504, 248); ctx.lineTo(504, 228); ctx.stroke();
+  ctx.strokeRect(10, 10, 492, 236);
 
   ctx.fillStyle = '#38bdf8';
   ctx.font = 'bold 14px "JetBrains Mono", monospace';
-  ctx.fillText('● BATON INTERSTELLAR COMM // RELAY-01', 28, 42);
+  ctx.fillText('● BATON INTERSTELLAR RELAY // ORBITER-VII', 26, 42);
 
   ctx.fillStyle = '#94a3b8';
   ctx.font = '11px "JetBrains Mono", monospace';
-  ctx.fillText('RANGE: 3.84 AU // CIPHER: X25519 + AES-256-GCM', 28, 64);
+  ctx.fillText('ALT: 384,000 KM // E2EE: X25519 + AES-256-GCM', 26, 64);
 
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
-  ctx.beginPath(); ctx.moveTo(28, 76); ctx.lineTo(484, 76); ctx.stroke();
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.3)';
+  ctx.beginPath(); ctx.moveTo(26, 76); ctx.lineTo(486, 76); ctx.stroke();
 
   ctx.fillStyle = '#f8fafc';
   ctx.font = 'bold 13px "JetBrains Mono", monospace';
-  ctx.fillText('OUTGOING PROMPT TO HOME DAEMON:', 28, 106);
+  ctx.fillText('OUTGOING PROMPT TO HOME WORKSTATION:', 26, 106);
 
   ctx.fillStyle = '#38bdf8';
   ctx.font = '13px "JetBrains Mono", monospace';
-  ctx.fillText('"Preheat oven 375°, roast veggies,', 28, 132);
-  ctx.fillText(' set dining table for 4 before family returns."', 28, 154);
+  ctx.fillText('"Preheat oven 375°, roast veggies,', 26, 132);
+  ctx.fillText(' set dining table for 4 before family returns."', 26, 154);
 
   ctx.fillStyle = '#34d399';
   ctx.font = 'bold 12px "JetBrains Mono", monospace';
-  ctx.fillText('STATUS: ENCRYPTED // 0 INTERMEDIATE CLOUD BYTES', 28, 192);
+  ctx.fillText('STATUS: DIRECT LOCAL TUNNEL // 0 CLOUD BYTES', 26, 192);
 
   ctx.fillStyle = '#64748b';
   ctx.font = '11px "JetBrains Mono", monospace';
-  ctx.fillText('TARGET: HOME WORKSTATION [ONLINE]', 28, 214);
+  ctx.fillText('DESCENT VECTOR: SPACE -> EXOSPHERE -> STRATO -> HOME', 26, 214);
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.needsUpdate = true;
   return tex;
 }
 
-// ─── Act 4: Domestic Sanctuary HUD Texture ───
+// ─── Procedural Canvas Texture: Home Domestic HUD ───
 function createDomesticHudTexture() {
   const canvas = document.createElement('canvas');
   canvas.width = 512;
@@ -91,39 +61,60 @@ function createDomesticHudTexture() {
   if (!ctx) return null;
 
   const bg = ctx.createLinearGradient(0, 0, 512, 256);
-  bg.addColorStop(0, 'rgba(24, 16, 10, 0.94)');
-  bg.addColorStop(1, 'rgba(14, 8, 6, 0.94)');
+  bg.addColorStop(0, 'rgba(28, 18, 10, 0.95)');
+  bg.addColorStop(1, 'rgba(14, 8, 4, 0.95)');
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, 512, 256);
 
   ctx.strokeStyle = '#f59e0b';
   ctx.lineWidth = 2;
-  ctx.strokeRect(12, 12, 488, 232);
+  ctx.strokeRect(10, 10, 492, 236);
 
   ctx.fillStyle = '#fbbf24';
   ctx.font = 'bold 14px "JetBrains Mono", monospace';
-  ctx.fillText('✦ HOME SANCTUARY // DOMESTIC AGENT', 28, 42);
+  ctx.fillText('✦ HOME SANCTUARY // DOMESTIC AGENT', 26, 42);
 
   ctx.fillStyle = '#d97706';
   ctx.font = '11px "JetBrains Mono", monospace';
-  ctx.fillText('RTX 4090 LOCAL DAEMON // TASK VERIFIED', 28, 64);
+  ctx.fillText('ALT: 0 M // RTX 4090 LOCAL DAEMON VERIFIED', 26, 64);
 
-  ctx.strokeStyle = 'rgba(245, 158, 11, 0.25)';
-  ctx.beginPath(); ctx.moveTo(28, 76); ctx.lineTo(484, 76); ctx.stroke();
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.3)';
+  ctx.beginPath(); ctx.moveTo(26, 76); ctx.lineTo(486, 76); ctx.stroke();
 
   ctx.fillStyle = '#fef3c7';
   ctx.font = 'bold 13px "JetBrains Mono", monospace';
-  ctx.fillText('CURRENT ACTIONS EXECUTING:', 28, 106);
+  ctx.fillText('STATUS: MEAL PREPARATION COMPLETE', 26, 106);
 
   ctx.fillStyle = '#34d399';
   ctx.font = '13px "JetBrains Mono", monospace';
-  ctx.fillText('✓ Oven preheated to 375°F (Roasting)', 28, 130);
-  ctx.fillText('✓ Seasoned vegetables placed in oven', 28, 152);
-  ctx.fillText('✓ Dining table set for 4 (Family of Four)', 28, 174);
+  ctx.fillText('✓ Oven preheated to 375°F (Roasting)', 26, 130);
+  ctx.fillText('✓ Fresh seasoned vegetables in oven', 26, 152);
+  ctx.fillText('✓ Dining table set for 4 (Family of Four)', 26, 174);
 
   ctx.fillStyle = '#fbbf24';
   ctx.font = 'bold 12px "JetBrains Mono", monospace';
-  ctx.fillText('ETA SARAH & KIDS: 25 MINUTES', 28, 208);
+  ctx.fillText('ETA SARAH & KIDS: 20 MINUTES', 26, 208);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+// ─── Procedural Soft Dot Sprite ───
+function createGlowDotTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 32;
+  canvas.height = 32;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+
+  const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+  grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+  grad.addColorStop(0.3, 'rgba(255, 255, 255, 0.8)');
+  grad.addColorStop(0.7, 'rgba(255, 255, 255, 0.2)');
+  grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 32, 32);
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.needsUpdate = true;
@@ -148,7 +139,7 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     } catch (e) {
-      console.warn('WebGL initialization failed, falling back:', e);
+      console.warn('WebGL init failed:', e);
       setHasWebGL(false);
       return;
     }
@@ -156,7 +147,7 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = 1.3;
     container.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -165,200 +156,117 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
       45,
       window.innerWidth / window.innerHeight,
       0.1,
-      1200
+      1000
     );
-    camera.position.set(0, 0, 32);
+    camera.position.set(0, 95, 30);
 
-    // ─── Lighting ───
-    const ambientLight = new THREE.AmbientLight(0x1e293b, 2.5);
+    // ─── Global Lighting ───
+    const ambientLight = new THREE.AmbientLight(0x223048, 2.4);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.8);
-    dirLight1.position.set(20, 30, 40);
-    scene.add(dirLight1);
+    const sunLight = new THREE.DirectionalLight(0xffffff, 2.8);
+    sunLight.position.set(30, 80, 50);
+    scene.add(sunLight);
 
-    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 2.2);
-    cyanRim.position.set(-25, -15, -30);
+    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 2.0);
+    cyanRim.position.set(-30, 20, -20);
     scene.add(cyanRim);
 
-    const warmHearthLight = new THREE.PointLight(0xf59e0b, 0, 50);
-    warmHearthLight.position.set(0, 3, -12);
-    scene.add(warmHearthLight);
+    const hearthPointLight = new THREE.PointLight(0xf59e0b, 5.5, 45);
+    hearthPointLight.position.set(0, -50, 0);
+    scene.add(hearthPointLight);
+
+    const glowDotTex = createGlowDotTexture();
 
     // ═════════════════════════════════════════════════════════════════
-    // 8,500 LUMINESCENT PARTICLES (MORPHING SCULPTURE ACROSS 4 ACTS)
+    // LAYER 1: DEEP SPACE & INTERSTELLAR VOID (Y: 110 to 75)
     // ═════════════════════════════════════════════════════════════════
-    const N = 8500;
-    const pos1 = new Float32Array(N * 3); // Act 1: Celestial Astronaut in Orbit
-    const pos2 = new Float32Array(N * 3); // Act 2: Relativistic Quantum Conduit
-    const pos3 = new Float32Array(N * 3); // Act 3: Planet Earth Sanctuary
-    const pos4 = new Float32Array(N * 3); // Act 4: Domestic Sanctuary & Robot Agent
+    const spaceGroup = new THREE.Group();
+    spaceGroup.position.set(0, 95, 0);
+    scene.add(spaceGroup);
 
-    const col1 = new Float32Array(N * 3);
-    const col2 = new Float32Array(N * 3);
-    const col3 = new Float32Array(N * 3);
-    const col4 = new Float32Array(N * 3);
-
-    // ── Precalculate Stage 1: Celestial Astronaut & Cosmic Nexus ──
-    for (let i = 0; i < N; i++) {
-      const i3 = i * 3;
-      if (i < 2400) {
-        // Astronaut Helmet & Visor Arc
-        const u = Math.random();
-        const v = Math.random();
-        const theta = u * 2 * Math.PI;
-        const phi = Math.acos(2 * v - 1);
-        const r = 2.4 * Math.cbrt(Math.random());
-        pos1[i3] = r * Math.sin(phi) * Math.cos(theta);
-        pos1[i3 + 1] = r * Math.sin(phi) * Math.sin(theta) + 0.8;
-        pos1[i3 + 2] = r * Math.cos(phi) - 2.0;
-
-        col1[i3] = 0.55 + Math.random() * 0.45; // Cyan / Diamond white
-        col1[i3 + 1] = 0.85 + Math.random() * 0.15;
-        col1[i3 + 2] = 1.0;
-      } else if (i < 4800) {
-        // Orbital Spacecraft Viewport Arc
-        const angle = (i / 2400) * Math.PI * 2;
-        const r = 7.2 + (Math.random() - 0.5) * 1.6;
-        pos1[i3] = Math.cos(angle) * r;
-        pos1[i3 + 1] = Math.sin(angle) * r - 0.6;
-        pos1[i3 + 2] = (Math.random() - 0.5) * 6.0;
-
-        col1[i3] = 0.22;
-        col1[i3 + 1] = 0.74;
-        col1[i3 + 2] = 0.97;
-      } else {
-        // Distant Cosmic Stardust
-        pos1[i3] = (Math.random() - 0.5) * 90;
-        pos1[i3 + 1] = (Math.random() - 0.5) * 90;
-        pos1[i3 + 2] = (Math.random() - 0.5) * 120 - 30;
-
-        col1[i3] = 0.8;
-        col1[i3 + 1] = 0.9;
-        col1[i3 + 2] = 1.0;
-      }
+    // Deep Space Multi-Depth Starfield
+    const starCount = 3000;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      starPos[i * 3] = (Math.random() - 0.5) * 200;
+      starPos[i * 3 + 1] = (Math.random() - 0.5) * 160 + 20; // Spread through space & orbit
+      starPos[i * 3 + 2] = (Math.random() - 0.5) * 160 - 20;
     }
-
-    // ── Precalculate Stage 2: Quantum Conduit & Relativistic Beam ──
-    for (let i = 0; i < N; i++) {
-      const i3 = i * 3;
-      const z = (i / N) * 160 - 80;
-      const helix = i * 0.07;
-      const strand = i % 2 === 0 ? 1 : -1;
-      const r = 2.6 + Math.sin(z * 0.12) * 0.5 + Math.random() * 0.8;
-      pos2[i3] = Math.cos(helix + strand * Math.PI) * r;
-      pos2[i3 + 1] = Math.sin(helix + strand * Math.PI) * r;
-      pos2[i3 + 2] = z;
-
-      if (i % 3 === 0) {
-        col2[i3] = 0.0; col2[i3 + 1] = 0.96; col2[i3 + 2] = 1.0; // Cyan
-      } else if (i % 3 === 1) {
-        col2[i3] = 0.23; col2[i3 + 1] = 0.51; col2[i3 + 2] = 0.96; // Electric Blue
-      } else {
-        col2[i3] = 0.66; col2[i3 + 1] = 0.35; col2[i3 + 2] = 0.96; // Relativistic Violet
-      }
-    }
-
-    // ── Precalculate Stage 3: Earth Planetary Sphere & Reticle ──
-    for (let i = 0; i < N; i++) {
-      const i3 = i * 3;
-      if (i < 6500) {
-        // Fibonacci Sphere (Planet Earth)
-        const y = 1 - (i / 6499) * 2;
-        const radius = Math.sqrt(Math.max(0, 1 - y * y));
-        const goldenAngle = Math.PI * (3 - Math.sqrt(5));
-        const theta = goldenAngle * i;
-        const sphereR = 9.2 + (Math.random() - 0.5) * 0.4;
-        pos3[i3] = Math.cos(theta) * radius * sphereR;
-        pos3[i3 + 1] = y * sphereR;
-        pos3[i3 + 2] = Math.sin(theta) * radius * sphereR;
-
-        // Continental colors vs ocean sapphire
-        if (Math.sin(theta * 3.5) * y > 0.15) {
-          col3[i3] = 0.1; col3[i3 + 1] = 0.85; col3[i3 + 2] = 0.45; // Emerald Continents
-        } else {
-          col3[i3] = 0.14; col3[i3 + 1] = 0.45; col3[i3 + 2] = 0.95; // Deep Sapphire Oceans
-        }
-      } else if (i < 7800) {
-        // Atmospheric Orbit Halo
-        const angle = (i / 1300) * Math.PI * 2;
-        const ringR = 12.8 + (Math.random() - 0.5) * 0.8;
-        pos3[i3] = Math.cos(angle) * ringR;
-        pos3[i3 + 1] = Math.sin(angle) * ringR * 0.28;
-        pos3[i3 + 2] = Math.sin(angle) * ringR;
-
-        col3[i3] = 0.38; col3[i3 + 1] = 0.74; col3[i3 + 2] = 0.98;
-      } else {
-        // Home Target Reticle
-        const angle = (i / 700) * Math.PI * 2;
-        pos3[i3] = 3.6 + Math.cos(angle) * 1.4;
-        pos3[i3 + 1] = 2.4 + Math.sin(angle) * 1.4;
-        pos3[i3 + 2] = 8.2;
-
-        col3[i3] = 0.2; col3[i3 + 1] = 0.95; col3[i3 + 2] = 0.6; // Emerald target
-      }
-    }
-
-    // ── Precalculate Stage 4: Domestic Sanctuary & Robot Agent ──
-    for (let i = 0; i < N; i++) {
-      const i3 = i * 3;
-      if (i < 2800) {
-        // Sleek Robot Agent Form & Visor
-        const u = Math.random();
-        const v = Math.random();
-        const theta = u * 2 * Math.PI;
-        const phi = Math.acos(2 * v - 1);
-        const r = 1.7 * Math.cbrt(Math.random());
-        pos4[i3] = r * Math.sin(phi) * Math.cos(theta) * 0.85;
-        pos4[i3 + 1] = r * Math.cos(phi) * 1.4 + 1.2;
-        pos4[i3 + 2] = r * Math.sin(phi) * Math.sin(theta) * 0.85 - 2.5;
-
-        col4[i3] = 0.98; col4[i3 + 1] = 0.98; col4[i3 + 2] = 1.0; // Ceramic white with golden edge
-      } else if (i < 5800) {
-        // Modern Dining Table Plane & 4 Place Settings
-        const tx = (Math.random() - 0.5) * 10;
-        const tz = (Math.random() - 0.5) * 6;
-        pos4[i3] = tx;
-        pos4[i3 + 1] = -1.8 + (Math.random() - 0.5) * 0.12;
-        pos4[i3 + 2] = tz;
-
-        col4[i3] = 0.96; col4[i3 + 1] = 0.75; col4[i3 + 2] = 0.2; // Warm honey timber
-      } else {
-        // Rising Warm Hearth Embers
-        const angle = Math.random() * Math.PI * 2;
-        const dist = Math.random() * 8.5;
-        pos4[i3] = Math.cos(angle) * dist;
-        pos4[i3 + 1] = -2.5 + Math.random() * 9.5;
-        pos4[i3 + 2] = Math.sin(angle) * dist - 2;
-
-        col4[i3] = 0.98; col4[i3 + 1] = 0.55 + Math.random() * 0.35; col4[i3 + 2] = 0.15; // Golden Ember
-      }
-    }
-
-    // Geometry & Material for the Morphing Particles
-    const particleGeo = new THREE.BufferGeometry();
-    const currPos = new Float32Array(pos1);
-    const currCol = new Float32Array(col1);
-
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(currPos, 3));
-    particleGeo.setAttribute('color', new THREE.BufferAttribute(currCol, 3));
-
-    const particleMat = new THREE.PointsMaterial({
-      size: 2.2,
-      map: createParticleTexture(),
-      vertexColors: true,
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const starMat = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 1.6,
+      map: glowDotTex,
       transparent: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
+    const stars = new THREE.Points(starGeo, starMat);
+    scene.add(stars);
 
-    const particleSystem = new THREE.Points(particleGeo, particleMat);
-    scene.add(particleSystem);
+    // 3D Flying / Tumbling Asteroids
+    const asteroids = [];
+    const asteroidMat = new THREE.MeshStandardMaterial({
+      color: 0x475569,
+      roughness: 0.9,
+      metalness: 0.1,
+    });
+    for (let i = 0; i < 7; i++) {
+      const astGeo = new THREE.DodecahedronGeometry(1.2 + Math.random() * 1.5, 1);
+      // Displace vertices randomly for rocky shape
+      const posArr = astGeo.attributes.position.array;
+      for (let j = 0; j < posArr.length; j += 3) {
+        posArr[j] += (Math.random() - 0.5) * 0.4;
+        posArr[j + 1] += (Math.random() - 0.5) * 0.4;
+        posArr[j + 2] += (Math.random() - 0.5) * 0.4;
+      }
+      astGeo.computeVertexNormals();
 
-    // ─── Hero Sculptural Meshes ───
-    // Act 1: Floating Holographic Glass HUD Terminal
+      const asteroid = new THREE.Mesh(astGeo, asteroidMat);
+      asteroid.position.set(
+        (Math.random() - 0.5) * 36,
+        (Math.random() - 0.5) * 22,
+        (Math.random() - 0.5) * 20 - 5
+      );
+      asteroid.userData = {
+        rotX: (Math.random() - 0.5) * 0.02,
+        rotY: (Math.random() - 0.5) * 0.025,
+        speedX: (Math.random() - 0.5) * 0.04,
+      };
+      asteroids.push(asteroid);
+      spaceGroup.add(asteroid);
+    }
+
+    // Spacecraft Canopy Frame & Astronaut Silhouette
+    const cockpitFrameMat = new THREE.MeshStandardMaterial({
+      color: 0x1e293b,
+      metalness: 0.8,
+      roughness: 0.2,
+      emissive: 0x0f172a,
+    });
+    const canopyLeft = new THREE.Mesh(new THREE.BoxGeometry(0.3, 16, 0.4), cockpitFrameMat);
+    canopyLeft.position.set(-7.5, 0, 16);
+    canopyLeft.rotation.z = -0.32;
+    spaceGroup.add(canopyLeft);
+
+    const canopyRight = new THREE.Mesh(new THREE.BoxGeometry(0.3, 16, 0.4), cockpitFrameMat);
+    canopyRight.position.set(7.5, 0, 16);
+    canopyRight.rotation.z = 0.32;
+    spaceGroup.add(canopyRight);
+
+    // Astronaut Helmet Silhouette
+    const helmet = new THREE.Mesh(
+      new THREE.SphereGeometry(1.1, 24, 24),
+      new THREE.MeshStandardMaterial({ color: 0x0b1329, roughness: 0.4, metalness: 0.6 })
+    );
+    helmet.position.set(0, -3.2, 19);
+    spaceGroup.add(helmet);
+
+    // Holographic Communicator Terminal Display
     const hudTex = createCockpitHudTexture();
-    const hudMesh = new THREE.Mesh(
+    const hudPlane = new THREE.Mesh(
       new THREE.PlaneGeometry(6.6, 3.3),
       new THREE.MeshBasicMaterial({
         map: hudTex,
@@ -367,42 +275,359 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
         side: THREE.DoubleSide,
       })
     );
-    hudMesh.position.set(0, -1.8, 14);
-    hudMesh.rotation.x = -0.18;
-    scene.add(hudMesh);
+    hudPlane.position.set(0, -1.8, 17);
+    hudPlane.rotation.x = -0.18;
+    spaceGroup.add(hudPlane);
 
-    // Act 2: Relativistic Warp Rings
-    const ringGroup = new THREE.Group();
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
-      wireframe: true,
+    // ═════════════════════════════════════════════════════════════════
+    // LAYER 2: EXOSPHERE & LOW EARTH ORBIT (LEO) (Y: 75 to 35)
+    // ═════════════════════════════════════════════════════════════════
+    const orbitGroup = new THREE.Group();
+    orbitGroup.position.set(0, 55, 0);
+    scene.add(orbitGroup);
+
+    // Curved Horizon of Earth Limb Below Orbit
+    const earthHorizonGeo = new THREE.SphereGeometry(72, 64, 32, 0, Math.PI * 2, 0, Math.PI * 0.45);
+    const earthHorizonMat = new THREE.MeshStandardMaterial({
+      color: 0x0f2862,
+      roughness: 0.6,
+      metalness: 0.1,
+      emissive: 0x061430,
+    });
+    const earthLimb = new THREE.Mesh(earthHorizonGeo, earthHorizonMat);
+    earthLimb.position.set(0, -78, -10);
+    orbitGroup.add(earthLimb);
+
+    // Glowing Atmospheric Aura Ring
+    const atmosAura = new THREE.Mesh(
+      new THREE.RingGeometry(72, 75, 64),
+      new THREE.MeshBasicMaterial({
+        color: 0x38bdf8,
+        transparent: true,
+        opacity: 0.4,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+      })
+    );
+    atmosAura.position.set(0, -76, -8);
+    atmosAura.rotation.x = -Math.PI / 2.2;
+    orbitGroup.add(atmosAura);
+
+    // 3D Communication Satellites Flying Across
+    const satellites = [];
+    for (let s = 0; s < 2; s++) {
+      const satGroup = new THREE.Group();
+      satGroup.position.set(s === 0 ? -16 : 14, (s === 0 ? 4 : -3), (s === 0 ? 4 : -2));
+
+      // Main Gold Foil Satellite Body
+      const satBody = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.5, 0.5, 1.4, 16),
+        new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.9, roughness: 0.2 })
+      );
+      satGroup.add(satBody);
+
+      // Solar Panel Wings
+      const panelMat = new THREE.MeshStandardMaterial({
+        color: 0x1e3a8a,
+        metalness: 0.8,
+        roughness: 0.2,
+        emissive: 0x0f172a,
+      });
+      const wingL = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.04, 0.8), panelMat);
+      wingL.position.x = -1.9;
+      satGroup.add(wingL);
+
+      const wingR = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.04, 0.8), panelMat);
+      wingR.position.x = 1.9;
+      satGroup.add(wingR);
+
+      // Blinking Navigation LED Beacon
+      const ledBeacon = new THREE.Mesh(
+        new THREE.SphereGeometry(0.12, 12, 12),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+      );
+      ledBeacon.position.set(0, 0.8, 0);
+      satGroup.add(ledBeacon);
+
+      satGroup.userData = { speed: s === 0 ? 0.035 : -0.04, led: ledBeacon };
+      satellites.push(satGroup);
+      orbitGroup.add(satGroup);
+    }
+
+    // Shooting Stars / Meteors Streaking Through Atmosphere
+    const meteors = [];
+    const meteorMat = new THREE.MeshBasicMaterial({
+      color: 0x67e8f9,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending,
+    });
+    for (let m = 0; m < 3; m++) {
+      const meteorGeo = new THREE.CylinderGeometry(0.04, 0.18, 4.5, 8);
+      const meteor = new THREE.Mesh(meteorGeo, meteorMat);
+      meteor.rotation.z = Math.PI / 4 + (Math.random() - 0.5) * 0.2;
+      meteor.position.set((Math.random() - 0.5) * 35, 6 - Math.random() * 12, (Math.random() - 0.5) * 10);
+      meteor.userData = { speedX: -0.35 - Math.random() * 0.2, speedY: -0.35 - Math.random() * 0.2 };
+      meteors.push(meteor);
+      orbitGroup.add(meteor);
+    }
+
+    // ═════════════════════════════════════════════════════════════════
+    // LAYER 3: STRATOSPHERE & MESOSPHERE (Y: 35 to -5)
+    // ═════════════════════════════════════════════════════════════════
+    const stratoGroup = new THREE.Group();
+    stratoGroup.position.set(0, 15, 0);
+    scene.add(stratoGroup);
+
+    // High-Altitude Weather Research Balloon
+    const balloonGroup = new THREE.Group();
+    balloonGroup.position.set(-9, 3, 2);
+
+    const balloonCanopy = new THREE.Mesh(
+      new THREE.SphereGeometry(2.4, 24, 24),
+      new THREE.MeshStandardMaterial({
+        color: 0xf1f5f9,
+        roughness: 0.3,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.88,
+      })
+    );
+    balloonCanopy.scale.set(1.0, 1.25, 1.0);
+    balloonGroup.add(balloonCanopy);
+
+    const gondola = new THREE.Mesh(
+      new THREE.BoxGeometry(0.6, 0.45, 0.6),
+      new THREE.MeshStandardMaterial({ color: 0x0284c7, metalness: 0.6 })
+    );
+    gondola.position.y = -3.4;
+    balloonGroup.add(gondola);
+    stratoGroup.add(balloonGroup);
+
+    // Supersonic Jet Flying Through Stratosphere
+    const jetGroup = new THREE.Group();
+    jetGroup.position.set(15, -4, 4);
+
+    const jetBody = new THREE.Mesh(
+      new THREE.ConeGeometry(0.45, 3.2, 16),
+      new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.8, roughness: 0.2 })
+    );
+    jetBody.rotation.z = Math.PI / 2;
+    jetGroup.add(jetBody);
+
+    const jetWings = new THREE.Mesh(
+      new THREE.BoxGeometry(0.1, 0.05, 3.4),
+      new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.7 })
+    );
+    jetGroup.add(jetWings);
+
+    // Contrails
+    const contrailGeo = new THREE.CylinderGeometry(0.08, 0.08, 6, 8);
+    const contrailMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
       transparent: true,
       opacity: 0.45,
     });
-    const rings = [];
-    for (let i = 0; i < 8; i++) {
-      const ring = new THREE.Mesh(new THREE.RingGeometry(3.2, 3.35, 36), ringMat);
-      ring.position.set(0, 0, 5 - i * 12);
-      rings.push(ring);
-      ringGroup.add(ring);
-    }
-    scene.add(ringGroup);
+    const contrail = new THREE.Mesh(contrailGeo, contrailMat);
+    contrail.rotation.z = Math.PI / 2;
+    contrail.position.x = -3.8;
+    jetGroup.add(contrail);
 
-    // Act 4: Domestic Sanctuary HUD Terminal
+    jetGroup.userData = { speed: -0.18 };
+    stratoGroup.add(jetGroup);
+
+    // ═════════════════════════════════════════════════════════════════
+    // LAYER 4: TROPOSPHERE & CUMULUS CLOUD DECK (Y: -5 to -38)
+    // ═════════════════════════════════════════════════════════════════
+    const cloudDeckGroup = new THREE.Group();
+    cloudDeckGroup.position.set(0, -22, 0);
+    scene.add(cloudDeckGroup);
+
+    // 3D Volumetric Cumulus Clouds Drifting Across
+    const clouds = [];
+    const cloudMat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      roughness: 0.95,
+      metalness: 0.05,
+      transparent: true,
+      opacity: 0.85,
+    });
+
+    for (let c = 0; c < 9; c++) {
+      const cGroup = new THREE.Group();
+      const puffCount = 5 + Math.floor(Math.random() * 4);
+      for (let p = 0; p < puffCount; p++) {
+        const puff = new THREE.Mesh(
+          new THREE.SphereGeometry(1.4 + Math.random() * 1.2, 12, 12),
+          cloudMat
+        );
+        puff.position.set(
+          (Math.random() - 0.5) * 4.5,
+          (Math.random() - 0.5) * 1.5,
+          (Math.random() - 0.5) * 3
+        );
+        cGroup.add(puff);
+      }
+      cGroup.position.set(
+        (Math.random() - 0.5) * 45,
+        (Math.random() - 0.5) * 18,
+        (Math.random() - 0.5) * 16 - 2
+      );
+      cGroup.userData = { speed: 0.015 + Math.random() * 0.025 };
+      clouds.push(cGroup);
+      cloudDeckGroup.add(cGroup);
+    }
+
+    // City Light Grid Gleaming Below the Clouds
+    const cityCount = 200;
+    const cityGeo = new THREE.BufferGeometry();
+    const cityPos = new Float32Array(cityCount * 3);
+    for (let i = 0; i < cityCount; i++) {
+      cityPos[i * 3] = (Math.random() - 0.5) * 40;
+      cityPos[i * 3 + 1] = -14 + (Math.random() - 0.5) * 2;
+      cityPos[i * 3 + 2] = (Math.random() - 0.5) * 30 - 8;
+    }
+    cityGeo.setAttribute('position', new THREE.BufferAttribute(cityPos, 3));
+    const cityMat = new THREE.PointsMaterial({
+      color: 0xfde047,
+      size: 1.8,
+      map: glowDotTex,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+    });
+    const cityLights = new THREE.Points(cityGeo, cityMat);
+    cloudDeckGroup.add(cityLights);
+
+    // ═════════════════════════════════════════════════════════════════
+    // LAYER 5: EARTH SURFACE — WARM HOME SANCTUARY (Y: -38 to -68)
+    // ═════════════════════════════════════════════════════════════════
+    const homeGroup = new THREE.Group();
+    homeGroup.position.set(0, -52, 0);
+    scene.add(homeGroup);
+
+    // Warm Hardwood Floor
+    const floorGeo = new THREE.PlaneGeometry(32, 24);
+    const floorMat = new THREE.MeshStandardMaterial({
+      color: 0x271911,
+      roughness: 0.4,
+      metalness: 0.05,
+    });
+    const floor = new THREE.Mesh(floorGeo, floorMat);
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -3.8;
+    homeGroup.add(floor);
+
+    // Modern Dining Table Set for Four
+    const tableTopGeo = new THREE.BoxGeometry(11, 0.4, 5.5);
+    const tableMat = new THREE.MeshStandardMaterial({
+      color: 0x3f2817,
+      roughness: 0.35,
+    });
+    const table = new THREE.Mesh(tableTopGeo, tableMat);
+    table.position.set(0, -1.8, 0);
+    homeGroup.add(table);
+
+    // 4 Dinner Plates (Ready for Sarah, Dad, and the two kids)
+    const plateGeo = new THREE.CylinderGeometry(0.8, 0.8, 0.08, 20);
+    const plateMat = new THREE.MeshStandardMaterial({ color: 0xfafafa, roughness: 0.2 });
+    [[-3.2, -1.5, -1.2], [-1.0, -1.5, -1.2], [1.0, -1.5, -1.2], [3.2, -1.5, -1.2]].forEach(([px, py, pz]) => {
+      const plate = new THREE.Mesh(plateGeo, plateMat);
+      plate.position.set(px, py, pz);
+      homeGroup.add(plate);
+    });
+
+    // Sleek Domestic Robot Agent (Standing at the table)
+    const agentGroup = new THREE.Group();
+    agentGroup.position.set(0, 1.2, -2.4);
+    homeGroup.add(agentGroup);
+
+    const agentTorso = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.9, 1.05, 3.2, 24),
+      new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.6, roughness: 0.2 })
+    );
+    agentGroup.add(agentTorso);
+
+    const agentHead = new THREE.Mesh(
+      new THREE.SphereGeometry(0.75, 24, 24),
+      new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.5, roughness: 0.2 })
+    );
+    agentHead.position.y = 2.3;
+    agentGroup.add(agentHead);
+
+    const agentVisor = new THREE.Mesh(
+      new THREE.BoxGeometry(0.92, 0.22, 0.28),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+    );
+    agentVisor.position.set(0, 2.3, 0.68);
+    agentGroup.add(agentVisor);
+
+    // Serving Platter
+    const platter = new THREE.Mesh(
+      new THREE.CylinderGeometry(1.5, 1.5, 0.1, 24),
+      new THREE.MeshStandardMaterial({ color: 0xd4d4d8, metalness: 0.8 })
+    );
+    platter.position.set(0, 0.2, 1.4);
+    agentGroup.add(platter);
+
+    // Rising Steam Particles from Cooked Food
+    const steamCount = 70;
+    const steamGeo = new THREE.BufferGeometry();
+    const steamPos = new Float32Array(steamCount * 3);
+    for (let i = 0; i < steamCount; i++) {
+      steamPos[i * 3] = (Math.random() - 0.5) * 8;
+      steamPos[i * 3 + 1] = -1.5 + Math.random() * 4.5;
+      steamPos[i * 3 + 2] = -1.2 + (Math.random() - 0.5) * 2;
+    }
+    steamGeo.setAttribute('position', new THREE.BufferAttribute(steamPos, 3));
+    const steamMat = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 2.2,
+      map: glowDotTex,
+      transparent: true,
+      opacity: 0.35,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const steamParticles = new THREE.Points(steamGeo, steamMat);
+    homeGroup.add(steamParticles);
+
+    // Rising Warm Hearth Embers / Golden Sparks
+    const emberCount = 90;
+    const emberGeo = new THREE.BufferGeometry();
+    const emberPos = new Float32Array(emberCount * 3);
+    for (let i = 0; i < emberCount; i++) {
+      emberPos[i * 3] = (Math.random() - 0.5) * 16;
+      emberPos[i * 3 + 1] = -3.5 + Math.random() * 9.5;
+      emberPos[i * 3 + 2] = (Math.random() - 0.5) * 12;
+    }
+    emberGeo.setAttribute('position', new THREE.BufferAttribute(emberPos, 3));
+    const emberMat = new THREE.PointsMaterial({
+      color: 0xf59e0b,
+      size: 2.5,
+      map: glowDotTex,
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const embers = new THREE.Points(emberGeo, emberMat);
+    homeGroup.add(embers);
+
+    // Domestic Status Terminal
     const domesticTex = createDomesticHudTexture();
     const domesticMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(6.6, 3.3),
       new THREE.MeshBasicMaterial({
         map: domesticTex,
         transparent: true,
-        opacity: 0,
+        opacity: 0.95,
         side: THREE.DoubleSide,
       })
     );
-    domesticMesh.position.set(0, 2.5, 4);
-    scene.add(domesticMesh);
+    domesticMesh.position.set(0, 3.2, 2.5);
+    homeGroup.add(domesticMesh);
 
-    // ─── Event Handlers ───
+    // ─── Pointer & Resize Listeners ───
     const onPointerMove = (e) => {
       const clientX = e.touches && e.touches.length > 0 ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches && e.touches.length > 0 ? e.touches[0].clientY : e.clientY;
@@ -420,7 +645,7 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
     };
     window.addEventListener('resize', onResize);
 
-    // ─── Animation Loop ───
+    // ─── Animation Loop (Vertical Descent through All 5 Layers) ───
     let animationId;
     let clock = new THREE.Clock();
 
@@ -433,96 +658,80 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
 
-      // ── Particle Morphing Interpolation ──
-      const posAttr = particleGeo.attributes.position.array;
-      const colAttr = particleGeo.attributes.color.array;
-
-      let sourcePos, targetPos, sourceCol, targetCol, tStage;
-
-      if (p < 0.33) {
-        // Morph Stage 1 -> Stage 2
-        sourcePos = pos1; targetPos = pos2;
-        sourceCol = col1; targetCol = col2;
-        tStage = p / 0.33;
-      } else if (p < 0.66) {
-        // Morph Stage 2 -> Stage 3
-        sourcePos = pos2; targetPos = pos3;
-        sourceCol = col2; targetCol = col3;
-        tStage = (p - 0.33) / 0.33;
-      } else {
-        // Morph Stage 3 -> Stage 4
-        sourcePos = pos3; targetPos = pos4;
-        sourceCol = col3; targetCol = col4;
-        tStage = (p - 0.66) / 0.34;
-      }
-
-      // Smooth hermite cubic interpolation
-      const smoothT = tStage * tStage * (3 - 2 * tStage);
-
-      for (let i = 0; i < N * 3; i += 3) {
-        posAttr[i] = sourcePos[i] + (targetPos[i] - sourcePos[i]) * smoothT;
-        posAttr[i + 1] = sourcePos[i + 1] + (targetPos[i + 1] - sourcePos[i + 1]) * smoothT;
-        posAttr[i + 2] = sourcePos[i + 2] + (targetPos[i + 2] - sourcePos[i + 2]) * smoothT;
-
-        colAttr[i] = sourceCol[i] + (targetCol[i] - sourceCol[i]) * smoothT;
-        colAttr[i + 1] = sourceCol[i + 1] + (targetCol[i + 1] - sourceCol[i + 1]) * smoothT;
-        colAttr[i + 2] = sourceCol[i + 2] + (targetCol[i + 2] - sourceCol[i + 2]) * smoothT;
-      }
-
-      particleGeo.attributes.position.needsUpdate = true;
-      particleGeo.attributes.color.needsUpdate = true;
-
-      // Dynamic Rotation & Particle Drift
-      particleSystem.rotation.y = time * 0.04;
-      particleSystem.rotation.x = Math.sin(time * 0.02) * 0.05;
-
-      // Holographic Terminal Opacities
-      hudMesh.material.opacity = Math.max(0, 1 - p * 3.5);
-      ringGroup.position.z = -p * 40;
-      rings.forEach((r, idx) => {
-        r.rotation.z = time * (0.3 + idx * 0.05);
+      // 1. Layer 1 Animations: Tumbling Asteroids & Ambient Stars
+      stars.rotation.y = time * 0.003;
+      asteroids.forEach((ast) => {
+        ast.rotation.x += ast.userData.rotX;
+        ast.rotation.y += ast.userData.rotY;
+        ast.position.x += ast.userData.speedX;
+        if (ast.position.x > 22) ast.position.x = -22;
+        if (ast.position.x < -22) ast.position.x = 22;
       });
 
-      // Domestic HUD in Act 4
-      if (p > 0.7) {
-        domesticMesh.material.opacity = Math.min(0.95, (p - 0.7) / 0.25);
-        warmHearthLight.intensity = (p - 0.7) * 8.0;
-      } else {
-        domesticMesh.material.opacity = 0;
-        warmHearthLight.intensity = 0;
+      // 2. Layer 2 Animations: Orbiting Satellites & Shooting Stars
+      satellites.forEach((sat) => {
+        sat.position.x += sat.userData.speed;
+        sat.rotation.y = time * 0.2;
+        if (sat.position.x > 24) sat.position.x = -24;
+        if (sat.position.x < -24) sat.position.x = 24;
+        if (sat.userData.led) {
+          sat.userData.led.visible = Math.sin(time * 5) > 0;
+        }
+      });
+
+      meteors.forEach((m) => {
+        m.position.x += m.userData.speedX;
+        m.position.y += m.userData.speedY;
+        if (m.position.y < -15 || m.position.x < -25) {
+          m.position.set(22 + Math.random() * 8, 8 + Math.random() * 6, (Math.random() - 0.5) * 10);
+        }
+      });
+
+      // 3. Layer 3 Animations: Weather Balloon & Jet
+      balloonGroup.position.y = 3 + Math.sin(time * 0.8) * 0.6;
+      balloonGroup.rotation.z = Math.sin(time * 0.5) * 0.04;
+      jetGroup.position.x += jetGroup.userData.speed;
+      if (jetGroup.position.x < -26) jetGroup.position.x = 26;
+
+      // 4. Layer 4 Animations: Volumetric Cloud Drift
+      clouds.forEach((cl) => {
+        cl.position.x += cl.userData.speed;
+        if (cl.position.x > 28) cl.position.x = -28;
+      });
+
+      // 5. Layer 5 Animations: Domestic Robot, Rising Steam & Warm Embers
+      agentGroup.position.y = 1.2 + Math.sin(time * 2.0) * 0.05;
+
+      const sPos = steamGeo.attributes.position.array;
+      for (let i = 0; i < steamCount; i++) {
+        sPos[i * 3 + 1] += 0.035;
+        sPos[i * 3] += Math.sin(time * 2 + i) * 0.01;
+        if (sPos[i * 3 + 1] > 3.0) {
+          sPos[i * 3 + 1] = -1.5;
+        }
       }
+      steamGeo.attributes.position.needsUpdate = true;
 
-      // ── Smooth Camera Movement & Parallax ──
-      // Dynamic camera path responsive to viewport aspect
-      const isNarrow = window.innerWidth < 768;
-      const baseDist = isNarrow ? 38 : 30;
-
-      let targetCamZ, targetCamY, targetLookZ;
-
-      if (p < 0.25) {
-        targetCamZ = baseDist - p * 15;
-        targetCamY = 0;
-        targetLookZ = -10;
-      } else if (p < 0.55) {
-        targetCamZ = baseDist - 12 - (p - 0.25) * 20;
-        targetCamY = -0.5;
-        targetLookZ = -30;
-      } else if (p < 0.80) {
-        targetCamZ = baseDist - 8 - (p - 0.55) * 15;
-        targetCamY = 0;
-        targetLookZ = 0;
-      } else {
-        targetCamZ = baseDist - 10;
-        targetCamY = 1.0;
-        targetLookZ = -5;
+      const ePos = emberGeo.attributes.position.array;
+      for (let i = 0; i < emberCount; i++) {
+        ePos[i * 3 + 1] += 0.045;
+        ePos[i * 3] += Math.sin(time * 1.5 + i) * 0.012;
+        if (ePos[i * 3 + 1] > 6.0) {
+          ePos[i * 3 + 1] = -3.5;
+        }
       }
+      emberGeo.attributes.position.needsUpdate = true;
 
+      // ─── Camera Vertical Descent across all 5 Layers ───
+      // p: 0.0 (Space Y: 95) -> 0.25 (Orbit Y: 55) -> 0.5 (Strato Y: 15) -> 0.75 (Clouds Y: -22) -> 1.0 (Home Y: -52)
+      const targetCamY = 95 - p * 147; // From 95 down to -52
+      const targetCamZ = 28 - Math.sin(p * Math.PI) * 4; // Subtle breath/zoom along descent
+
+      camera.position.y += (targetCamY - camera.position.y) * 0.08;
       camera.position.z += (targetCamZ - camera.position.z) * 0.08;
-      camera.position.y += (targetCamY + mouseRef.current.y * 1.8 - camera.position.y) * 0.08;
-      camera.position.x += (mouseRef.current.x * 2.8 - camera.position.x) * 0.08;
+      camera.position.x += (mouseRef.current.x * 2.5 - camera.position.x) * 0.08;
 
-      const safeLookZ = Math.min(camera.position.z - 5, targetLookZ);
-      camera.lookAt(0, targetCamY * 0.5, safeLookZ);
+      camera.lookAt(0, camera.position.y - 2.5, 0);
 
       renderer.render(scene, camera);
     };
@@ -552,7 +761,7 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
           width: '100vw',
           height: '100vh',
           zIndex: 0,
-          background: 'radial-gradient(ellipse at 50% 30%, #0c1a30 0%, #000000 85%)',
+          background: 'linear-gradient(180deg, #020617 0%, #0c1a30 30%, #0369a1 60%, #1e1b4b 85%, #180d05 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -570,7 +779,7 @@ export default function StoryScrollyCanvas({ scrollProgress = 0 }) {
         height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
-        background: 'radial-gradient(ellipse at 50% 35%, #07152d 0%, #000000 78%)',
+        background: 'radial-gradient(ellipse at 50% 20%, #040914 0%, #000000 70%)',
       }}
     />
   );
