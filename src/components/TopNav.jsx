@@ -30,24 +30,6 @@ export default function TopNav() {
         </nav>
 
         <div className="nav-actions">
-          <NavLink
-            to="/demo"
-            className="btn-solid"
-            style={{
-              padding: '0.4rem 0.95rem',
-              fontSize: '0.82rem',
-              background: '#ffffff',
-              color: '#000000',
-              borderRadius: '9999px',
-              textDecoration: 'none',
-              fontWeight: 600,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem'
-            }}
-          >
-            <span>✦</span> 3D Demo
-          </NavLink>
           <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: '0.4rem 0.9rem', fontSize: '0.82rem' }}>
             GitHub
           </a>
