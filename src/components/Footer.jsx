@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { GithubIcon, TwitterXIcon, LinkedinIcon, InstagramIcon } from './SocialIcons';
 import batonLogo from '../assets/baton-logo.svg';
 
 export default function Footer() {
@@ -22,16 +21,16 @@ export default function Footer() {
           </p>
           <div className="footer-social">
             <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <FaGithub size={18} />
+              <GithubIcon size={18} />
             </a>
             <a href="https://x.com/Batonorg" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
-              <FaXTwitter size={18} />
+              <TwitterXIcon size={18} />
             </a>
             <a href="https://www.linkedin.com/company/135244230/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <FaLinkedin size={18} />
+              <LinkedinIcon size={18} />
             </a>
             <a href="https://www.instagram.com/baton_org/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FaInstagram size={18} />
+              <InstagramIcon size={18} />
             </a>
           </div>
         </div>

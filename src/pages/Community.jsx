@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaDiscord, FaGithub } from 'react-icons/fa';
+import { DiscordIcon, GithubIcon } from '../components/SocialIcons';
 import { Mail } from 'lucide-react';
 
 export default function Community() {
@@ -12,7 +12,7 @@ export default function Community() {
 
       <div className="community-links">
         <a href="https://discord.gg/wMKg8CMd" target="_blank" rel="noopener noreferrer" className="community-link">
-          <FaDiscord size={22} className="community-link-icon" />
+          <DiscordIcon size={22} className="community-link-icon" />
           <div>
             <h3>Discord</h3>
             <p>
@@ -22,7 +22,7 @@ export default function Community() {
         </a>
 
         <a href="https://github.com/ekam-baton" target="_blank" rel="noopener noreferrer" className="community-link">
-          <FaGithub size={22} className="community-link-icon" />
+          <GithubIcon size={22} className="community-link-icon" />
           <div>
             <h3>GitHub</h3>
             <p>
