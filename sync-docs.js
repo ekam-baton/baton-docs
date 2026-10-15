@@ -137,7 +137,7 @@ watcher.on('change', (changedPath) => {
   if (isPrompting) return;
   isPrompting = true;
   
-  rl.question(`\n[BATON Security Sync] Detected changes in source files.\nDo you want to securely regenerate the website? (y/N) `, (answer) => {
+  rl.question(`\n[BATON Security Sync] Detected change in ${changedPath}.\nDo you want to securely regenerate the website? (y/N) `, (answer) => {
     if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes') {
       console.log('[BATON Sync] Permission granted. Updating securely...');
       updateDocs();
